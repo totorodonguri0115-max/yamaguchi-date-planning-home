@@ -1,0 +1,17 @@
+{
+  "name": "ふたりのデートプランホーム",
+  "short_name": "デートプラン",
+  "start_url": "./date-planner-home.html",
+  "display": "standalone",
+  "background_color": "#fbf4ef",
+  "theme_color": "#fbf4ef",
+  "description": "ふたりで見ながら次の楽しみを決めるためのデートプランページ",
+  "icons": [
+    {
+      "src": "./date-planner-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>山口県デートプランニングホーム | GitHub Pages 用入口</title>
+  <meta name="theme-color" content="#fbf4ef">
+  <style>
+    :root {
+      --bg: #fbf4ef;
+      --card: rgba(255, 252, 248, 0.96);
+      --line: rgba(98, 74, 65, 0.12);
+      --text: #342924;
+      --muted: #7a6660;
+      --accent: #c56f73;
+      --accent-soft: #f6dddf;
+      --shadow: 0 18px 40px rgba(91, 62, 49, 0.12);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(197, 111, 115, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(100, 140, 135, 0.10), transparent 30%),
+        linear-gradient(180deg, #fffaf7 0%, var(--bg) 100%);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(100%, 680px);
+      padding: 30px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 14px 0 0;
+      font-size: clamp(30px, 7vw, 46px);
+      line-height: 1.08;
+    }
+
+    p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .links {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    a.button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 16px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+    }
+
+    a.button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .note {
+      margin-top: 22px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px dashed rgba(197, 111, 115, 0.32);
+      background: linear-gradient(180deg, #fff7f7 0%, #fff8f2 100%);
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="badge">GitHub Pages 用入口</span>
+    <h1>山口県デートプランニングホーム</h1>
+    <p>
+      こちらは GitHub Pages に載せる前提の入口ページです。今は
+      <strong>元のローカル用ホームページ</strong> と
+      <strong>GitHub Pages 用ページ</strong> を分けて残しています。
+    </p>
+    <div class="links">
+      <a class="button primary" href="./date-planner-share.html">限定共有ページを開く</a>
+      <a class="button" href="./date-planner-home-rich.html">元の高機能ホームページを開く</a>
+    </div>
+    <div class="note">
+      使い分け:
+      <br>・ローカルで普段使う: <code>date-planner-home.html</code>
+      <br>・GitHub Pages に載せる候補: <code>github-pages-home.html</code>
+      <br>・限定共有入口: <code>date-planner-share.html</code>
+    </div>
+  </main>
+</body>
+</html>
