@@ -1184,7 +1184,33 @@ window.DATE_PLANNER_DATA = {
           image: "https://yumotoonsen.com/wp-content/uploads/2022/04/kawadoko-1.jpg",
           alt: "長門湯本温泉の川床テラス",
           link: "https://yumotoonsen.com/",
-          photoLink: "https://yumotoonsen.com/"
+          photoLink: "https://yumotoonsen.com/",
+          meals: [
+            {
+              kind: "ご当地料理",
+              name: "瓦そば柳屋",
+              proximity: "温泉街内 / 徒歩圏",
+              reason: "瓦そばで山口らしさを足せる。夕方散歩の後に組みやすい。",
+              url: "https://yumotoonsen.com/food/yanagiya/",
+              caution: "席数と営業時間を当日確認。混む日は早め判断。"
+            },
+            {
+              kind: "昼食/夕食",
+              name: "焼鳥 さくら食堂",
+              proximity: "温泉街内 / 徒歩圏",
+              reason: "長門やきとりや定食で、食事を重くしすぎず使える。",
+              url: "https://yumotoonsen.com/food/sakura-shokudo/",
+              caution: "定休日と夜営業を公式で確認。"
+            },
+            {
+              kind: "間食",
+              name: "cafe&pottery 音",
+              proximity: "音信川周辺 / 徒歩圏",
+              reason: "川沿い散歩の休憩に合う。ケーキや器の雰囲気も会話にしやすい。",
+              url: "https://yumotoonsen.com/food/cafe-and-poterry-oto/",
+              caution: "水木休み・夕方前までの営業が中心なので時間注意。"
+            }
+          ]
         },
         {
           id: "hagi-castle-town",
@@ -1199,7 +1225,33 @@ window.DATE_PLANNER_DATA = {
           image: "https://www.hagishi.com/en/img/190010.jpg",
           alt: "萩城跡の景色",
           link: "https://www.hagishi.com/en/search/detail.php?d=190010",
-          photoLink: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2"
+          photoLink: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
+          meals: [
+            {
+              kind: "昼食/ご当地料理",
+              name: "城跡ながお",
+              proximity: "萩城跡そば / 徒歩約3分",
+              reason: "夏みかん寿司や夏みかんメニューで萩らしさが強い。",
+              url: "https://www.hagishi.com/search/detail.php?d=600001",
+              caution: "夕方早めに閉まる。不定休なので当日確認。"
+            },
+            {
+              kind: "間食",
+              name: "萩博物館レストラン 夏みかんの木",
+              proximity: "萩博物館周辺 / 城下町散歩と同じ流れ",
+              reason: "夏みかんスイーツや休憩に使いやすく、歩き疲れを逃がせる。",
+              url: "https://www.hagishi.com/search/detail.php?d=3300093",
+              caution: "博物館の開館日・席数を確認。"
+            },
+            {
+              kind: "夕食",
+              name: "割烹 千代",
+              proximity: "萩城下町周辺 / 車で短距離",
+              reason: "萩沖の魚や地酒で、少し特別な夕食に寄せられる。",
+              url: "https://www.hagishi.com/search/detail.php?d=300003",
+              caution: "予約推奨。定休日と予算を先に確認。"
+            }
+          ]
         },
         {
           id: "akiyoshido-main",
@@ -1214,7 +1266,33 @@ window.DATE_PLANNER_DATA = {
           image: "https://zh-tw.karusuto.com/wp-content/uploads/2017/03/akiyoshido_slider_01.jpg",
           alt: "秋芳洞の内部",
           link: "https://zh-tw.karusuto.com/spot/akiyoshido/",
-          photoLink: "https://zh-tw.karusuto.com/spot/akiyoshido/"
+          photoLink: "https://zh-tw.karusuto.com/spot/akiyoshido/",
+          meals: [
+            {
+              kind: "昼食/ご当地料理",
+              name: "安富屋",
+              proximity: "秋芳洞周辺 / 徒歩圏",
+              reason: "美東ごぼうを使ったごぼう麺で、秋芳洞後の昼食にしやすい。",
+              url: "https://karusuto.com/gourmet/yasutomiya/",
+              caution: "昼中心。混雑時は早めに。"
+            },
+            {
+              kind: "昼食/夕食",
+              name: "お食事処 やまむら",
+              proximity: "秋吉台・秋芳洞方面 / 車移動前提",
+              reason: "定食系で食事の満足感を作りやすい。",
+              url: "https://karusuto.com/gourmet/yamamura/",
+              caution: "火曜休み。営業時間は公式確認。"
+            },
+            {
+              kind: "間食/体験",
+              name: "Benten Blue + 美祢市養鱒場",
+              proximity: "別府弁天池方面 / 車で追加移動",
+              reason: "ますバーガーや釣ったニジマス調理で、少し新しい体験にできる。",
+              url: "https://karusuto.com/gourmet/benten-blue/",
+              caution: "季節営業・曜日限定があるため、行く前に確認。"
+            }
+          ]
         }
       ]
     },
@@ -1289,7 +1367,33 @@ window.DATE_PLANNER_DATA = {
           image: "https://www.hagishi.com/en/img/190010.jpg",
           alt: "萩城跡の景色",
           link: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
-          photoLink: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2"
+          photoLink: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
+          meals: [
+            {
+              kind: "昼食/ご当地料理",
+              name: "城跡ながお",
+              proximity: "萩城跡そば / 徒歩約3分",
+              reason: "夏みかん寿司や萩らしい軽食で、近場デートに季節感を足せる。",
+              url: "https://www.hagishi.com/search/detail.php?d=600001",
+              caution: "夕方早めに閉まる。不定休なので当日確認。"
+            },
+            {
+              kind: "間食",
+              name: "萩博物館レストラン 夏みかんの木",
+              proximity: "萩博物館周辺 / 城下町散歩と同じ流れ",
+              reason: "歩いた後の甘い休憩に使いやすい。",
+              url: "https://www.hagishi.com/search/detail.php?d=3300093",
+              caution: "博物館休館日と席数を確認。"
+            },
+            {
+              kind: "夕食",
+              name: "割烹 千代",
+              proximity: "萩城下町周辺 / 車で短距離",
+              reason: "萩沖の魚で、近場でもきちんとした夕食にできる。",
+              url: "https://www.hagishi.com/search/detail.php?d=300003",
+              caution: "予約推奨。定休日と予算を先に確認。"
+            }
+          ]
         },
         {
           id: "akiyoshido-compare",
@@ -1304,7 +1408,33 @@ window.DATE_PLANNER_DATA = {
           image: "https://zh-tw.karusuto.com/wp-content/uploads/2017/03/akiyoshido_slider_01.jpg",
           alt: "秋芳洞の内部",
           link: "https://zh-tw.karusuto.com/spot/akiyoshido/",
-          photoLink: "https://zh-tw.karusuto.com/spot/akiyoshido/"
+          photoLink: "https://zh-tw.karusuto.com/spot/akiyoshido/",
+          meals: [
+            {
+              kind: "昼食/ご当地料理",
+              name: "安富屋",
+              proximity: "秋芳洞周辺 / 徒歩圏",
+              reason: "美東ごぼうのごぼう麺で、秋芳洞後の昼食に自然に入る。",
+              url: "https://karusuto.com/gourmet/yasutomiya/",
+              caution: "昼中心。混雑時は早めに。"
+            },
+            {
+              kind: "昼食/夕食",
+              name: "お食事処 やまむら",
+              proximity: "秋吉台・秋芳洞方面 / 車移動前提",
+              reason: "定食系で、遠出の食事満足を補いやすい。",
+              url: "https://karusuto.com/gourmet/yamamura/",
+              caution: "火曜休み。営業時間は公式確認。"
+            },
+            {
+              kind: "間食/体験",
+              name: "Benten Blue",
+              proximity: "別府弁天池方面 / 車で追加移動",
+              reason: "ますバーガーなど、景色と食の変化球を足せる。",
+              url: "https://karusuto.com/gourmet/benten-blue/",
+              caution: "季節営業・曜日限定があるため、行く前に確認。"
+            }
+          ]
         }
       ]
     },
@@ -1373,7 +1503,33 @@ window.DATE_PLANNER_DATA = {
           image: "https://www.karatoichiba.com/wp-content/uploads/2026/05/bnr_bakangai_20260513.png",
           alt: "唐戸市場の案内画像",
           link: "https://www.karatoichiba.com/",
-          photoLink: "https://www.karatoichiba.com/"
+          photoLink: "https://www.karatoichiba.com/",
+          meals: [
+            {
+              kind: "昼食/ご当地料理",
+              name: "唐戸市場・活きいき馬関街",
+              proximity: "目的地そのもの",
+              reason: "寿司や海鮮をその場で選べる。食事主役の日の本命。",
+              url: "https://www.karatoichiba.com/",
+              caution: "金土日祝中心。混雑と売り切れ時間に注意。"
+            },
+            {
+              kind: "昼食/夕食/間食",
+              name: "カモンワーフ",
+              proximity: "唐戸市場横 / 海響館すぐ",
+              reason: "ふく料理、和食、寿司、カフェまで選べて、休憩にも使いやすい。",
+              url: "https://kamonwharf.com/",
+              caution: "観光地価格と昼前後の混雑に注意。"
+            },
+            {
+              kind: "ご当地料理",
+              name: "カモンワーフ ふく料理系店舗",
+              proximity: "唐戸市場横 / 徒歩圏",
+              reason: "下関らしいふく料理を、唐戸周辺で追加しやすい。",
+              url: "https://kamonwharf.com/",
+              caution: "店舗ごとに営業時間・予約条件が違うため公式確認。"
+            }
+          ]
         }
       ]
     }
