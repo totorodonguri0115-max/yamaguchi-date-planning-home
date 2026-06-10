@@ -2,6 +2,80 @@
 // The homepage reads this array and automatically grows by date.
 window.DATE_PLANNER_DATA = {
   updatedAt: "2026-06-10",
+  referenceCatalog: {
+    nagato_yumoto: {
+      title: "長門湯本温泉",
+      url: "https://yumotoonsen.com/",
+      image: "https://yumotoonsen.com/wp-content/uploads/2022/04/kawadoko-1.jpg",
+      alt: "長門湯本温泉の川床テラス",
+      description: "公式サイトで川床テラス、飛び石、ライトアップ、温泉街の歩き方まで確認できる。静かに歩きたい日や、夕方からのやわらかいデートに強い。",
+      photoNote: "川沿いのテラスと橋、灯りで『話しながら歩ける雰囲気』が伝わる"
+    },
+    hagi_castle: {
+      title: "萩城跡・指月公園",
+      url: "https://www.hagishi.com/en/search/detail.php?d=190010",
+      image: "https://www.hagishi.com/en/img/190010.jpg",
+      alt: "萩城跡と指月公園",
+      description: "萩の代表的な近場スポット。石垣、堀、水辺、初夏の緑などがまとまっていて、短時間でも『ちゃんと出かけた感』を作りやすい。",
+      photoNote: "広すぎない公園感と水辺の静けさが見て分かる"
+    },
+    hagi_castle_town: {
+      title: "萩城下町エリア",
+      url: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
+      image: "https://www.hagishi.com/en/img/190010.jpg",
+      alt: "萩の城下町と白壁の雰囲気",
+      description: "白壁、土塀、古い町家の雰囲気がまとまって見られる萩観光公式の案内。近場でゆっくり話したい日や、手軽な町歩きの参考に向く。",
+      photoNote: "白壁と落ち着いた町並みで『静かさ』がそのまま伝わる"
+    },
+    akiyoshido: {
+      title: "秋芳洞",
+      url: "https://zh-tw.karusuto.com/spot/akiyoshido/",
+      image: "https://zh-tw.karusuto.com/wp-content/uploads/2017/03/akiyoshido_slider_01.jpg",
+      alt: "秋芳洞の巨大な洞内空間",
+      description: "美祢市観光協会系の案内。雨でも暑くても成立しやすく、地下空間の非日常感が強い。夏の暑さ回避や梅雨の保険に特に強い。",
+      photoNote: "広い洞内のスケール感で『体験型』の価値が伝わる"
+    },
+    akiyoshidai: {
+      title: "秋吉台",
+      url: "https://zh-tw.karusuto.com/spot/akiyoshidai/",
+      image: "https://zh-tw.karusuto.com/wp-content/uploads/2017/03/akiyoshidai_slider_01.jpg",
+      alt: "秋吉台のカルスト台地",
+      description: "大きな空と草原の景色が魅力。春の新緑、秋の高原感、少し遠出のドライブの主役にしやすい。",
+      photoNote: "空の広さと草原の抜け感で『遠出する意味』が見える"
+    },
+    beppu_bentenike: {
+      title: "別府弁天池",
+      url: "https://zh-tw.karusuto.com/spot/beppubentenike/",
+      image: "https://zh-tw.karusuto.com/wp-content/uploads/2017/03/beppubentenike_slider_01.jpg",
+      alt: "別府弁天池の青い湧水",
+      description: "美祢市観光協会系の案内。コバルトブルーの湧水が特徴で、短時間でも印象が残る。水の涼感を見せたい夏や、軽い遠出に向く。",
+      photoNote: "池の色の強さだけで『ここは特別』と伝わる"
+    },
+    karato_market: {
+      title: "唐戸市場",
+      url: "https://www.karatoichiba.com/",
+      image: "https://www.karatoichiba.com/wp-content/uploads/2026/05/bnr_bakangai_20260513.png",
+      alt: "唐戸市場の案内ビジュアル",
+      description: "公式サイトで週末営業やイベント情報を確認しやすい。食が主役の日、朝型の遠出、海鮮目的のごほうびデート向け。",
+      photoNote: "市場の活気と『食が主役』の空気感がすぐ伝わる"
+    },
+    kintaikyo: {
+      title: "錦帯橋",
+      url: "https://kintaikyo.iwakuni-city.net/summary.html",
+      image: "https://kintaikyo.iwakuni-city.net/summary/images/summary_04.jpg",
+      alt: "錦帯橋のアーチと川",
+      description: "岩国市公式の概要ページ。遠出のごほうび感があり、橋の曲線と川景色が強い。春や秋の遠出、記念日寄りの『ちゃんと出かけた日』に向く。",
+      photoNote: "木橋の曲線と川の広がりで『特別感』が見える"
+    },
+    motonosumi: {
+      title: "元乃隅神社",
+      url: "https://nanavi.jp/sightseeing/motonosumiinarijinja/",
+      image: "https://nanavi.jp/wp-content/uploads/2018/01/motonosumi01.jpg",
+      alt: "元乃隅神社の赤い鳥居と海",
+      description: "長門市観光サイトななびの案内。海と赤鳥居の強い景観が魅力で、夏の海景や『写真が残る日』の参考候補として使いやすい。",
+      photoNote: "海の青と鳥居の赤で一目で記憶に残る"
+    }
+  },
   scenarioLibrary: [
     {
       id: "spring-blossom-talk",
@@ -9,6 +83,7 @@ window.DATE_PLANNER_DATA = {
       mood: "花と会話",
       title: "春の花を見ながら、ゆっくり仲を深めたい日",
       summary: "桜や春色を見ながら歩く、会話主役の王道春デート参考書。",
+      coreAdvice: "春は『花を見る』だけで終わらせず、花をきっかけに会話が自然に深まる順番で組むと失敗しにくい。歩く量は控えめにして、座って余韻を作る時間をセットにする。",
       aiRecommendations: [
         "桜名所を中心に、散歩→カフェ→夕方の景色までを1本で組む",
         "混雑を避けるなら朝か夕方寄りに寄せ、昼は屋内休憩を挟む",
@@ -30,7 +105,9 @@ window.DATE_PLANNER_DATA = {
         "花の色が見える写真を先に見せる",
         "移動時間より『歩きやすさ』を前に出す",
         "混雑を避ける時間帯案を添える"
-      ]
+      ],
+      avoidWhen: ["花の時期が終わっていて景色の根拠が弱い日", "強風や雨で花を見に行く意味が薄れる日"],
+      referenceKeys: ["hagi_castle_town", "hagi_castle", "nagato_yumoto"]
     },
     {
       id: "spring-newgreen-drive",
@@ -38,6 +115,7 @@ window.DATE_PLANNER_DATA = {
       mood: "軽い遠出",
       title: "新緑を見に、少しだけ遠出したい春のドライブ日",
       summary: "遠すぎないドライブで季節感を取りに行く参考パターン。",
+      coreAdvice: "春の軽い遠出は『移動で疲れないこと』と『現地で空気が変わること』の両立が軸。車内会話があるぶん、現地では歩きすぎない方が印象が良くなる。",
       aiRecommendations: [
         "高原・川沿い・新緑の寺社を組み合わせる",
         "運転負担を考え、帰りに寄る場所を詰め込みすぎない",
@@ -59,7 +137,9 @@ window.DATE_PLANNER_DATA = {
         "道中の負担を『低・中・高』で見せる",
         "新緑写真を大きめに見せる",
         "『疲れたら途中で戻れる』安心文を入れる"
-      ]
+      ],
+      avoidWhen: ["前日までに疲れがたまっている週末", "天気が悪く展望が弱い日"],
+      referenceKeys: ["akiyoshidai", "beppu_bentenike", "hagi_castle"]
     },
     {
       id: "rainy-gentle",
@@ -67,6 +147,7 @@ window.DATE_PLANNER_DATA = {
       mood: "雨の日",
       title: "雨の日でも気まずくならない、やわらか屋内デート",
       summary: "梅雨時期に外れにくい、会話重視の室内寄りプラン集。",
+      coreAdvice: "雨の日は『予定が崩れないこと』自体が価値になる。景色よりも、濡れにくさ・歩きやすさ・会話のしやすさを優先して組むと満足度が安定しやすい。",
       aiRecommendations: [
         "美術館・資料館・屋内市場・洞窟・温泉街を軸にする",
         "移動距離より『雨で崩れにくさ』を優先する",
@@ -88,7 +169,9 @@ window.DATE_PLANNER_DATA = {
         "屋内比率を見える形で書く",
         "傘を差した写真より室内の安心感ある写真を使う",
         "雨の日代替ではなく『雨だから良い』言い方にする"
-      ]
+      ],
+      avoidWhen: ["大雨で運転自体の負担が大きい日", "屋外メインの遠方イベントしか候補にない日"],
+      referenceKeys: ["akiyoshido", "nagato_yumoto", "hagi_castle_town"]
     },
     {
       id: "hydrangea-and-cafe",
@@ -96,6 +179,7 @@ window.DATE_PLANNER_DATA = {
       mood: "季節の花",
       title: "あじさいと静かなカフェで、梅雨の良さを見つける日",
       summary: "梅雨を避けるのではなく、季節そのものを見せる参考案。",
+      coreAdvice: "梅雨の花プランは『濡れて残念』にしない組み方が重要。花を見る時間と屋内で落ち着く時間を均等に置くと、季節感だけがきれいに残る。",
       aiRecommendations: [
         "あじさい名所＋カフェ＋雨でも歩ける短い庭園で構成する",
         "傘映えより足元の安全を優先する",
@@ -117,7 +201,9 @@ window.DATE_PLANNER_DATA = {
         "あじさいの色がやわらかい写真を見せる",
         "『歩きすぎない』ことを強調する",
         "カフェ休憩をプランの主役の一つにする"
-      ]
+      ],
+      avoidWhen: ["足元が悪い坂道や階段が多い場所しかない日", "雨風が強く花が見にくい日"],
+      referenceKeys: ["nagato_yumoto", "hagi_castle_town", "beppu_bentenike"]
     },
     {
       id: "summer-sea-breeze",
@@ -125,6 +211,7 @@ window.DATE_PLANNER_DATA = {
       mood: "海と夕方",
       title: "夏の海風を感じながら、夕方にきれいに締める日",
       summary: "真昼の暑さを避けて、夕方以降に価値を寄せる夏デート。",
+      coreAdvice: "夏は『何時に行くか』が内容より重要になることが多い。夕方〜夜へ価値を寄せるだけで、同じ場所でも印象と疲れ方が大きく変わる。",
       aiRecommendations: [
         "海辺・橋・夕景スポットを中心に、日没前後の景色を狙う",
         "昼の直射は避け、カフェや屋内を挟んで夕方へずらす",
@@ -146,7 +233,9 @@ window.DATE_PLANNER_DATA = {
         "青空より夕方の海写真を主に使う",
         "日陰・休憩・飲み物の情報を添える",
         "帰りの運転負担も明記する"
-      ]
+      ],
+      avoidWhen: ["日中しか動けず暑さ回避がしにくい日", "海辺の風が強すぎる日"],
+      referenceKeys: ["motonosumi", "nagato_yumoto", "kintaikyo"]
     },
     {
       id: "summer-night-festival-lite",
@@ -154,6 +243,7 @@ window.DATE_PLANNER_DATA = {
       mood: "イベント",
       title: "夏祭りや夜イベントを、無理なく楽しむ軽量版プラン",
       summary: "夏祭りの高揚感は取りつつ、混雑と疲労を抑える考え方。",
+      coreAdvice: "夏イベントは『最後まで全部楽しむ』より『良い場面だけ取りに行く』方が、二人とも満足しやすい。撤収しやすさを最初から設計に入れる。",
       aiRecommendations: [
         "祭り・灯り・花火・夜市を主役にし、滞在時間を短めに設計する",
         "駐車場と退出動線を最初に確認する",
@@ -175,7 +265,9 @@ window.DATE_PLANNER_DATA = {
         "混雑注意を隠さず書く",
         "夜の灯り写真で雰囲気を見せる",
         "『途中で帰っても成功』という設計にする"
-      ]
+      ],
+      avoidWhen: ["人混み耐性が低い日", "駐車場や退出動線が不安な大規模会場"],
+      referenceKeys: ["nagato_yumoto", "karato_market", "motonosumi"]
     },
     {
       id: "summer-cool-indoor",
@@ -183,6 +275,7 @@ window.DATE_PLANNER_DATA = {
       mood: "暑さ回避",
       title: "暑すぎる日に、涼しさ最優先で過ごす日",
       summary: "洞窟・美術館・温泉街夕歩きなど、夏の体力消耗を抑える参考書。",
+      coreAdvice: "夏の快適重視プランでは、『季節感が弱い』より『しんどくない』ことを優先した方が次につながる。快適さの中に1つだけ夏らしさを入れると十分印象に残る。",
       aiRecommendations: [
         "洞窟・水族館・資料館・屋内施設を中心に組む",
         "車移動で冷房時間を確保し、炎天下歩行を避ける",
@@ -204,7 +297,9 @@ window.DATE_PLANNER_DATA = {
         "気温差と歩行量の少なさを見せる",
         "屋内写真を中心に構成する",
         "夕方少し外に出る流れを1行入れる"
-      ]
+      ],
+      avoidWhen: ["遠方移動で車内も疲れる日", "混雑した屋内施設しか選べない日"],
+      referenceKeys: ["akiyoshido", "nagato_yumoto", "beppu_bentenike"]
     },
     {
       id: "autumn-colors-talk",
@@ -212,6 +307,7 @@ window.DATE_PLANNER_DATA = {
       mood: "紅葉と静けさ",
       title: "紅葉をきっかけに、しっかり話したい秋の日",
       summary: "秋の色を見ながら、落ち着いた会話の時間を作る定番パターン。",
+      coreAdvice: "秋は景色が主役でも空気が静かなので、会話を深めるには最も使いやすい季節。温かい飲み物や座れる時間を入れると完成度が上がる。",
       aiRecommendations: [
         "紅葉寺社・庭園・城跡・温泉街散歩を組み合わせる",
         "昼過ぎの柔らかい光に合わせる",
@@ -233,7 +329,9 @@ window.DATE_PLANNER_DATA = {
         "赤黄より落ち着いた紅葉写真も混ぜる",
         "温かさの要素をセットで見せる",
         "混雑を避ける前提を書いて安心感を出す"
-      ]
+      ],
+      avoidWhen: ["紅葉のピークが外れて景色の説得力が弱い時期", "大混雑の観光ピークだけを狙う日"],
+      referenceKeys: ["kintaikyo", "hagi_castle", "nagato_yumoto"]
     },
     {
       id: "autumn-drive-and-food",
@@ -241,6 +339,7 @@ window.DATE_PLANNER_DATA = {
       mood: "景色と食",
       title: "秋の実りを感じながら、景色もごはんも取りたい日",
       summary: "旬の食と景色の両方が欲しい日に使う秋の欲張り型。",
+      coreAdvice: "秋の『景色も食も』は欲張りすぎると散る。景色1つ、食1つの二本柱にすると、季節感も満足感も両立しやすい。",
       aiRecommendations: [
         "紅葉・道の駅・旬の魚や果物・直売所を組み合わせる",
         "買い物しすぎないよう滞在時間をコントロールする",
@@ -262,7 +361,9 @@ window.DATE_PLANNER_DATA = {
         "旬の食を具体語で入れる",
         "ドライブ負担も併記する",
         "秋の終わり時期でも使える説明にする"
-      ]
+      ],
+      avoidWhen: ["移動箇所が3つ以上になりそうな日", "日没前に戻れない長距離ルート"],
+      referenceKeys: ["karato_market", "akiyoshidai", "kintaikyo"]
     },
     {
       id: "winter-illumination-soft",
@@ -270,6 +371,7 @@ window.DATE_PLANNER_DATA = {
       mood: "灯りと温かさ",
       title: "冬の灯りを見て、温かい場所へつなげる日",
       summary: "イルミネーションや夜景を、冷えすぎずに楽しむ設計。",
+      coreAdvice: "冬の灯りプランは『光』より『冷え対策』で成否が分かれる。見る時間を短くして温かい場所をセットにすると、特別感だけを取りやすい。",
       aiRecommendations: [
         "灯りイベント・夜景・温かい飲み物・屋内休憩をセットにする",
         "屋外滞在時間を短くし、寒さをコントロールする",
@@ -291,7 +393,9 @@ window.DATE_PLANNER_DATA = {
         "冷え対策を具体的に書く",
         "夜景写真だけでなく室内の温かさも見せる",
         "帰りやすさを必ず添える"
-      ]
+      ],
+      avoidWhen: ["強風や寒波の日", "帰路の夜運転が長すぎる遠方候補"],
+      referenceKeys: ["nagato_yumoto", "kintaikyo", "hagi_castle_town"]
     },
     {
       id: "winter-onsen-relief",
@@ -299,6 +403,7 @@ window.DATE_PLANNER_DATA = {
       mood: "温泉と安心感",
       title: "寒い季節に、安心して温まりに行く日",
       summary: "冬の王道である温泉街や足湯を、会話重視で楽しむ型。",
+      coreAdvice: "冬の温泉系は『入浴するか』より『温かさをどう共有するか』が大切。歩きすぎず、ほっとできる時間を丁寧に置くと満足度が高い。",
       aiRecommendations: [
         "温泉街散歩・足湯・甘味・景色を組み合わせる",
         "入浴の有無を先に決めて滞在時間を調整する",
@@ -320,7 +425,9 @@ window.DATE_PLANNER_DATA = {
         "温泉写真は落ち着いたものを選ぶ",
         "熱量高すぎる言い方より安心感を優先する",
         "足湯だけでも成立する軽さを書く"
-      ]
+      ],
+      avoidWhen: ["慌ただしく時間が足りない日", "混雑して落ち着けない有名温泉だけの日"],
+      referenceKeys: ["nagato_yumoto", "hagi_castle_town", "beppu_bentenike"]
     },
     {
       id: "winter-indoor-culture",
@@ -328,6 +435,7 @@ window.DATE_PLANNER_DATA = {
       mood: "静かな屋内",
       title: "冬に静かな屋内で、無理なく過ごす知的デート",
       summary: "美術館・資料館・古い建物などで、落ち着いて過ごす冬パターン。",
+      coreAdvice: "静かな屋内デートは、展示の内容そのものより『話しやすい静けさ』が価値になる。見終わったあとに感想を交わせる余白までをセットで考える。",
       aiRecommendations: [
         "美術館・記念館・旧宅・文学館を中心にする",
         "展示の後に感想を話せるカフェを組み合わせる",
@@ -349,7 +457,9 @@ window.DATE_PLANNER_DATA = {
         "展示写真と室内の温度感を見せる",
         "話題が生まれやすいことを強調する",
         "短時間でも成立する構成にする"
-      ]
+      ],
+      avoidWhen: ["展示が難しすぎて緊張感が出る場所", "移動のために外歩きが長いルート"],
+      referenceKeys: ["hagi_castle_town", "hagi_castle", "akiyoshido"]
     },
     {
       id: "anniversary-gentle-special",
@@ -357,6 +467,7 @@ window.DATE_PLANNER_DATA = {
       mood: "記念日",
       title: "記念日や少し特別な日に、頑張りすぎず丁寧に作る日",
       summary: "派手さだけでなく、大切にされている感を作るための基本形。",
+      coreAdvice: "記念日は『高級』より『一番に考えていると伝わること』が効く。移動・食事・景色・言葉の4点を丁寧に揃えると、派手すぎなくても十分特別になる。",
       aiRecommendations: [
         "景色・食事・短い散歩・写真が残る1場面を入れる",
         "予約が必要なら前もって押さえる",
@@ -378,7 +489,9 @@ window.DATE_PLANNER_DATA = {
         "高級感より丁寧さを見せる",
         "写真1枚と一言メッセージの導線を作る",
         "予約・服装・混雑を先に書く"
-      ]
+      ],
+      avoidWhen: ["移動が詰まりすぎて余裕がなくなる日", "混雑で主役の時間が削られる会場"],
+      referenceKeys: ["nagato_yumoto", "kintaikyo", "motonosumi"]
     },
     {
       id: "tired-short-nearby",
@@ -386,6 +499,7 @@ window.DATE_PLANNER_DATA = {
       mood: "疲れ気味",
       title: "お互い疲れている日に、近場でちゃんと満たす日",
       summary: "短時間・近場・静かさを主役にした、省エネだけど雑じゃない型。",
+      coreAdvice: "疲れ気味の日は『頑張らないこと』を前提にした方が、二人とも満足しやすい。近場でも雰囲気のいい場所を選べば、短時間でもちゃんとデートになる。",
       aiRecommendations: [
         "近場の町歩き・公園・カフェ・資料館で完結させる",
         "移動時間を最小化する",
@@ -407,7 +521,9 @@ window.DATE_PLANNER_DATA = {
         "所要時間を短く明記する",
         "近場でも雰囲気がある写真を使う",
         "『無理しない日』という肯定感を持たせる"
-      ]
+      ],
+      avoidWhen: ["遠出しないと意味がないと思ってしまう日", "移動だけで消耗する候補しかない日"],
+      referenceKeys: ["hagi_castle_town", "hagi_castle", "nagato_yumoto"]
     },
     {
       id: "conversation-main",
@@ -415,6 +531,7 @@ window.DATE_PLANNER_DATA = {
       mood: "会話主役",
       title: "とにかくゆっくり話したい日に使う、会話主役プラン",
       summary: "場所の強さより、話しやすい余白を優先したい日の定番。",
+      coreAdvice: "会話主役の日は、目的地の数を増やすほど話が浅くなりやすい。景色がやさしい場所で、歩く・座る・歩くのリズムを作ると自然に深まる。",
       aiRecommendations: [
         "静かな散歩・川沿い・庭園・カフェ・温泉街を優先する",
         "移動中も話せる車ルートは相性が良い",
@@ -436,7 +553,9 @@ window.DATE_PLANNER_DATA = {
         "座れる写真を入れる",
         "騒がしさの少なさを表現する",
         "会話テーマの例も入れられると強い"
-      ]
+      ],
+      avoidWhen: ["大音量イベントや行列が想定される日", "時間に追われる日"],
+      referenceKeys: ["nagato_yumoto", "hagi_castle_town", "beppu_bentenike"]
     },
     {
       id: "photo-friendly-soft",
@@ -444,6 +563,7 @@ window.DATE_PLANNER_DATA = {
       mood: "写真が残る",
       title: "写真はほしいけれど、撮影会にはしない日",
       summary: "景色や町並みを楽しみつつ、自然に写真も残る型。",
+      coreAdvice: "写真向けの日でも、撮ることを主役にしすぎると疲れやすい。1枚印象に残る場面を決めておくくらいが、二人で楽しむにはちょうどいい。",
       aiRecommendations: [
         "背景が整った町並み・水辺・橋・花・夜景を選ぶ",
         "撮影スポットは1〜2か所に絞る",
@@ -465,7 +585,9 @@ window.DATE_PLANNER_DATA = {
         "人物なしでも雰囲気が伝わる写真を選ぶ",
         "撮りすぎない前提を明記する",
         "自然光や夕景の時間を提案する"
-      ]
+      ],
+      avoidWhen: ["混雑で立ち止まりにくい大観光地のピーク時間", "天候が悪く写真の魅力が出にくい日"],
+      referenceKeys: ["motonosumi", "kintaikyo", "hagi_castle_town"]
     },
     {
       id: "budget-friendly",
@@ -473,6 +595,7 @@ window.DATE_PLANNER_DATA = {
       mood: "低予算",
       title: "お金をかけすぎずに、満足感は落とさない日",
       summary: "無料散歩・景色・軽食・資料館などを丁寧に組む節約型。",
+      coreAdvice: "低予算でも『安いからこれ』ではなく『雰囲気がいいからこれ』で選ぶと、満足度は落ちにくい。お金ではなく、過ごし方の丁寧さで差が出る。",
       aiRecommendations: [
         "無料景観・公園・道の駅・町歩き・低価格カフェを組み合わせる",
         "移動距離も短めにして交通コストを抑える",
@@ -494,7 +617,9 @@ window.DATE_PLANNER_DATA = {
         "価格ではなく雰囲気から見せる",
         "無料・低予算の言い方を柔らかくする",
         "ごほうび要素を1つ入れる"
-      ]
+      ],
+      avoidWhen: ["節約だけが前面に出てしまう誘い方", "安さ優先で雰囲気が削れる候補ばかりの日"],
+      referenceKeys: ["hagi_castle_town", "hagi_castle", "beppu_bentenike"]
     },
     {
       id: "long-drive-reward",
@@ -502,6 +627,7 @@ window.DATE_PLANNER_DATA = {
       mood: "しっかり遠出",
       title: "たまの遠出で、ちゃんと行った感を作る日",
       summary: "片道90分超も視野に入る、特別感重視の遠出設計。",
+      coreAdvice: "遠出は『遠いから特別』ではなく『遠くても行く意味がある』ことが必要。到着した瞬間に空気が変わる場所を主役にし、現地で詰め込みすぎないのがコツ。",
       aiRecommendations: [
         "橋・海・大景観・名所・市場など、到着時のインパクトが強い場所を選ぶ",
         "途中休憩地点を先に決める",
@@ -523,7 +649,9 @@ window.DATE_PLANNER_DATA = {
         "遠出の価値を一言で示す",
         "休憩地点と帰宅目安を見せる",
         "『遠いから却下』ではなく条件つき採用にする"
-      ]
+      ],
+      avoidWhen: ["翌日にも疲れを残したくない週末", "運転が長すぎて現地を楽しめない日"],
+      referenceKeys: ["kintaikyo", "karato_market", "motonosumi"]
     },
     {
       id: "food-main",
@@ -531,6 +659,7 @@ window.DATE_PLANNER_DATA = {
       mood: "食が主役",
       title: "景色より食を主役にしたい日の組み方",
       summary: "海鮮、旬魚、果物、甘味など、食の満足を軸に組む日。",
+      coreAdvice: "食が主役の日は、食事前後に短い景色や散歩を混ぜると記憶に残りやすい。『食べて終わり』にしない工夫だけで満足度が上がる。",
       aiRecommendations: [
         "市場・人気店・旬の産地・道の駅を中心に構成する",
         "食事前後に短い散歩を入れてメリハリを作る",
@@ -552,7 +681,9 @@ window.DATE_PLANNER_DATA = {
         "料理写真だけでなく席や周辺景色も入れる",
         "売り切れや混雑リスクを書く",
         "代替候補をセットで見せる"
-      ]
+      ],
+      avoidWhen: ["待ち時間が長く空腹と疲れが重なりそうな日", "候補が有名店一点集中になっている日"],
+      referenceKeys: ["karato_market", "nagato_yumoto", "beppu_bentenike"]
     },
     {
       id: "relationship-reset",
@@ -560,6 +691,7 @@ window.DATE_PLANNER_DATA = {
       mood: "関係性の立て直し",
       title: "少し気まずさや距離を感じる時の、立て直し用プラン",
       summary: "無理に盛り上げず、安心感から戻すための穏やかな構成。",
+      coreAdvice: "距離を立て直したい日は、イベントの強さより『一緒にいてしんどくない』ことが重要。近場・短時間・静けさを味方にして、関係の温度を戻す設計にする。",
       aiRecommendations: [
         "静かな散歩・景色・お茶・短時間を基本にする",
         "イベント性の強い場所は避ける",
@@ -581,7 +713,9 @@ window.DATE_PLANNER_DATA = {
         "刺激より安心感を見せる",
         "短時間設計を明示する",
         "誘い文句をやわらかくする"
-      ]
+      ],
+      avoidWhen: ["盛り上がり前提のイベント会場", "帰れないほど長い遠出"],
+      referenceKeys: ["hagi_castle_town", "nagato_yumoto", "hagi_castle"]
     },
     {
       id: "half-day-flex",
@@ -589,6 +723,7 @@ window.DATE_PLANNER_DATA = {
       mood: "半日だけ",
       title: "半日しかなくても、ちゃんと満足感を作る日",
       summary: "午後だけ、夕方だけでも成立する実用型の参考書。",
+      coreAdvice: "半日プランは『何を削るか』が大事。主役を1つに絞り、余白を残す方が短時間でも満足感が高くなる。",
       aiRecommendations: [
         "1スポット主役＋1休憩で完結させる",
         "移動は短く、滞在の質を上げる",
@@ -610,7 +745,9 @@ window.DATE_PLANNER_DATA = {
         "所要時間を明確に書く",
         "主役1つに絞る",
         "夕方や食事の一場面を強調する"
-      ]
+      ],
+      avoidWhen: ["移動で半分以上時間が消える候補", "複数スポットを無理に詰める日"],
+      referenceKeys: ["nagato_yumoto", "hagi_castle", "beppu_bentenike"]
     },
     {
       id: "all-day-layered",
@@ -618,6 +755,7 @@ window.DATE_PLANNER_DATA = {
       mood: "一日使える日",
       title: "一日しっかり使える日の、満足感を重ねる組み方",
       summary: "景色、食事、散歩、休憩を無理なく積み重ねる上級型。",
+      coreAdvice: "一日使える日は、予定を増やすより強弱をつける方がいい。前半に景色、後半に静かな時間を置くと、疲れにくく記憶にも残りやすい。",
       aiRecommendations: [
         "主役を2つまでに絞り、間に休憩を丁寧に入れる",
         "昼と夕方で景色の種類を変える",
@@ -639,7 +777,201 @@ window.DATE_PLANNER_DATA = {
         "時系列で見せる",
         "削っても成立する設計を書く",
         "帰路の疲れまで考慮しておく"
-      ]
+      ],
+      avoidWhen: ["予定を詰めすぎて休憩が消える日", "エリアをまたぎすぎる日"],
+      referenceKeys: ["nagato_yumoto", "karato_market", "kintaikyo"]
+    },
+    {
+      id: "first-date-soft",
+      season: "通年",
+      mood: "初デート",
+      title: "初デートで緊張しすぎず、自然に話せる日の組み方",
+      summary: "長すぎず短すぎず、解散しやすさも残した初回向けの参考書。",
+      coreAdvice: "初デートは『盛り上げる』より『気まずくならない』ことが重要。歩く・座る・少し景色を見る、の3要素だけで十分成立する。",
+      aiRecommendations: [
+        "町歩きや川沿い散歩など、会話が止まっても景色がつなげてくれる場所を選ぶ",
+        "2〜4時間程度で終えられる長さにする",
+        "昼か夕方の明るい時間帯を基本にする",
+        "食事は重すぎないカフェか軽食寄りが無難"
+      ],
+      ourRecommendations: [
+        "彼女に無理をさせない近場〜中距離で、帰りやすさを優先する",
+        "沈黙が気まずくなりにくい景色のある場所を選ぶ",
+        "『また次も会えそう』と思える余白を残して切り上げる",
+        "歩きすぎず、座って話せる場面を必ず入れる"
+      ],
+      whenToUse: ["まだお互いに緊張感がある段階", "長時間デートは重いと感じるとき", "まず安心感を作りたいとき"],
+      designNotes: ["最初に所要時間を短めに示す", "明るい写真を使う", "解散しやすいことを隠さず書く"],
+      avoidWhen: ["いきなり遠出や夜遅い予定", "混雑で会話しにくいイベント会場"],
+      referenceKeys: ["hagi_castle_town", "nagato_yumoto", "hagi_castle"]
+    },
+    {
+      id: "after-argument-repair",
+      season: "通年",
+      mood: "喧嘩後",
+      title: "喧嘩のあとに、無理なく空気を戻すための日",
+      summary: "謝罪や気まずさを含んでも重くなりすぎない、立て直し向けの型。",
+      coreAdvice: "喧嘩後は、楽しさより『安心して同じ場所にいられること』が大切。短時間・近場・退路ありの設計が基本になる。",
+      aiRecommendations: [
+        "静かな散歩かカフェ中心で、予定を詰めない",
+        "話が止まっても成立する景色を入れる",
+        "長距離運転や大イベントは避ける",
+        "終わる時間を先に決めて重さを減らす"
+      ],
+      ourRecommendations: [
+        "彼女が負担に感じたらすぐ切り上げられる構成にする",
+        "謝る空気を作りつつ、ずっと話し続けなくていい場所を選ぶ",
+        "近場で帰りやすく、静かな場所を最優先にする",
+        "『今日はちゃんと向き合うために考えた』ことが伝わる丁寧さを残す"
+      ],
+      whenToUse: ["少し気まずさが残っているとき", "会わないより会って空気を戻したいとき", "重い場を避けつつ話したいとき"],
+      designNotes: ["刺激の少ない写真を使う", "短時間設計を明記する", "安心感ある言葉を前に出す"],
+      avoidWhen: ["イベントや遠出で逃げ場が少ない日", "疲れていて感情の余裕がない日"],
+      referenceKeys: ["hagi_castle_town", "nagato_yumoto", "hagi_castle"]
+    },
+    {
+      id: "rainy-night-soft",
+      season: "通年",
+      mood: "雨の夜",
+      title: "雨の夜を、残念ではなく雰囲気に変える日の組み方",
+      summary: "雨音、灯り、車移動を活かして、夜のやさしさを作る参考書。",
+      coreAdvice: "雨の夜は『行ける場所が少ない』ではなく『雰囲気が濃くなる』と捉えると強い。濡れない導線と灯りの相性が鍵になる。",
+      aiRecommendations: [
+        "温泉街の灯り、川沿い、屋内寄りの食事を組み合わせる",
+        "屋外滞在は短くして、車移動でつなぐ",
+        "夜景一本ではなく温かい場所をセットにする",
+        "駐車場から近いスポットを優先する"
+      ],
+      ourRecommendations: [
+        "彼女が濡れて冷えないことを最優先にする",
+        "雨の音や灯りがきれいに感じられる落ち着いた場所を選ぶ",
+        "会話が自然に続く車内時間も価値として扱う",
+        "『雨でもよかった』と思える温かい締め方を入れる"
+      ],
+      whenToUse: ["雨が降っている夜", "静かで少しロマンチックな空気を作りたいとき", "外れにくい夜デートをしたいとき"],
+      designNotes: ["灯りの写真を主に使う", "濡れにくさを明記する", "移動短めで構成する"],
+      avoidWhen: ["大雨で運転負担が大きい夜", "屋外しか選択肢がない日"],
+      referenceKeys: ["nagato_yumoto", "akiyoshido", "hagi_castle_town"]
+    },
+    {
+      id: "drive-anytime",
+      season: "通年",
+      mood: "通年ドライブ",
+      title: "目的地1つでも成立する、通年のやさしいドライブ日",
+      summary: "景色・会話・休憩をバランスよく取る、使い回しやすいドライブ型。",
+      coreAdvice: "ドライブは『どこへ行くか』だけでなく『どう疲れずに戻るか』までが設計。目的地1つと休憩1つで十分満足が作れる。",
+      aiRecommendations: [
+        "景色1つ、食1つに絞る",
+        "道中の会話が活きるよう移動時間は片道90分以内を中心にする",
+        "帰路の混雑や夜道も考える",
+        "季節ごとに景色の種類を変えて繰り返し使う"
+      ],
+      ourRecommendations: [
+        "彼女が疲れにくい片道30〜60分帯を主戦場にする",
+        "車内会話が自然に続く静かなルートを意識する",
+        "目的地が強すぎなくても、途中の空気感で満足できるようにする",
+        "『また別の季節にも来よう』と言いやすい場所を選ぶ"
+      ],
+      whenToUse: ["何となく出かけたい日", "天気を見て当日決めたいとき", "会話の時間を長めに取りたいとき"],
+      designNotes: ["道中の負担も書く", "目的地を絞る", "季節ごとの差し替え例を入れる"],
+      avoidWhen: ["目的地を増やしすぎる日", "渋滞が強く会話が疲れに変わる日"],
+      referenceKeys: ["akiyoshidai", "beppu_bentenike", "nagato_yumoto"]
+    },
+    {
+      id: "onsen-anytime",
+      season: "通年",
+      mood: "通年温泉",
+      title: "季節を問わず使える、温泉街・足湯中心の安心プラン",
+      summary: "冬限定ではなく、雨の日や疲れた日にも引ける通年温泉の基本形。",
+      coreAdvice: "温泉系プランは『入浴するか』に縛られず、街歩き・足湯・温かい飲み物まで含めて設計すると、季節を問わず使いやすい。",
+      aiRecommendations: [
+        "温泉街散歩、足湯、軽食、温かい飲み物を基本セットにする",
+        "天候に応じて歩行量を調整する",
+        "入浴はその日の疲れ次第で後決めにする",
+        "景色がある温泉街を優先すると会話のきっかけが増える"
+      ],
+      ourRecommendations: [
+        "彼女が大切にされていると感じやすい『ほっとする時間』を主役にする",
+        "疲れた日ほど歩き回らず、座れる場所を多めにする",
+        "入浴なしでも成立する軽さを保つ",
+        "帰りやすい距離感で『また行ける』印象を残す"
+      ],
+      whenToUse: ["疲れがたまっている日", "雨で外歩きが重い日", "優しい雰囲気のデートにしたいとき"],
+      designNotes: ["湯気や灯りの写真を使う", "入浴必須にしない", "通年で使えることを明記する"],
+      avoidWhen: ["混雑しすぎる大型連休", "遠すぎて癒やしより移動疲れが勝つ日"],
+      referenceKeys: ["nagato_yumoto", "hagi_castle_town", "beppu_bentenike"]
+    },
+    {
+      id: "sea-all-seasons",
+      season: "通年",
+      mood: "海",
+      title: "季節ごとに見え方が変わる、海を主役にした参考書",
+      summary: "夏だけでなく、春の明るさ、秋の澄み感、冬の静けさまで使う海系パターン。",
+      coreAdvice: "海は夏専用にすると使い切れない。季節ごとに『何を見に行くか』を変えると、一年通して新鮮さを保てる。",
+      aiRecommendations: [
+        "春は明るい海辺散歩、夏は夕景、秋は空気の澄み、冬は静けさを軸にする",
+        "風の強さと日差しの強さを必ず確認する",
+        "海鮮やカフェをセットにすると満足が安定する",
+        "海辺滞在を長くしすぎず、休憩を混ぜる"
+      ],
+      ourRecommendations: [
+        "彼女の疲れやすさに合わせ、季節で海の見せ方を変える",
+        "『ただ暑い/寒い』にならない時間帯選びをする",
+        "海そのものより一緒に見た景色の共有感を大事にする",
+        "風が強い日は海辺に近づきすぎず代替を持つ"
+      ],
+      whenToUse: ["季節の変化を視覚的に感じたいとき", "少し開放感がほしい日", "海鮮や海沿いドライブも入れたいとき"],
+      designNotes: ["季節別の写真差を使う", "風・日差し・寒さ注意を書く", "海単体で終わらせない"],
+      avoidWhen: ["強風・荒天の日", "日差しや寒さの対策がしにくい日"],
+      referenceKeys: ["motonosumi", "karato_market", "kintaikyo"]
+    },
+    {
+      id: "quick-two-hours",
+      season: "通年",
+      mood: "2時間以内",
+      title: "2時間以内でも、ちゃんと会えてよかったと思える日",
+      summary: "仕事後や予定の合間でも成立する、超短時間向けの型。",
+      coreAdvice: "2時間以内のデートは、場所よりテンポが大事。移動を削って、1景色＋1会話の構成にすると満足度が出やすい。",
+      aiRecommendations: [
+        "近場散歩＋飲み物だけで完結させる",
+        "夕方や夜寄りにして特別感を少し出す",
+        "待ち時間が発生する店は避ける",
+        "次回の話題まで含めて設計する"
+      ],
+      ourRecommendations: [
+        "彼女が準備しやすく、帰りも遅くならない時間帯を選ぶ",
+        "短時間でも『会いたかった』気持ちが伝わる雰囲気を作る",
+        "近場で手抜き感が出ない場所を選ぶ",
+        "別れ際に次の楽しみを軽く残す"
+      ],
+      whenToUse: ["仕事後", "予定の合間", "長時間は難しいが会いたいとき"],
+      designNotes: ["所要2時間以内を明記", "近さと雰囲気を両立させる", "次回につながる一言を入れる"],
+      avoidWhen: ["移動時間の方が長い候補", "複数スポットを詰める日"],
+      referenceKeys: ["hagi_castle_town", "hagi_castle", "nagato_yumoto"]
+    },
+    {
+      id: "anniversary-budget-soft",
+      season: "通年",
+      mood: "低予算記念日",
+      title: "お金をかけすぎず、でも雑に見せない記念日プラン",
+      summary: "低予算でも『大切にされている感』を作るための記念日細分化。",
+      coreAdvice: "低予算の記念日は、価格より『ちゃんと考えて選んだ』ことが伝わるかどうかで印象が決まる。景色・一言・小さなごほうびの3点が効く。",
+      aiRecommendations: [
+        "無料景色＋低価格カフェ＋短い散歩で組む",
+        "予約不要でも雰囲気が良い場所を選ぶ",
+        "写真が残る背景を1つ入れる",
+        "小さな甘味や飲み物で記念感を足す"
+      ],
+      ourRecommendations: [
+        "彼女が『手を抜かれた』と感じない丁寧さを前面に出す",
+        "近場でも気分が変わる場所を選ぶ",
+        "一言メッセージや帰り際の言葉もプランの一部として考える",
+        "お金ではなく、安心感と一緒に過ごす質で記念日にする"
+      ],
+      whenToUse: ["出費を抑えたいが記念日は大事にしたいとき", "小さく祝いたい日", "普段の延長線で丁寧にしたいとき"],
+      designNotes: ["価格ではなく雰囲気を先に見せる", "小さなごほうび要素を入れる", "一言メモの導線を作る"],
+      avoidWhen: ["節約感だけが強く見える候補", "混雑で丁寧さが削れる日"],
+      referenceKeys: ["hagi_castle_town", "nagato_yumoto", "kintaikyo"]
     }
   ],
   days: [
