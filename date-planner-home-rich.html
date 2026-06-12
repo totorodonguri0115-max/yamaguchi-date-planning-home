@@ -209,6 +209,7 @@
   <div class="sticky mobile-only"><nav><a href="#mood">気分</a><a href="#dates">日付</a><a href="#compare">迷い中</a><a href="#finalize">確定</a></nav></div>
   <div class="toast" id="toast"></div>
   <script src="./date-plans-data.js"></script>
+  <script src="./library-pagination.js"></script>
   <script>
     const plannerData = window.DATE_PLANNER_DATA || { days: [] };
     const storageKey = "datePlannerStateV2";
@@ -239,7 +240,7 @@
     function getTopSpotsForDay(day,count=2){ return ((day&&day.spots)||[]).slice().sort((a,b)=>smartSpotScore(b)-smartSpotScore(a)).slice(0,count); }
     function getReactionLabel(value){ if(value==="favorite") return "ここ好きかも"; if(value==="hold") return "あとで見る"; if(value==="skip") return "今回は違うかも"; return "まだ見てない"; }
     function setReaction(id,value){ state.reactions[id]=value; saveState(); showToast("反応を残しました"); render(); }
-    function toggleCompare(spot){ const id=spot.id||spot.name; const exists=state.compare.includes(id); if(exists){ state.compare=state.compare.filter((item)=>item!==id); } else if(state.compare.length<4){ state.compare.push(id); } else { state.compare.shift(); state.compare.push(id); } saveState(); render(); showToast(exists ? "迷い中から外しました" : "迷い中に入れました"); }
+    function toggleCompare(spot){ const id=spot.id||spot.name; const exists=state.compare.includes(id); if(exists){ state.compare=state.compare.filter((item)=>item!==id); } else if(state.compare.length<4){ state.compare.push(id); } else { showToast("比較は4件までです。先に1件外してください"); return; } saveState(); render(); showToast(exists ? "比較から外しました" : "比較に追加しました"); }
     function findSpotById(id){ for(const day of plannerData.days){ for(const spot of (day.spots||[])){ if((spot.id||spot.name)===id) return { day, spot }; } } return null; }
     function applyMood(id){ state.mood=id; state.dayFilter="all"; state.daySort="smart"; state.spotFilter="all"; state.spotSort="recommended"; const bestDay=getVisibleDays()[0]; if(bestDay) state.selectedDate=bestDay.date; saveState(); render(); showToast(`${getMoodOption(id).label} に合わせて並べました`); }
     function renderMood(){ moodGrid.innerHTML=""; moodOptions.forEach((mood)=>{ const button=document.createElement("button"); button.type="button"; button.className="mood-pill"+(state.mood===mood.id?" active":""); button.textContent=mood.label; button.setAttribute("aria-pressed", state.mood===mood.id ? "true" : "false"); button.addEventListener("click",()=>applyMood(mood.id)); moodGrid.appendChild(button); }); const selected=getMoodOption(state.mood); moodNote.textContent=selected.note+" 新しい体験の候補も残したまま並べ替えます。"; }
@@ -310,7 +311,9 @@
     document.addEventListener("click",(event)=>{ if(!menuPanel.contains(event.target) && !menuButton.contains(event.target)){ menuPanel.classList.remove("open"); menuButton.setAttribute("aria-expanded","false"); } });
     render();
   </script>
+  <script src="./site-enhancements.js"></script>
   <script src="./weekly-history-data.js"></script>
   <script src="./weekly-history-ui.js"></script>
+  <script src="./collaboration-ui.js"></script>
 </body>
 </html>

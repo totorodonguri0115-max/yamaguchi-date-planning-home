@@ -1,7 +1,7 @@
 {
   "name": "ふたりのデートプランホーム",
   "short_name": "デートプラン",
-  "start_url": "./date-planner-home.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#fbf4ef",
   "theme_color": "#fbf4ef",
