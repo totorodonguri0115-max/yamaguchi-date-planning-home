@@ -2,8 +2,8 @@
   "use strict";
 
   const data = window.WEEKLY_HISTORY_DATA;
-  const anchor = document.getElementById("archive");
-  if (!data || !data.weeks?.length || !anchor) return;
+  const topSection = document.getElementById("top");
+  if (!data || !data.weeks?.length || !topSection) return;
 
   const storageKey = "yamaguchi-date-weekly-history-v1";
   const saved = (() => {
@@ -25,7 +25,7 @@
     .weekly-history{scroll-margin-top:88px;position:relative;overflow:hidden}
     .weekly-history::before{content:"";position:absolute;inset:0 0 auto;height:310px;background:radial-gradient(circle at 12% 5%,rgba(255,190,174,.34),transparent 42%),radial-gradient(circle at 88% 8%,rgba(119,181,171,.25),transparent 40%);pointer-events:none}
     .weekly-shell{position:relative}
-    .weekly-intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:18px;align-items:stretch;margin-bottom:18px}
+    .weekly-intro{display:grid;grid-template-columns:1fr;gap:18px;align-items:stretch;margin-bottom:14px}
     .weekly-title-card,.weekly-jump-card{background:rgba(255,255,255,.88);border:1px solid rgba(101,82,70,.13);border-radius:28px;padding:24px;box-shadow:0 18px 50px rgba(86,62,48,.08);backdrop-filter:blur(12px)}
     .weekly-title-card h2{font-size:clamp(1.7rem,4vw,2.55rem);line-height:1.2;margin:8px 0 10px}
     .weekly-kicker{font-size:.78rem;font-weight:800;letter-spacing:.12em;color:#a75455;text-transform:uppercase}
@@ -81,37 +81,50 @@
     .weekly-favorite.active{background:#fff0ee;border-color:#bd6968;color:#a34448}
     .weekly-empty{grid-column:1/-1;padding:40px 18px;text-align:center;border:1px dashed #cdbbb1;border-radius:20px;color:#75645b;background:rgba(255,255,255,.72)}
     .weekly-foot{margin-top:16px;color:#76665e;font-size:.8rem;line-height:1.75}
+    .weekly-history-tools{margin-top:22px;border:1px solid rgba(93,72,61,.13);border-radius:24px;background:rgba(255,255,255,.8);overflow:hidden}
+    .weekly-history-tools>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 20px;font-weight:850;cursor:pointer;color:#594840}
+    .weekly-history-tools>summary::-webkit-details-marker{display:none}
+    .weekly-history-tools>summary::after{content:"＋";font-size:1.35rem;color:#a35154}
+    .weekly-history-tools[open]>summary::after{content:"−"}
+    .weekly-history-tools-body{padding:0 14px 14px}
+    .weekly-history-tools .weekly-jump-card{box-shadow:none;background:#fff}
+    .weekly-history-tools .weekly-notice{margin:12px 0 0}
     @media(max-width:980px){.weekly-intro{grid-template-columns:1fr}.weekly-toolbar{grid-template-columns:1fr 1fr}.weekly-tabs{grid-column:1/-1}.weekly-grid{grid-template-columns:1fr}.weekly-card{grid-template-columns:170px minmax(0,1fr)}}
     @media(max-width:650px){.weekly-title-card,.weekly-jump-card{padding:18px;border-radius:22px}.weekly-nav{grid-template-columns:1fr 1fr}.weekly-hero{grid-template-columns:1fr;padding:18px}.weekly-counts{justify-content:flex-start}.weekly-toolbar{top:66px;grid-template-columns:1fr;padding:8px;border-radius:17px}.weekly-tabs{display:grid;grid-template-columns:1fr 1fr}.weekly-search,.weekly-filter,.weekly-sort{width:100%}.weekly-grid{gap:12px}.weekly-card{grid-template-columns:1fr;border-radius:20px}.weekly-card-media{min-height:210px;max-height:270px}.weekly-card-body{padding:16px}.weekly-panel-head{align-items:flex-start}.weekly-panel-head p{font-size:.82rem}}
   `;
   document.head.appendChild(style);
 
-  anchor.insertAdjacentHTML("beforebegin", `
+  topSection.insertAdjacentHTML("afterend", `
     <section class="section weekly-history" id="weekly-history">
       <div class="weekly-shell">
         <div class="weekly-intro">
           <div class="weekly-title-card">
-            <div class="weekly-kicker">Weekly memory book</div>
-            <h2>前の週、去年の今ごろを見にいく</h2>
-            <p class="weekly-lead">2024年6月から今週まで、週ごとの一般AIおすすめ20件と、二人向けおすすめ20件を写真付きで振り返れます。昔の候補を見つけ直して、今度のデートへ持ち帰るページです。</p>
-          </div>
-          <div class="weekly-jump-card">
-            <strong>見たい週へ</strong>
-            <div class="weekly-select-grid">
-              <label class="weekly-field">年<select id="weeklyYear"></select></label>
-              <label class="weekly-field">月<select id="weeklyMonth"></select></label>
-              <label class="weekly-field week">週<select id="weeklyWeek"></select></label>
-            </div>
-            <div class="weekly-nav">
-              <button class="weekly-button" id="weeklyPrev" type="button">前の週</button>
-              <button class="weekly-button" id="weeklyNext" type="button">次の週</button>
-              <button class="weekly-button" id="weeklyLastYear" type="button">去年の同じ週</button>
-              <button class="weekly-button primary" id="weeklyLatest" type="button">最新週</button>
-            </div>
+            <div class="weekly-kicker">This week's 20 picks</div>
+            <h2 id="weeklyMainTitle">今週、ふたりで見たい20件</h2>
+            <p class="weekly-lead">写真を見ながら「これ、いいかも」を探せるように、今週の候補を先に並べました。一般AIの20件にも同じ場所で切り替えられます。</p>
           </div>
         </div>
+        <details class="weekly-history-tools">
+          <summary>過去2年の週間アーカイブから選ぶ</summary>
+          <div class="weekly-history-tools-body">
+            <div class="weekly-jump-card">
+              <strong>見たい週へ</strong>
+              <div class="weekly-select-grid">
+                <label class="weekly-field">年<select id="weeklyYear"></select></label>
+                <label class="weekly-field">月<select id="weeklyMonth"></select></label>
+                <label class="weekly-field week">週<select id="weeklyWeek"></select></label>
+              </div>
+              <div class="weekly-nav">
+                <button class="weekly-button" id="weeklyPrev" type="button">前の週</button>
+                <button class="weekly-button" id="weeklyNext" type="button">次の週</button>
+                <button class="weekly-button" id="weeklyLastYear" type="button">去年の同じ週</button>
+                <button class="weekly-button primary" id="weeklyLatest" type="button">最新週</button>
+              </div>
+            </div>
+            <div class="weekly-notice"><strong>過去週の見方:</strong> 当時保存したレポートそのものではなく、山口県観光連盟の対象日検索と施設情報を基に、現在の条件を過去の各週へ適用した再構成版です。終了済みイベントの日時・料金・手帳条件は、リンク先の当時情報も確認してください。</div>
+          </div>
+        </details>
         <div id="weeklyHero"></div>
-        <div class="weekly-notice"><strong>過去週の見方:</strong> 当時保存したレポートそのものではなく、山口県観光連盟の対象日検索と施設情報を基に、現在の条件を過去の各週へ適用した再構成版です。終了済みイベントの日時・料金・手帳条件は、リンク先の当時情報も確認してください。</div>
         <div class="weekly-toolbar">
           <div class="weekly-tabs" role="tablist" aria-label="おすすめ種別">
             <button class="weekly-tab" data-weekly-tab="general" type="button">一般AI 20件</button>
@@ -258,6 +271,7 @@
 
   function render() {
     const week = data.weeks[state.index];
+    const latest = state.index === data.weeks.length - 1;
     syncSelectors();
     document.querySelectorAll("[data-weekly-tab]").forEach((button) => button.classList.toggle("active", button.dataset.weeklyTab === state.tab));
     filter.value = state.filter;
@@ -268,6 +282,9 @@
     const typeNote = state.tab === "general"
       ? "県全体の魅力・季節性・イベント性を中心にした一般向けの並びです。"
       : "絵画好き、期間限定優先、手帳条件、無理の少なさを反映した並びです。";
+    document.getElementById("weeklyMainTitle").textContent = state.tab === "general"
+      ? (latest ? "今週の一般AIおすすめ20件" : `${week.label}の一般AIおすすめ20件`)
+      : (latest ? "今週、ふたりで見たい20件" : `${week.label}の二人向けおすすめ20件`);
     hero.innerHTML = `<div class="weekly-hero"><div><div class="weekly-kicker">${esc(week.label)}</div><h3>${esc(week.theme)}</h3><p>${esc(week.reconstruction)}</p></div><div class="weekly-counts"><span class="weekly-count">一般 20件</span><span class="weekly-count">二人向け 20件</span><span class="weekly-count">近場 ${week.localCount} / 遠出 ${week.farCount}</span><span class="weekly-count">展示 ${week.exhibitionCount}件</span><span class="weekly-count">公式イベント ${week.officialEventCount}件</span></div></div>`;
     results.innerHTML = `<div class="weekly-panel-head"><div><h3>${typeTitle}</h3><p>${typeNote}</p></div><div class="weekly-result-count">${rows.length}件を表示</div></div><div class="weekly-grid">${rows.length ? rows.map((row) => card(row, week)).join("") : '<div class="weekly-empty">この条件に合う候補はありません。絞り込みを戻してみてください。</div>'}</div>`;
     save();
