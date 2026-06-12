@@ -169,8 +169,6 @@
                   <a class="menu-link" href="#reference-book"><span>写真で選ぶ年間ライブラリ</span><small>季節</small></a>
                   <a class="menu-link" href="#archive"><span>プラン履歴</span><small>履歴</small></a>
                   <a class="menu-link" href="#memory" data-reveal-utility="memory"><span>ふたりの好みメモ</span><small>あとで</small></a>
-                  <a class="menu-link" href="#monitor" data-reveal-utility="monitor"><span>自己監視パネル</span><small>補助</small></a>
-                  <a class="menu-link" href="#roadmap" data-reveal-utility="roadmap"><span>伸ばす余地</span><small>補助</small></a>
                 </div>
               </div>
             </div>
@@ -199,16 +197,17 @@
         <section class="section" id="reference-book"><div class="section-head"><div><h2>写真で選ぶ年間ライブラリ</h2><p>季節や気分ごとに、行き先の写真と近くのごはんから選べる棚です。</p></div></div><div class="toolbar"><select id="scenarioFilter"><option value="all">ライブラリ: すべて</option><option value="春">春</option><option value="梅雨">梅雨</option><option value="夏">夏</option><option value="秋">秋</option><option value="冬">冬</option><option value="通年">通年</option></select></div><div class="scenario-grid" id="scenarioGrid"></div></section>
       </div>
       <aside class="side-panel desktop-only">
-        <div class="desktop-panel-card"><h3>今日見るところ</h3><ul><li>写真で気になる場所を探す</li><li>近くのごはんを見る</li><li>迷ったら2〜4件だけ並べる</li></ul></div>
-        <div class="desktop-panel-card"><h3>すぐ開く</h3><ul><li><a href="#mood">今の気分</a></li><li><a href="#spots">行ってみたい場所</a></li><li><a href="#compare">迷ってる場所</a></li><li><a href="#finalize">今週の確定版</a></li></ul></div>
+        <div class="desktop-panel-card"><h3>今日見るところ</h3><ul><li>季節・天気・時間を選ぶ</li><li>写真と服装・予算を見比べる</li><li>迷ったら2〜4件だけ並べる</li></ul></div>
+        <div class="desktop-panel-card"><h3>すぐ開く</h3><ul><li><a href="#opportunity-board">条件から選ぶ</a></li><li><a href="#weekly-history">今週のおすすめ</a></li><li><a href="#compare">迷ってる場所</a></li><li><a href="#finalize">今週の確定版</a></li></ul></div>
         <div class="desktop-panel-card" id="desktopInsights"></div>
       </aside>
     </div>
   </main>
   <div class="compare-dock mobile-only" id="compareDock"></div>
-  <div class="sticky mobile-only"><nav><a href="#mood">気分</a><a href="#dates">日付</a><a href="#compare">迷い中</a><a href="#finalize">確定</a></nav></div>
+  <div class="sticky mobile-only"><nav><a href="#opportunity-board">条件</a><a href="#weekly-history">おすすめ</a><a href="#compare">迷い中</a><a href="#finalize">確定</a></nav></div>
   <div class="toast" id="toast"></div>
   <script src="./date-plans-data.js"></script>
+  <script src="./planning-taxonomy.js"></script>
   <script src="./library-pagination.js"></script>
   <script>
     const plannerData = window.DATE_PLANNER_DATA || { days: [] };
@@ -315,5 +314,6 @@
   <script src="./weekly-history-data.js"></script>
   <script src="./weekly-history-ui.js"></script>
   <script src="./collaboration-ui.js"></script>
+  <script src="./opportunity-board.js"></script>
 </body>
 </html>

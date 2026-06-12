@@ -18,7 +18,8 @@
     sort: saved.sort || "rank",
     query: "",
     showAll: false,
-    favorites: saved.favorites || {}
+    favorites: saved.favorites || {},
+    facets: saved.facets || { season: [], weather: [], time: [], duration: [], indoorOutdoor: [], budget: [], quick: [] }
   };
 
   const style = document.createElement("style");
@@ -142,7 +143,7 @@
               </div>
               <button class="weekly-button primary" id="weeklyArchiveApply" type="button">この週を表示して閉じる</button>
             </div>
-            <div class="weekly-notice"><strong>過去週の見方:</strong> 当時保存したレポートそのものではなく、山口県観光連盟の対象日検索と施設情報を基に、現在の条件を過去の各週へ適用した再構成版です。終了済みイベントの日時・料金・手帳条件は、リンク先の当時情報も確認してください。</div>
+            <div class="weekly-notice"><strong>過去週の見方:</strong> 当時保存したレポートそのものではなく、山口県観光連盟の対象日検索と施設情報を基に、現在の条件を過去の各週へ適用した再構成版です。終了済みイベントの日時・料金・各種配慮条件は、リンク先の当時情報も確認してください。</div>
           </div>
         </dialog>
         <div id="weeklyHero"></div>
@@ -162,6 +163,9 @@
           <select class="weekly-sort" id="weeklySort" aria-label="並び順">
             <option value="rank">当時のおすすめ順</option>
             <option value="score">満足期待が高い順</option>
+            <option value="miss">今逃すと惜しい順</option>
+            <option value="novelty">新しい体験を優先</option>
+            <option value="duration">短時間で行きやすい順</option>
             <option value="distance">近い順</option>
           </select>
         </div>
@@ -185,7 +189,7 @@
     const week = data.weeks[state.index];
     localStorage.setItem(storageKey, JSON.stringify({
       weekStart: week.weekStart, tab: state.tab, filter: state.filter,
-      sort: state.sort, favorites: state.favorites
+      sort: state.sort, favorites: state.favorites, facets: state.facets
     }));
   }
 
@@ -255,14 +259,39 @@
 
   function filteredRows(ids, week) {
     let rows = ids.map((id, rank) => ({ item: data.catalog[id], rank: rank + 1 })).filter(({ item }) => item);
+    const taxonomy = window.DATE_PLANNING_TAXONOMY;
+    const facetEntries = [
+      ["season", "seasonFit"], ["weather", "weatherFit"], ["time", "timeSlots"],
+      ["duration", "durationType"], ["indoorOutdoor", "indoorOutdoor"], ["budget", "budgetLevel"], ["quick", "quickTags"]
+    ];
+    rows = rows.filter(({ item }) => {
+      const meta = taxonomy ? taxonomy.infer(item) : item;
+      return facetEntries.every(([group, field]) => {
+        const selected = state.facets?.[group] || [];
+        if (!selected.length) return true;
+        const actual = Array.isArray(meta[field]) ? meta[field] : [meta[field]];
+        return selected.some((value) => actual.includes(value));
+      });
+    });
     const query = state.query.trim().toLowerCase();
-    if (query) rows = rows.filter(({ item }) => `${item.name} ${item.area} ${item.genre} ${item.period}`.toLowerCase().includes(query));
+    if (query) rows = rows.filter(({ item }) => {
+      const meta = taxonomy ? taxonomy.infer(item) : item;
+      return [
+        item.name, item.area, item.genre, item.period, item.reason, item.photo, item.food,
+        meta.seasonFit, meta.weatherFit, meta.timeSlots, meta.durationType,
+        meta.indoorOutdoor, meta.outfit, meta.budgetLevel, meta.missReason,
+        meta.mannerismReason, meta.quickTags
+      ].flat().join(" ").toLowerCase().includes(query);
+    });
     if (state.filter === "exhibition") rows = rows.filter(({ item }) => isExhibition(item));
     if (state.filter === "limited") rows = rows.filter(({ item }) => item.sourceType === "official-event");
     if (state.filter === "nearby") rows = rows.filter(({ item }) => item.nearby);
     if (state.filter === "far") rows = rows.filter(({ item }) => !item.nearby);
     if (state.filter === "favorite") rows = rows.filter(({ item }) => state.favorites[`${week.weekStart}:${item.id}`]);
     if (state.sort === "score") rows.sort((a, b) => (b.item.score || 0) - (a.item.score || 0));
+    if (state.sort === "miss") rows.sort((a, b) => ({ 高: 3, 中: 2, 低: 1 }[taxonomy?.infer(b.item).missRisk] || 0) - ({ 高: 3, 中: 2, 低: 1 }[taxonomy?.infer(a.item).missRisk] || 0));
+    if (state.sort === "novelty") rows.sort((a, b) => ({ 高: 3, 中: 2, 低: 1 }[taxonomy?.infer(b.item).mannerismAvoidance] || 0) - ({ 高: 3, 中: 2, 低: 1 }[taxonomy?.infer(a.item).mannerismAvoidance] || 0));
+    if (state.sort === "duration") rows.sort((a, b) => ({ ショート: 1, 半日: 2, ロング: 3 }[taxonomy?.infer(a.item).durationType] || 9) - ({ ショート: 1, 半日: 2, ロング: 3 }[taxonomy?.infer(b.item).durationType] || 9));
     if (state.sort === "distance") rows.sort((a, b) => numericDistance(a.item) - numericDistance(b.item));
     return rows;
   }
@@ -302,10 +331,10 @@
                 <div class="weekly-detail"><strong>時期:</strong> ${esc(item.period)}</div>
                 <div class="weekly-detail"><strong>近くで食べるなら:</strong> ${esc(item.food || "開催地周辺で営業日を確認")}</div>
                 <div class="weekly-detail"><strong>営業時間:</strong> ${esc(facts.hours)}</div>
-                <div class="weekly-detail"><strong>料金・手帳:</strong> ${esc(facts.fee)}</div>
+                <div class="weekly-detail"><strong>料金・割引:</strong> ${esc(facts.fee)}</div>
                 <div class="weekly-detail"><strong>予約・駐車場:</strong> ${esc(facts.booking)}</div>
                 <div class="weekly-detail"><strong>混雑・歩行量:</strong> ${esc(facts.load)}</div>
-                ${context ? `<div class="weekly-detail"><strong>手帳・過ごしやすさ:</strong> ${esc(item.discount || "施設ごとに確認")} ${esc(item.access || "休憩場所と混雑を確認")}</div>` : ""}
+                ${context ? `<div class="weekly-detail"><strong>過ごしやすさ:</strong> ${esc(item.discount || "料金・割引・配慮条件は公式で要確認")} ${esc(item.access || "休憩場所と混雑を確認")}</div>` : ""}
                 <div class="weekly-detail"><strong>${latestWeek ? "当日の確認" : "振り返り注意"}:</strong> ${esc(caution)}</div>
               </div>
               <div class="weekly-meta"><span>満足期待 ${esc(item.score)}/100</span><span>話題先行の可能性 ${esc(item.bias)}</span><span>${esc(sourceLabel(item))}</span></div>
@@ -331,14 +360,14 @@
     const typeTitle = state.tab === "general" ? "みんな向けのおすすめ 20件" : "ふたり向けのおすすめ 20件";
     const typeNote = state.tab === "general"
       ? "県全体の魅力・季節性・イベント性を中心にした、好みを限定しない並びです。"
-      : "絵画好き、期間限定優先、手帳条件、無理の少なさを反映した並びです。";
+      : "絵画・展示、期間限定、移動負担、休憩しやすさを反映した並びです。";
     document.getElementById("weeklyMainTitle").textContent = state.tab === "general"
       ? (latest ? "今週のみんな向けおすすめ20件" : `${week.label}のみんな向けおすすめ20件`)
       : (latest ? "今週、ふたりで見たい20件" : `${week.label}の二人向けおすすめ20件`);
     hero.innerHTML = `<div class="weekly-hero"><div><div class="weekly-kicker">${esc(week.label)}</div><h3>${esc(week.theme)}</h3><p>${esc(week.reconstruction)}</p></div><div class="weekly-counts"><span class="weekly-count">みんな向け 20件</span><span class="weekly-count">ふたり向け 20件</span><span class="weekly-count">近場 ${week.localCount} / 遠出 ${week.farCount}</span><span class="weekly-count">展示 ${week.exhibitionCount}件</span><span class="weekly-count">公式イベント ${week.officialEventCount}件</span></div></div>`;
     const visibleRows = state.showAll ? rows : rows.slice(0, 6);
     const moreCount = Math.max(0, rows.length - visibleRows.length);
-    results.innerHTML = `<div class="weekly-panel-head"><div><h3>${typeTitle}</h3><p>${typeNote}</p></div><div class="weekly-result-count">${visibleRows.length}/${rows.length}件を表示</div></div><div class="weekly-grid">${visibleRows.length ? visibleRows.map((row) => card(row, week)).join("") : '<div class="weekly-empty">この条件に合う候補はありません。絞り込みを戻してみてください。</div>'}</div>${moreCount ? `<div class="weekly-more-wrap"><button class="weekly-more-button" id="weeklyShowAll" type="button">残り${moreCount}件を見る</button></div>` : (rows.length > 6 ? '<div class="weekly-more-wrap"><button class="weekly-more-button" id="weeklyShowLess" type="button">上位6件に戻す</button></div>' : "")}`;
+    results.innerHTML = `<div class="weekly-panel-head"><div><h3>${typeTitle}</h3><p>${typeNote}</p></div><div class="weekly-result-count">${visibleRows.length}/${rows.length}件を表示</div></div><div class="weekly-grid">${visibleRows.length ? visibleRows.map((row) => card(row, week)).join("") : '<div class="weekly-empty"><strong>この条件に合う候補はありません。</strong><br>条件を1つ外すか、「条件をすべて解除」で20件に戻せます。</div>'}</div>${moreCount ? `<div class="weekly-more-wrap"><button class="weekly-more-button" id="weeklyShowAll" type="button">残り${moreCount}件を見る</button></div>` : (rows.length > 6 ? '<div class="weekly-more-wrap"><button class="weekly-more-button" id="weeklyShowLess" type="button">上位6件に戻す</button></div>' : "")}`;
     save();
   }
 
@@ -390,5 +419,6 @@
     menu.appendChild(link);
   }
 
+  window.WEEKLY_HISTORY_UI = { data, state, render, section, results, decisionFacts };
   render();
 })();
