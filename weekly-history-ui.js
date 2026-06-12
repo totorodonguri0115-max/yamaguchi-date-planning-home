@@ -17,6 +17,7 @@
     filter: saved.filter || "all",
     sort: saved.sort || "rank",
     query: "",
+    showAll: false,
     favorites: saved.favorites || {}
   };
 
@@ -89,6 +90,24 @@
     .weekly-history-tools-body{padding:0 14px 14px}
     .weekly-history-tools .weekly-jump-card{box-shadow:none;background:#fff}
     .weekly-history-tools .weekly-notice{margin:12px 0 0}
+    .weekly-archive-open{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;border:1px solid rgba(93,72,61,.13);border-radius:20px;background:rgba(255,255,255,.86);padding:16px 18px;color:#594840;font:inherit;font-weight:850;cursor:pointer;text-align:left}
+    .weekly-archive-open span:last-child{font-size:1.25rem;color:#a35154}
+    .weekly-archive-dialog{width:min(620px,calc(100% - 24px));max-height:min(88vh,760px);border:0;border-radius:26px;padding:0;background:#fbf4ef;color:#40342e;box-shadow:0 26px 90px rgba(45,31,26,.28)}
+    .weekly-archive-dialog::backdrop{background:rgba(42,31,27,.52);backdrop-filter:blur(5px)}
+    .weekly-dialog-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;background:rgba(255,253,250,.96);border-bottom:1px solid rgba(93,72,61,.12)}
+    .weekly-dialog-head h3{margin:0;font-size:1.12rem}
+    .weekly-dialog-close{width:42px;height:42px;border-radius:50%;border:1px solid rgba(93,72,61,.15);background:#fff;color:#594840;font:inherit;font-size:1.25rem;cursor:pointer}
+    .weekly-dialog-body{padding:16px;overflow:auto}
+    .weekly-dialog-body .weekly-jump-card{box-shadow:none}
+    .weekly-card-more{border-top:1px solid rgba(93,72,61,.1);padding-top:9px}
+    .weekly-card-more>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;color:#934b50;font-size:.84rem;font-weight:850;cursor:pointer;padding:4px 0}
+    .weekly-card-more>summary::-webkit-details-marker{display:none}
+    .weekly-card-more>summary::after{content:"＋";font-size:1.1rem}
+    .weekly-card-more[open]>summary::after{content:"−"}
+    .weekly-card-more-body{display:grid;gap:10px;padding-top:10px}
+    .weekly-more-wrap{display:flex;justify-content:center;margin-top:18px}
+    .weekly-more-button{min-width:min(100%,340px);border:1px solid #a75557;border-radius:999px;background:#fff;color:#994d50;padding:13px 20px;font:inherit;font-weight:900;cursor:pointer}
+    .weekly-more-button:hover,.weekly-more-button:focus-visible{background:#fff3f1;outline:none}
     @media(max-width:980px){.weekly-intro{grid-template-columns:1fr}.weekly-toolbar{grid-template-columns:1fr 1fr}.weekly-tabs{grid-column:1/-1}.weekly-grid{grid-template-columns:1fr}.weekly-card{grid-template-columns:170px minmax(0,1fr)}}
     @media(max-width:650px){.weekly-title-card,.weekly-jump-card{padding:18px;border-radius:22px}.weekly-nav{grid-template-columns:1fr 1fr}.weekly-hero{grid-template-columns:1fr;padding:18px}.weekly-counts{justify-content:flex-start}.weekly-toolbar{top:66px;grid-template-columns:1fr;padding:8px;border-radius:17px}.weekly-tabs{display:grid;grid-template-columns:1fr 1fr}.weekly-search,.weekly-filter,.weekly-sort{width:100%}.weekly-grid{gap:12px}.weekly-card{grid-template-columns:1fr;border-radius:20px}.weekly-card-media{min-height:210px;max-height:270px}.weekly-card-body{padding:16px}.weekly-panel-head{align-items:flex-start}.weekly-panel-head p{font-size:.82rem}}
   `;
@@ -104,9 +123,10 @@
             <p class="weekly-lead">写真を見ながら「これ、いいかも」を探せるように、今週の候補を先に並べました。一般AIの20件にも同じ場所で切り替えられます。</p>
           </div>
         </div>
-        <details class="weekly-history-tools">
-          <summary>過去2年の週間アーカイブから選ぶ</summary>
-          <div class="weekly-history-tools-body">
+        <button class="weekly-archive-open" id="weeklyArchiveOpen" type="button"><span>過去2年の週間アーカイブから選ぶ</span><span>＋</span></button>
+        <dialog class="weekly-archive-dialog" id="weeklyArchiveDialog">
+          <div class="weekly-dialog-head"><h3>過去2年の週間アーカイブ</h3><button class="weekly-dialog-close" id="weeklyArchiveClose" type="button" aria-label="閉じる">×</button></div>
+          <div class="weekly-dialog-body">
             <div class="weekly-jump-card">
               <strong>見たい週へ</strong>
               <div class="weekly-select-grid">
@@ -123,7 +143,7 @@
             </div>
             <div class="weekly-notice"><strong>過去週の見方:</strong> 当時保存したレポートそのものではなく、山口県観光連盟の対象日検索と施設情報を基に、現在の条件を過去の各週へ適用した再構成版です。終了済みイベントの日時・料金・手帳条件は、リンク先の当時情報も確認してください。</div>
           </div>
-        </details>
+        </dialog>
         <div id="weeklyHero"></div>
         <div class="weekly-toolbar">
           <div class="weekly-tabs" role="tablist" aria-label="おすすめ種別">
@@ -252,15 +272,20 @@
           <div class="weekly-meta">
             <span>${esc(item.area)}</span><span>${esc(item.travel)}</span><span>${esc(item.distance)}</span><span>${esc(item.stay)}</span>
           </div>
-          <div class="weekly-photo-note">写真で見る魅力: ${esc(item.photo)}</div>
-          <div class="weekly-reason">${esc(item.reason)}</div>
-          <div class="weekly-details">
-            <div class="weekly-detail"><strong>時期:</strong> ${esc(item.period)}</div>
-            <div class="weekly-detail"><strong>近くで食べるなら:</strong> ${esc(item.food || "開催地周辺で営業日を確認")}</div>
-            ${context ? `<div class="weekly-detail"><strong>手帳・過ごしやすさ:</strong> ${esc(item.discount || "施設ごとに確認")} ${esc(item.access || "休憩場所と混雑を確認")}</div>` : ""}
-            <div class="weekly-detail"><strong>振り返り注意:</strong> ${esc(item.caution)}</div>
-          </div>
-          <div class="weekly-meta"><span>本質評価 ${esc(item.score)}/100</span><span>露出注意 ${esc(item.bias)}</span><span>${esc(sourceLabel(item))}</span></div>
+          <div class="weekly-photo-note">${esc(item.photo)}</div>
+          <details class="weekly-card-more">
+            <summary>理由・食事・注意点を見る</summary>
+            <div class="weekly-card-more-body">
+              <div class="weekly-reason">${esc(item.reason)}</div>
+              <div class="weekly-details">
+                <div class="weekly-detail"><strong>時期:</strong> ${esc(item.period)}</div>
+                <div class="weekly-detail"><strong>近くで食べるなら:</strong> ${esc(item.food || "開催地周辺で営業日を確認")}</div>
+                ${context ? `<div class="weekly-detail"><strong>手帳・過ごしやすさ:</strong> ${esc(item.discount || "施設ごとに確認")} ${esc(item.access || "休憩場所と混雑を確認")}</div>` : ""}
+                <div class="weekly-detail"><strong>振り返り注意:</strong> ${esc(item.caution)}</div>
+              </div>
+              <div class="weekly-meta"><span>本質評価 ${esc(item.score)}/100</span><span>露出注意 ${esc(item.bias)}</span><span>${esc(sourceLabel(item))}</span></div>
+            </div>
+          </details>
           <div class="weekly-card-actions">
             <a class="weekly-link" href="${esc(item.url)}" target="_blank" rel="noreferrer">写真・公式情報を見る</a>
             <button class="weekly-favorite ${favorite ? "active" : ""}" type="button" data-weekly-favorite="${esc(favoriteKey)}">${favorite ? "気になるに保存済み" : "気になる"}</button>
@@ -286,26 +311,35 @@
       ? (latest ? "今週の一般AIおすすめ20件" : `${week.label}の一般AIおすすめ20件`)
       : (latest ? "今週、ふたりで見たい20件" : `${week.label}の二人向けおすすめ20件`);
     hero.innerHTML = `<div class="weekly-hero"><div><div class="weekly-kicker">${esc(week.label)}</div><h3>${esc(week.theme)}</h3><p>${esc(week.reconstruction)}</p></div><div class="weekly-counts"><span class="weekly-count">一般 20件</span><span class="weekly-count">二人向け 20件</span><span class="weekly-count">近場 ${week.localCount} / 遠出 ${week.farCount}</span><span class="weekly-count">展示 ${week.exhibitionCount}件</span><span class="weekly-count">公式イベント ${week.officialEventCount}件</span></div></div>`;
-    results.innerHTML = `<div class="weekly-panel-head"><div><h3>${typeTitle}</h3><p>${typeNote}</p></div><div class="weekly-result-count">${rows.length}件を表示</div></div><div class="weekly-grid">${rows.length ? rows.map((row) => card(row, week)).join("") : '<div class="weekly-empty">この条件に合う候補はありません。絞り込みを戻してみてください。</div>'}</div>`;
+    const visibleRows = state.showAll ? rows : rows.slice(0, 6);
+    const moreCount = Math.max(0, rows.length - visibleRows.length);
+    results.innerHTML = `<div class="weekly-panel-head"><div><h3>${typeTitle}</h3><p>${typeNote}</p></div><div class="weekly-result-count">${visibleRows.length}/${rows.length}件を表示</div></div><div class="weekly-grid">${visibleRows.length ? visibleRows.map((row) => card(row, week)).join("") : '<div class="weekly-empty">この条件に合う候補はありません。絞り込みを戻してみてください。</div>'}</div>${moreCount ? `<div class="weekly-more-wrap"><button class="weekly-more-button" id="weeklyShowAll" type="button">残り${moreCount}件を見る</button></div>` : (rows.length > 6 ? '<div class="weekly-more-wrap"><button class="weekly-more-button" id="weeklyShowLess" type="button">上位6件に戻す</button></div>' : "")}`;
     save();
   }
 
-  yearSelect.addEventListener("change", () => pickClosest(yearSelect.value, monthSelect.value));
-  monthSelect.addEventListener("change", () => pickClosest(yearSelect.value, monthSelect.value));
-  weekSelect.addEventListener("change", () => { state.index = Number(weekSelect.value); render(); });
-  document.getElementById("weeklyPrev").addEventListener("click", () => { if (state.index > 0) { state.index -= 1; render(); } });
-  document.getElementById("weeklyNext").addEventListener("click", () => { if (state.index < data.weeks.length - 1) { state.index += 1; render(); } });
-  document.getElementById("weeklyLatest").addEventListener("click", () => { state.index = data.weeks.length - 1; render(); });
+  document.getElementById("weeklyArchiveOpen").addEventListener("click", () => document.getElementById("weeklyArchiveDialog").showModal());
+  document.getElementById("weeklyArchiveClose").addEventListener("click", () => document.getElementById("weeklyArchiveDialog").close());
+  document.getElementById("weeklyArchiveDialog").addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) event.currentTarget.close();
+  });
+  yearSelect.addEventListener("change", () => { state.showAll = false; pickClosest(yearSelect.value, monthSelect.value); });
+  monthSelect.addEventListener("change", () => { state.showAll = false; pickClosest(yearSelect.value, monthSelect.value); });
+  weekSelect.addEventListener("change", () => { state.index = Number(weekSelect.value); state.showAll = false; render(); });
+  document.getElementById("weeklyPrev").addEventListener("click", () => { if (state.index > 0) { state.index -= 1; state.showAll = false; render(); } });
+  document.getElementById("weeklyNext").addEventListener("click", () => { if (state.index < data.weeks.length - 1) { state.index += 1; state.showAll = false; render(); } });
+  document.getElementById("weeklyLatest").addEventListener("click", () => { state.index = data.weeks.length - 1; state.showAll = false; render(); });
   document.getElementById("weeklyLastYear").addEventListener("click", () => {
     const target = state.index - 52;
-    if (target >= 0) { state.index = target; render(); }
-    else { section.querySelector(".weekly-notice").scrollIntoView({ behavior: "smooth", block: "center" }); }
+    if (target >= 0) { state.index = target; state.showAll = false; render(); }
+    else { document.getElementById("weeklyArchiveDialog").querySelector(".weekly-notice").scrollIntoView({ behavior: "smooth", block: "center" }); }
   });
-  document.querySelectorAll("[data-weekly-tab]").forEach((button) => button.addEventListener("click", () => { state.tab = button.dataset.weeklyTab; render(); }));
-  search.addEventListener("input", () => { state.query = search.value; render(); });
-  filter.addEventListener("change", () => { state.filter = filter.value; render(); });
-  sort.addEventListener("change", () => { state.sort = sort.value; render(); });
+  document.querySelectorAll("[data-weekly-tab]").forEach((button) => button.addEventListener("click", () => { state.tab = button.dataset.weeklyTab; state.showAll = false; render(); }));
+  search.addEventListener("input", () => { state.query = search.value; state.showAll = false; render(); });
+  filter.addEventListener("change", () => { state.filter = filter.value; state.showAll = false; render(); });
+  sort.addEventListener("change", () => { state.sort = sort.value; state.showAll = false; render(); });
   results.addEventListener("click", (event) => {
+    if (event.target.closest("#weeklyShowAll")) { state.showAll = true; render(); return; }
+    if (event.target.closest("#weeklyShowLess")) { state.showAll = false; render(); section.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
     const button = event.target.closest("[data-weekly-favorite]");
     if (!button) return;
     const key = button.dataset.weeklyFavorite;
