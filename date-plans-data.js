@@ -1,7 +1,7 @@
 // Add one object to `days` for each new automation run.
 // The homepage reads this array and automatically grows by date.
 window.DATE_PLANNER_DATA = {
-  updatedAt: "2026-06-10",
+  updatedAt: "2026-06-12",
   referenceCatalog: {
     nagato_yumoto: {
       title: "長門湯本温泉",
@@ -101,6 +101,69 @@ window.DATE_PLANNER_DATA = {
         reason: "川沿い散歩の休憩に合う。ケーキや器の雰囲気も会話にしやすい。",
         url: "https://yumotoonsen.com/food/cafe-and-poterry-oto/",
         caution: "水木休み・夕方前までの営業が中心なので時間注意。"
+      },
+      {
+        category: "レストラン",
+        kind: "イタリアン/昼食/夕食",
+        name: "TARU",
+        proximity: "温泉街内 / 徒歩圏",
+        reason: "薪窯ピザと地元食材で、少しお洒落な食事を主役にできる。",
+        url: "https://yumotoonsen.com/food/taru/",
+        caution: "土日祝ランチやディナーの時間、予約状況を公式で確認。"
+      },
+      {
+        category: "居酒屋・バー",
+        kind: "バー/夜",
+        name: "THE BAR NAGATO",
+        proximity: "音信川沿い / 徒歩圏",
+        reason: "川沿いの夜景と一杯を楽しむ、大人っぽい締め方に向く。",
+        url: "https://yumotoonsen.com/food/the-bar-nagato/",
+        caution: "飲酒時は運転不可。営業日と開店時間を公式確認。"
+      },
+      {
+        category: "甘味処",
+        kind: "どら焼き/カフェ/テイクアウト",
+        name: "あけぼのカフェ",
+        proximity: "温泉街内 / 徒歩圏",
+        reason: "どら焼きと飲み物で、散歩途中に短く甘い休憩を入れられる。",
+        url: "https://yumotoonsen.com/food/akebono-cafe/",
+        caution: "不定休と売り切れ状況を当日確認。"
+      },
+      {
+        category: "軽食・テイクアウト",
+        kind: "ピタパンサンド/ドリンク",
+        name: "A.side",
+        proximity: "温泉街内 / 徒歩圏",
+        reason: "歩きながら楽しめる軽食で、予定を重くせず新しい味を足せる。",
+        url: "https://yumotoonsen.com/food/aside/",
+        caution: "不定休。天候とテイクアウト営業を確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "ケーキ/カフェ/テラス",
+        name: "cafe and shop Tre",
+        proximity: "だいご長屋 / 徒歩圏",
+        reason: "音信川の景色とケーキで、写真と会話の両方を取りやすい。",
+        url: "https://yumotoonsen.com/food/cafe-and-shop-tre/",
+        caution: "火曜休み。ラストオーダーと席状況を確認。"
+      },
+      {
+        category: "居酒屋・バー",
+        kind: "和食/居酒屋/夕食",
+        name: "夢屋",
+        proximity: "湯本観光ホテル西京内",
+        reason: "気取らない和食と居酒屋利用で、夜の食事を柔らかく組める。",
+        url: "https://yumotoonsen.com/food/yumeya/",
+        caution: "ホテル内店舗。営業日と外来利用条件を公式確認。"
+      },
+      {
+        category: "甘味処",
+        kind: "和菓子/ワッフル/テイクアウト",
+        name: "吉冨幸進堂",
+        proximity: "温泉街内 / 徒歩圏",
+        reason: "温泉饅頭やワッフルを二人で選ぶ、小さな食べ歩きに向く。",
+        url: "https://yumotoonsen.com/food/yoshitomi-koushindo/",
+        caution: "火曜休み。夕方前の来店が安全。"
       }
     ],
     hagi_castle: [
@@ -127,6 +190,33 @@ window.DATE_PLANNER_DATA = {
         reason: "萩沖の魚や地酒で、少し特別な夕食に寄せられる。",
         url: "https://www.hagishi.com/search/detail.php?d=300003",
         caution: "予約推奨。定休日と予算を先に確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "紅茶/ケーキ/喫茶",
+        name: "ギャラリーカフェ 藍場川の家",
+        proximity: "萩市街 / 車で短距離",
+        reason: "藍場川と洋館の落ち着きがあり、静かに話す休憩に向く。",
+        url: "https://www.hagishi.com/search/detail.php?d=300073",
+        caution: "火・水曜休み。席数と季節メニューを確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "和食/カフェ/昼食",
+        name: "萩明倫レストラン・カフェ 萩暦",
+        proximity: "萩・明倫学舎内 / 車で短距離",
+        reason: "萩の魚を使った食事とスイーツを同じ場所で選びやすい。",
+        url: "https://www.hagishi.com/search/detail.php?d=3300091",
+        caution: "火曜・第3月曜休み。夜利用は予約条件を確認。"
+      },
+      {
+        category: "気軽な食事",
+        kind: "うどん/丼/軽食",
+        name: "手打ちうどん どんどん 唐樋店",
+        proximity: "萩市街 / 車で短距離",
+        reason: "時間や予算を抑えたい日に、地元で親しまれる味を気軽に選べる。",
+        url: "https://www.hagishi.com/search/detail.php?d=300076",
+        caution: "混雑時間と駐車場の空きを確認。"
       }
     ],
     hagi_castle_town: [
@@ -153,6 +243,42 @@ window.DATE_PLANNER_DATA = {
         reason: "萩沖の魚で、近場でもきちんとした夕食にできる。",
         url: "https://www.hagishi.com/search/detail.php?d=300003",
         caution: "予約推奨。定休日と予算を先に確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "カフェ/昼食/スイーツ",
+        name: "café 指月茶寮",
+        proximity: "萩博物館駐車場正面 / 徒歩圏",
+        reason: "城下町の雰囲気を崩さず、少しスタイリッシュな休憩にできる。",
+        url: "https://www.hagishi.com/search/detail.php?d=300075",
+        caution: "火・木曜中心の休みや平日の不定休を確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "ダイニング/昼食/夕食",
+        name: "ダイニングまめだ",
+        proximity: "萩市街 / 車で短距離",
+        reason: "町歩き後に、落ち着いてしっかり食べる選択肢として使える。",
+        url: "https://www.hagishi.com/search/detail.php?d=300069",
+        caution: "火曜休み。夜は席と営業時間を事前確認。"
+      },
+      {
+        category: "海鮮料理",
+        kind: "魚介/昼食/夕食",
+        name: "萩心海、",
+        proximity: "萩市街 / 車で短距離",
+        reason: "旬の魚介を主役にして、近場でも食事の特別感を出せる。",
+        url: "https://www.hagishi.com/search/detail.php?d=1100215",
+        caution: "水曜休み。繁忙期の変更と席状況を公式確認。"
+      },
+      {
+        category: "気軽な食事",
+        kind: "うどん/丼/軽食",
+        name: "手打ちうどん どんどん 唐樋店",
+        proximity: "萩市街 / 車で短距離",
+        reason: "短時間・低予算の日に、待ち時間を抑えやすい気軽な食事候補。",
+        url: "https://www.hagishi.com/search/detail.php?d=300076",
+        caution: "混雑時間と駐車場の空きを確認。"
       }
     ],
     akiyoshido: [
@@ -179,6 +305,42 @@ window.DATE_PLANNER_DATA = {
         reason: "ますバーガーなど、景色と食の変化球を足せる。",
         url: "https://karusuto.com/gourmet/benten-blue/",
         caution: "季節営業・曜日限定があるため、行く前に確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "カフェ/喫茶",
+        name: "Arbòreo",
+        proximity: "美祢市内 / 車移動",
+        reason: "洞窟の非日常感の後に、静かなカフェ休憩で温度を落とせる。",
+        url: "https://karusuto.com/gourmet/arboreo/",
+        caution: "営業日と秋芳洞からの移動時間を公式確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "洋食/昼食/夕食",
+        name: "ログキッチン ぷらすわん",
+        proximity: "美祢市内 / 車移動",
+        reason: "ログハウス調の店で、定食とは違う雰囲気の食事に切り替えられる。",
+        url: "https://karusuto.com/gourmet/log_plusone/",
+        caution: "営業時間と定休日、夜利用の可否を確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "ピザ/イタリアン/昼食",
+        name: "Pizzeria MASA",
+        proximity: "美祢市内 / 車移動",
+        reason: "ピザを二人で分ける、気軽で会話しやすい昼食に向く。",
+        url: "https://karusuto.com/gourmet/pizzeria-masa/",
+        caution: "営業日と売り切れ、予約可否を公式確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "カフェ/昼食",
+        name: "HITONAMI local motion",
+        proximity: "美祢市内 / 車移動",
+        reason: "景色中心の遠出に、空間を楽しむカフェ時間を加えられる。",
+        url: "https://karusuto.com/gourmet/hitonami-local-motion/",
+        caution: "営業日と目的地からのルートを公式確認。"
       }
     ],
     akiyoshidai: [
@@ -205,6 +367,33 @@ window.DATE_PLANNER_DATA = {
         reason: "ますバーガーなど、景色と食の変化球を足せる。",
         url: "https://karusuto.com/gourmet/benten-blue/",
         caution: "季節営業・曜日限定があるため、行く前に確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "ピザ/イタリアン/昼食",
+        name: "Pizzeria MASA",
+        proximity: "美祢市内 / 車移動",
+        reason: "高原ドライブ後に、ピザを分け合う軽快な食事へつなげられる。",
+        url: "https://karusuto.com/gourmet/pizzeria-masa/",
+        caution: "営業日と売り切れ、予約可否を公式確認。"
+      },
+      {
+        category: "居酒屋・バー",
+        kind: "焼鳥/夕食",
+        name: "炭火焼鳥ふくちゃん",
+        proximity: "美祢市内 / 車移動",
+        reason: "夕方まで遊ぶ日に、昼食候補とは違う夜の選択肢を持てる。",
+        url: "https://karusuto.com/gourmet/8683/",
+        caution: "飲酒時は運転不可。営業時間と定休日を公式確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "カフェ/昼食",
+        name: "HITONAMI local motion",
+        proximity: "美祢市内 / 車移動",
+        reason: "高原の余韻を残しながら、落ち着いて話せる休憩候補。",
+        url: "https://karusuto.com/gourmet/hitonami-local-motion/",
+        caution: "営業日と目的地からのルートを公式確認。"
       }
     ],
     beppu_bentenike: [
@@ -231,6 +420,33 @@ window.DATE_PLANNER_DATA = {
         reason: "美東ごぼうのご当地感を足せる。",
         url: "https://karusuto.com/gourmet/yasutomiya/",
         caution: "昼中心。混雑時は早めに。"
+      },
+      {
+        category: "カフェ",
+        kind: "カフェ/喫茶",
+        name: "Arbòreo",
+        proximity: "美祢市内 / 車移動",
+        reason: "青い水の景色の後に、静かなカフェで写真を見返しやすい。",
+        url: "https://karusuto.com/gourmet/arboreo/",
+        caution: "営業日と別府弁天池からの移動時間を公式確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "洋食/昼食/夕食",
+        name: "ログキッチン ぷらすわん",
+        proximity: "美祢市内 / 車移動",
+        reason: "水辺の短時間散策に、しっかりした洋食の満足感を足せる。",
+        url: "https://karusuto.com/gourmet/log_plusone/",
+        caution: "営業時間と定休日、夜利用の可否を確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "ピザ/イタリアン/昼食",
+        name: "Pizzeria MASA",
+        proximity: "美祢市内 / 車移動",
+        reason: "ご当地料理以外を選びたい日に、二人で分けやすいピザが使える。",
+        url: "https://karusuto.com/gourmet/pizzeria-masa/",
+        caution: "営業日と売り切れ、予約可否を公式確認。"
       }
     ],
     karato_market: [
@@ -257,6 +473,33 @@ window.DATE_PLANNER_DATA = {
         reason: "下関らしいふく料理を、唐戸周辺で追加しやすい。",
         url: "https://kamonwharf.com/",
         caution: "店舗ごとに営業時間・予約条件が違うため公式確認。"
+      },
+      {
+        category: "カフェ・甘味",
+        kind: "カフェ/スイーツ/休憩",
+        name: "カモンワーフ内 カフェ・スイーツ系店舗",
+        proximity: "唐戸市場横 / 徒歩圏",
+        reason: "海鮮の後に甘い物や飲み物へ切り替え、座って休憩しやすい。",
+        url: "https://kamonwharf.com/",
+        caution: "店舗一覧から営業中の店と混雑状況を確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "洋食/焼肉/寿司",
+        name: "カモンワーフ内 洋食・焼肉・寿司店舗",
+        proximity: "唐戸市場横 / 徒歩圏",
+        reason: "市場の立ち食い以外に、席で落ち着いて食べる選択肢を持てる。",
+        url: "https://kamonwharf.com/",
+        caution: "店ごとの営業時間、待ち時間、予約条件を確認。"
+      },
+      {
+        category: "気軽な食事",
+        kind: "軽食/テイクアウト",
+        name: "カモンワーフ内 気軽に入れる店舗",
+        proximity: "唐戸市場横 / 徒歩圏",
+        reason: "混雑や売り切れ時に、短時間で食べられる逃げ道として使える。",
+        url: "https://kamonwharf.com/",
+        caution: "当日の営業店舗と席の有無を公式一覧で確認。"
       }
     ],
     kintaikyo: [
@@ -283,6 +526,24 @@ window.DATE_PLANNER_DATA = {
         reason: "岩国寿司、れんこん、地元土産まで広く確認できる。",
         url: "https://kankou.iwakuni-city.net/%E7%89%B9%E7%94%A3%E3%83%BB%E3%82%B0%E3%83%AB%E3%83%A1",
         caution: "行く店を決める前に個別店舗の最新情報を確認。"
+      },
+      {
+        category: "カフェ",
+        kind: "カフェ/郷土料理/休憩",
+        name: "カフェいつつばし",
+        proximity: "錦帯橋バスセンター内 / 橋の目の前",
+        reason: "錦帯橋を眺めながら、岩国寿司や蓮根麺と休憩を一度に取れる。",
+        url: "https://kankou.iwakuni-city.net/tenbouichiba.html",
+        caution: "季節で営業時間が変わるため公式確認。"
+      },
+      {
+        category: "軽食・甘味",
+        kind: "軽食/土産/展望休憩",
+        name: "橋の駅 錦帯橋 展望市場の軽食",
+        proximity: "錦帯橋そば",
+        reason: "しっかりした食事を避けたい日に、橋景色と短い休憩で調整できる。",
+        url: "https://kankou.iwakuni-city.net/tenbouichiba.html",
+        caution: "混雑時は席と商品の売り切れを確認。"
       }
     ],
     motonosumi: [
@@ -309,6 +570,42 @@ window.DATE_PLANNER_DATA = {
         reason: "長門らしい食の候補として、海景ドライブの満足感を上げやすい。",
         url: "https://nanavi.jp/gourmet/genre/senzakiika/",
         caution: "提供店・時期・予約条件は個別に確認。"
+      },
+      {
+        category: "レストラン",
+        kind: "洋食/多国籍/昼食/夕食",
+        name: "SWEET AS",
+        proximity: "仙崎方面 / 帰路の立ち寄り候補",
+        reason: "洋食、多国籍料理、スイーツまであり、海鮮以外の気分にも対応できる。",
+        url: "https://nanavi.jp/gourmet/sweetas/",
+        caution: "元乃隅から距離がある。定休日と帰路を確認。"
+      },
+      {
+        category: "居酒屋・バー",
+        kind: "居酒屋/焼鳥/夕食",
+        name: "居酒屋 錦屋",
+        proximity: "仙崎方面 / 帰路の立ち寄り候補",
+        reason: "夕方まで海景を楽しんだ後に、気取らない夜ごはんへつなげられる。",
+        url: "https://nanavi.jp/gourmet/nishikiya/",
+        caution: "飲酒時は運転不可。営業日と帰宅時間を確認。"
+      },
+      {
+        category: "甘味処",
+        kind: "芋スイーツ/カフェ/テイクアウト",
+        name: "蒼と芋と。",
+        proximity: "三隅方面 / 帰路候補",
+        reason: "お芋プリンやスイートポテトを選ぶ、写真映えする甘い寄り道になる。",
+        url: "https://nanavi.jp/gourmet/aotoimoto/",
+        caution: "火曜休み。16時までが目安なので帰路時間に注意。"
+      },
+      {
+        category: "軽食・テイクアウト",
+        kind: "パン/テイクアウト",
+        name: "BAKERY かわぱん",
+        proximity: "長門市内 / 営業日に合わせた寄り道",
+        reason: "軽く済ませたい日や、帰宅後用のパンを一緒に選ぶ楽しみを作れる。",
+        url: "https://nanavi.jp/gourmet/bakery-%E3%81%8B%E3%82%8F%E3%81%B1%E3%82%93/",
+        caution: "営業日が限られる場合があるため、当日情報を確認。"
       }
     ]
   },
