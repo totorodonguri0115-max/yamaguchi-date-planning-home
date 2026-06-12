@@ -58,3 +58,5 @@
 
 - docs基盤のみを追加
 - ホームページ本体、推薦データ、GitHub Pagesの表示は変更していない
+- `codex/handoff-foundation` ブランチへコミットし、GitHubへpush済み
+- draft PRはGitHub連携権限とGitHub CLI認証の問題により未作成
