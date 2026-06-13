@@ -181,6 +181,7 @@
             <a class="nav-pill" href="#weekly-history">おすすめ20件・アーカイブ</a><a class="nav-pill" href="#mood">気分で選ぶ</a><a class="nav-pill" href="#spots">行ってみたい場所</a><a class="nav-pill" href="#dates">候補日</a><a class="nav-pill" href="#compare">迷い中</a><a class="nav-pill" href="#finalize">確定版</a>
           </div>
         </section>
+        <section class="section food-library" id="food-library" aria-label="山口県ご飯処ライブラリー"></section>
         <section class="section" id="mood"><div class="section-head"><div><h2>今の気分で選ぶ</h2><p>今日はどんな感じがいいか、近いものを押してください。</p></div></div><div class="mood-grid" id="moodGrid"></div><p class="mood-note" id="moodNote"></p></section>
         <section class="section" id="showcase"><div class="section-head"><div><span class="section-kicker">写真で選ぶ</span><h2>気分に合いそうな案</h2><p>季節や雰囲気が伝わりやすい案を、先に大きく見せます。</p></div></div><div class="showcase-grid" id="showcaseGrid"></div></section>
         <section class="section utility-section" id="memory" hidden><div class="section-head"><div><h2>ふたりの好みメモ</h2><p>好きそうな傾向を、あとで見返すためのメモです。</p></div><button class="tiny-btn ghost utility-close" type="button" data-hide-utility="memory">閉じる</button></div><div class="memory-grid" id="memoryGrid"></div></section>
@@ -207,6 +208,7 @@
   <div class="sticky mobile-only"><nav><a href="#opportunity-board">条件</a><a href="#weekly-history">おすすめ</a><a href="#compare">迷い中</a><a href="#finalize">確定</a></nav></div>
   <div class="toast" id="toast"></div>
   <script src="./date-plans-data.js"></script>
+  <script src="./food-library-data.js"></script>
   <script src="./planning-taxonomy.js"></script>
   <script src="./library-pagination.js"></script>
   <script>
@@ -315,5 +317,6 @@
   <script src="./weekly-history-ui.js"></script>
   <script src="./collaboration-ui.js"></script>
   <script src="./opportunity-board.js"></script>
+  <script src="./food-library.js"></script>
 </body>
 </html>
