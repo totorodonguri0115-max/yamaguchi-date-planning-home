@@ -77,9 +77,10 @@
     .weekly-details{display:grid;gap:7px;margin-top:2px}
     .weekly-detail{font-size:.88rem;line-height:1.65;padding:9px 11px;border-left:3px solid #d8a59d;background:#fffaf8;border-radius:0 10px 10px 0;color:#554840}
     .weekly-card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:2px}
-    .weekly-link,.weekly-favorite{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:9px 13px;font-size:.88rem;font-weight:850;text-decoration:none;cursor:pointer}
+    .weekly-link,.weekly-favorite,.weekly-food-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:9px 13px;font-size:.88rem;font-weight:850;text-decoration:none;cursor:pointer}
     .weekly-link{background:#994d50;color:#fff;border:1px solid #994d50}
     .weekly-favorite{background:#fff;border:1px solid #dbc8bf;color:#6d574e}
+    .weekly-food-link{background:#eef7f3;border:1px solid rgba(47,110,102,.22);color:#2f6e66}
     .weekly-favorite.active{background:#fff0ee;border-color:#bd6968;color:#a34448}
     .weekly-empty{grid-column:1/-1;padding:40px 18px;text-align:center;border:1px dashed #cdbbb1;border-radius:20px;color:#75645b;background:rgba(255,255,255,.72)}
     .weekly-foot{margin-top:16px;color:#62534c;font-size:.88rem;line-height:1.75}
@@ -342,6 +343,7 @@
           </details>
           <div class="weekly-card-actions">
             <a class="weekly-link" href="${esc(item.url)}" target="_blank" rel="noreferrer">写真・公式情報を見る ↗</a>
+            <button class="weekly-food-link" type="button" data-food-bridge="weekly" data-area="${esc(item.area)}">このエリアのご飯を見る</button>
             <button class="weekly-favorite ${favorite ? "active" : ""}" type="button" data-weekly-favorite="${esc(favoriteKey)}">${favorite ? "気になるに保存済み" : "気になる"}</button>
           </div>
         </div>

@@ -159,6 +159,7 @@
               </button>
               <div class="menu-panel" id="menuPanel">
                 <div class="menu-list">
+                  <a class="menu-link" href="#food-library"><span>ご飯処ライブラリー</span><small>食事</small></a>
                   <a class="menu-link" href="#weekly-history"><span>今週のおすすめ20件</span><small>最新</small></a>
                   <a class="menu-link" href="#mood"><span>今の気分で選ぶ</span><small>入口</small></a>
                   <a class="menu-link" href="#spots"><span>行ってみたい場所</span><small>写真</small></a>
@@ -178,7 +179,7 @@
           <p class="lead">写真を見ながら、気になった場所をふたりでゆるく選ぶページです。</p>
           <div class="hero-primary" id="heroPrimary"></div>
           <div class="nav-strip">
-            <a class="nav-pill" href="#weekly-history">おすすめ20件・アーカイブ</a><a class="nav-pill" href="#mood">気分で選ぶ</a><a class="nav-pill" href="#spots">行ってみたい場所</a><a class="nav-pill" href="#dates">候補日</a><a class="nav-pill" href="#compare">迷い中</a><a class="nav-pill" href="#finalize">確定版</a>
+            <a class="nav-pill" href="#food-library">ご飯を探す</a><a class="nav-pill" href="#weekly-history">おすすめ20件・アーカイブ</a><a class="nav-pill" href="#mood">気分で選ぶ</a><a class="nav-pill" href="#spots">行ってみたい場所</a><a class="nav-pill" href="#dates">候補日</a><a class="nav-pill" href="#compare">迷い中</a><a class="nav-pill" href="#finalize">確定版</a>
           </div>
         </section>
         <section class="section food-library" id="food-library" aria-label="山口県ご飯処ライブラリー"></section>
@@ -199,13 +200,13 @@
       </div>
       <aside class="side-panel desktop-only">
         <div class="desktop-panel-card"><h3>今日見るところ</h3><ul><li>季節・天気・時間を選ぶ</li><li>写真と服装・予算を見比べる</li><li>迷ったら2〜4件だけ並べる</li></ul></div>
-        <div class="desktop-panel-card"><h3>すぐ開く</h3><ul><li><a href="#opportunity-board">条件から選ぶ</a></li><li><a href="#weekly-history">今週のおすすめ</a></li><li><a href="#compare">迷ってる場所</a></li><li><a href="#finalize">今週の確定版</a></li></ul></div>
+        <div class="desktop-panel-card"><h3>すぐ開く</h3><ul><li><a href="#food-library">近くのご飯</a></li><li><a href="#opportunity-board">条件から選ぶ</a></li><li><a href="#weekly-history">今週のおすすめ</a></li><li><a href="#compare">迷ってる場所</a></li><li><a href="#finalize">今週の確定版</a></li></ul></div>
         <div class="desktop-panel-card" id="desktopInsights"></div>
       </aside>
     </div>
   </main>
   <div class="compare-dock mobile-only" id="compareDock"></div>
-  <div class="sticky mobile-only"><nav><a href="#opportunity-board">条件</a><a href="#weekly-history">おすすめ</a><a href="#compare">迷い中</a><a href="#finalize">確定</a></nav></div>
+  <div class="sticky mobile-only"><nav style="grid-template-columns:repeat(5,1fr)"><a href="#opportunity-board">条件</a><a href="#food-library">ごはん</a><a href="#weekly-history">おすすめ</a><a href="#compare">迷い中</a><a href="#finalize">確定</a></nav></div>
   <div class="toast" id="toast"></div>
   <script src="./date-plans-data.js"></script>
   <script src="./food-library-data.js"></script>
@@ -219,7 +220,7 @@
       { id: "all", label: "今は全部見る", note: "まずは広めに眺めます。", match: [] },
       { id: "会話重視", label: "ゆっくり話したい", note: "落ち着いて過ごせる場所を前に出します。", match: ["会話重視","会話","静か","ゆっくり","安心","落ち着く","温泉"] },
       { id: "景色", label: "景色を見たい", note: "写真で雰囲気が伝わる場所を前に出します。", match: ["景色","写真","海","花","紅葉","夕方","新緑","ライトアップ"] },
-      { id: "食事", label: "ごはん重視", note: "近くで食べる楽しみがある場所を前に出します。", match: ["食事","ごはん","食","昼食","夕食","間食","ご当地","海鮮","市場","瓦そば"] },
+      { id: "食事", label: "ごはん重視", note: "近くで食べる楽しみがある場所を前に出します。", match: ["食事","ごはん","食","昼食","夕食","夜ごはん","間食","ご当地","海鮮","市場","瓦そば","うどん","カフェ","甘味","スイーツ","アフタヌーンティー","定食","寿司","ラーメン"] },
       { id: "近場", label: "あまり疲れたくない", note: "行き帰りが軽めの場所を前に出します。", match: ["近場","疲れ","帰りやすい","短時間","2時間","半日","低"] },
       { id: "新体験", label: "少し新しいことしたい", note: "いつもと違う楽しみがある場所を前に出します。", match: ["新体験","体験","共同体験","遠出","変化球","初デート","朝型"] }
     ];
@@ -317,6 +318,6 @@
   <script src="./weekly-history-ui.js"></script>
   <script src="./collaboration-ui.js"></script>
   <script src="./opportunity-board.js"></script>
-  <script src="./food-library.js"></script>
+  <script src="./food-library-ui.js"></script>
 </body>
 </html>

@@ -62,6 +62,7 @@
     if (/洋食|ダイニング/.test(text)) add("洋食");
     if (/イタリアン|ピザ|パスタ/.test(text)) add("イタリアン");
     if (/カフェ|cafe|coffee|喫茶/i.test(text)) add("カフェ");
+    if (/アフタヌーンティー|Afternoon Tea|ハイティー|ティーセット/i.test(text)) add("アフタヌーンティー");
     if (/紅茶|喫茶/.test(text)) add("喫茶店");
     if (/甘味|和菓子|どら焼き|ケーキ|スイーツ|芋/.test(text)) add("甘味");
     if (/ケーキ|スイーツ|どら焼き|和菓子|芋/.test(text)) add("スイーツ");
@@ -147,6 +148,7 @@
     if (genres.includes("海鮮")) add("海鮮を食べたい");
     if (genres.includes("うどん")) add("うどんを食べたい");
     if (genres.includes("カフェ")) add("カフェに行きたい");
+    if (genres.includes("アフタヌーンティー")) add("アフタヌーンティーに行きたい");
     if (genres.some((genre) => ["軽食", "テイクアウト", "パン", "うどん"].includes(genre))) add("軽く済ませたい");
     if (genres.includes("記念日・少し特別")) add("少し特別にしたい");
     if (profile.minutes <= 20) add("近場で安心したい"); else add("遠出のごほうびにしたい");

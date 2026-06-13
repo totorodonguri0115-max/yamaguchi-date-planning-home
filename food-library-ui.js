@@ -7,10 +7,10 @@
 
   const options = {
     area: ["すべて", "萩市", "長門市", "美祢市", "山口市", "防府市", "下関市", "宇部市", "山陽小野田市", "周南市", "岩国市", "その他山口県内"],
-    distance: ["すべて", "近場：〜20分", "軽い遠出：20〜45分", "半日遠出：45〜90分", "ロング遠出：90分以上"],
+    distance: ["すべて", "近場", "軽い遠出", "半日遠出", "ロング遠出"],
     genre: ["すべて", "海鮮", "郷土料理", "和食", "洋食", "イタリアン", "カフェ", "甘味", "アフタヌーンティー", "軽食", "テイクアウト", "市場", "温泉街ごはん", "道の駅・直売所", "ファミレス・気軽な食事", "記念日・少し特別", "夜ごはん", "朝ごはん", "ホテルラウンジ", "喫茶店", "パン", "スイーツ", "ラーメン", "うどん", "そば", "焼き鳥", "焼肉", "定食", "寿司", "カレー", "中華", "旅館・ホテルごはん"],
     time: ["すべて", "朝", "ランチ", "カフェ", "夕方", "夜ごはん", "デート後の締め", "短時間休憩", "午前だけ", "午後だけ", "夕方から", "夜だけ"],
-    budget: ["すべて", "低：〜2,000円", "中：2,000〜6,000円", "高：6,000〜15,000円", "特別：15,000円以上"],
+    budget: ["すべて", "低", "中", "高", "特別"],
     condition: ["すべて", "雨の日でも使いやすい", "暑い日でも使いやすい", "寒い日でも使いやすい", "歩き疲れた後に使いやすい", "静かに話しやすい", "写真で雰囲気が伝わる", "予約した方がよい", "駐車場確認が必要", "混雑注意", "短時間でも使える", "ロングデートの途中に使える", "夕方からでも使える", "午前だけでも使える", "少し特別にできる", "近場で安心", "遠出のごほうび", "雨の日の屋内休憩", "甘い休憩", "山口らしさがある"],
     mood: ["すべて", "ゆっくり話したい", "甘いものを食べたい", "山口らしいものを食べたい", "海鮮を食べたい", "うどんを食べたい", "カフェに行きたい", "アフタヌーンティーに行きたい", "軽く済ませたい", "少し特別にしたい", "雨の日に落ち着きたい", "近場で安心したい", "遠出のごほうびにしたい", "夜ごはんを楽しみたい", "休憩を優先したい", "写真で雰囲気を見て決めたい"],
     sort: ["おすすめ順", "近い順", "予算が軽い順", "夜に使いやすい順", "雨の日に使いやすい順", "特別感がある順", "山口らしさ優先", "静かに話しやすい順"]
@@ -73,6 +73,7 @@
       .food-entrance-grid { position:relative; z-index:1; display:grid; gap:18px; }
       .food-kicker { display:inline-flex; align-items:center; width:max-content; min-height:30px; padding:0 12px; border-radius:999px; background:#2f6e66; color:#fff; font-size:12px; font-weight:800; letter-spacing:.06em; }
       .food-entrance h2 { margin-top:12px; font-size:clamp(27px,7vw,44px); line-height:1.08; letter-spacing:-.035em; }
+      .food-question { margin-top:9px!important; color:#8f5d22!important; font-size:clamp(18px,4.5vw,25px); font-weight:900; }
       .food-entrance p { margin-top:10px; color:#6d5a4d; max-width:760px; }
       .food-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
       .food-stat { min-width:0; padding:13px; border-radius:18px; border:1px solid rgba(133,91,50,.12); background:rgba(255,255,255,.78); }
@@ -109,6 +110,8 @@
       .food-placeholder span { display:block; font-size:36px; line-height:1; }
       .food-placeholder strong { display:block; margin-top:10px; font-size:18px; }
       .food-area-badge { position:absolute; left:12px; top:12px; min-height:30px; display:inline-flex; align-items:center; padding:0 10px; border-radius:999px; color:#fff; background:rgba(38,37,31,.72); backdrop-filter:blur(8px); font-size:12px; font-weight:800; }
+      .food-practical-badges { position:absolute; left:12px; right:12px; bottom:10px; display:flex; flex-wrap:wrap; gap:5px; }
+      .food-practical-badge { display:inline-flex; align-items:center; min-height:28px; padding:0 9px; border-radius:999px; color:#fff; background:rgba(38,37,31,.76); backdrop-filter:blur(8px); font-size:10px; font-weight:900; }
       .food-card-body { padding:16px; }
       .food-card h3 { margin-top:9px; font-size:21px; line-height:1.25; }
       .food-card-lead { margin-top:9px; color:#66584e; font-size:14px; }
@@ -119,6 +122,10 @@
       .food-quick-item { padding:10px; border-radius:14px; background:#faf7f2; border:1px solid var(--line); }
       .food-quick-item span { display:block; color:var(--muted); font-size:10px; font-weight:800; }
       .food-quick-item strong { display:block; margin-top:3px; font-size:12px; line-height:1.35; }
+      .food-nearby { margin-top:10px; padding:10px 12px; border-radius:14px; color:#5b4d45; background:#f3f8f5; border:1px solid rgba(47,110,102,.12); font-size:12px; }
+      .food-operations { display:grid; gap:6px; margin-top:10px; }
+      .food-operation { display:grid; grid-template-columns:74px minmax(0,1fr); gap:7px; padding:8px 10px; border-radius:12px; background:#faf7f2; color:#66584e; font-size:11px; line-height:1.5; }
+      .food-operation strong { color:#493b34; }
       .food-invite { margin-top:12px; padding:13px; border-radius:17px; background:linear-gradient(135deg,#fff3e2,#eef7f3); border:1px dashed rgba(143,93,34,.24); }
       .food-invite span { display:block; color:#8f5d22; font-size:11px; font-weight:800; }
       .food-invite p { margin-top:5px; font-size:14px; font-weight:700; }
@@ -160,9 +167,10 @@
       <div class="food-entrance">
         <div class="food-entrance-grid">
           <div>
-            <span class="food-kicker">山口県ご飯処ライブラリー</span>
-            <h2>今日はどこで食べる？</h2>
-            <p>デートの前後に使いやすいご飯処を、エリア・時間帯・予算・気分から選べます。営業時間、料金、予約条件は公式で最終確認してください。</p>
+            <span class="food-kicker">デートの前後も一緒に選ぶ</span>
+            <h2>山口県ご飯処ライブラリー</h2>
+            <p class="food-question">今日はどこで食べる？</p>
+            <p>ランチ、夜ごはん、カフェ、甘味、うどん、海鮮、郷土料理、アフタヌーンティーなどを、エリア・時間帯・予算・気分から選べます。</p>
           </div>
           <div class="food-stats">
             <div class="food-stat"><strong>${places.length}</strong><span>確認元URL付き</span></div>
@@ -171,14 +179,13 @@
           </div>
         </div>
         <div class="food-presets" aria-label="ご飯処のおすすめ入口">
-          <button class="food-preset primary" data-food-preset="all">ご飯処ライブラリーを見る</button>
+          <button class="food-preset primary" data-food-preset="all">すべて</button>
           <button class="food-preset" data-food-preset="near">近場ごはん</button>
           <button class="food-preset" data-food-preset="rain">雨の日ごはん</button>
-          <button class="food-preset" data-food-preset="sweet">甘い休憩</button>
-          <button class="food-preset" data-food-preset="local">山口らしいごはん</button>
-          <button class="food-preset" data-food-preset="seafood">海鮮</button>
-          <button class="food-preset" data-food-preset="udon">うどん</button>
           <button class="food-preset" data-food-preset="cafe">カフェ</button>
+          <button class="food-preset" data-food-preset="sweet">甘味</button>
+          <button class="food-preset" data-food-preset="udon">うどん</button>
+          <button class="food-preset" data-food-preset="seafood">海鮮</button>
           <button class="food-preset" data-food-preset="afternoon">アフタヌーンティー</button>
           <button class="food-preset" data-food-preset="night">夜ごはん</button>
           <button class="food-preset" data-food-preset="special">少し特別</button>
@@ -267,16 +274,33 @@
     return filtered;
   }
 
+  function practicalBadges(place) {
+    const badges = [];
+    const add = (label) => { if (label && !badges.includes(label)) badges.push(label); };
+    add(place.distanceFromHagiAtlas && place.distanceFromHagiAtlas.label);
+    if (/確認|推奨|予約/.test(place.reservation || "")) add("予約確認");
+    if (/確認|駐車/.test(place.parking || "")) add("駐車場確認");
+    if ((place.dateFit || []).includes("混雑注意") || /混雑/.test(place.caution || "")) add("混雑注意");
+    if ((place.dateFit || []).includes("雨の日でも使いやすい")) add("雨の日");
+    if ((place.timeSlots || []).includes("夜ごはん")) add("夜ごはん");
+    if ((place.dateFit || []).includes("甘い休憩") || (place.genre || []).some((item) => ["甘味", "スイーツ"].includes(item))) add("甘い休憩");
+    if ((place.dateFit || []).includes("山口らしさがある")) add("山口らしさ");
+    if ((place.dateFit || []).includes("少し特別にできる")) add("少し特別");
+    return badges.slice(0, 7);
+  }
+
   function cardMarkup(place) {
     const sourceUrl = validHttpUrl(place.sourceUrl);
     const photoUrl = validHttpUrl(place.photoUrl);
     const heroGenre = (place.genre || ["ごはん"])[0];
     const detailFit = (place.dateFit || []).filter((item) => !["写真で雰囲気が伝わる", "駐車場確認が必要"].includes(item)).slice(0, 5);
+    const practical = practicalBadges(place);
     return `
       <article class="food-card" data-food-id="${escapeHtml(place.id)}">
         <div class="food-media">
           ${photoUrl ? `<img src="${escapeHtml(photoUrl)}" alt="${escapeHtml(place.photoNote || place.name)}" loading="lazy">` : `<div class="food-placeholder" aria-label="${escapeHtml(place.name)}の写真は公式ページで確認"><div><span>○</span><strong>${escapeHtml(heroGenre)}</strong><small>写真は公式ページで確認</small></div></div>`}
           <span class="food-area-badge">${escapeHtml(place.area)}</span>
+          <div class="food-practical-badges">${practical.map((item) => `<span class="food-practical-badge">${escapeHtml(item)}</span>`).join("")}</div>
         </div>
         <div class="food-card-body">
           <div class="food-tags">${(place.genre || []).slice(0, 4).map((item) => `<span class="food-tag">${escapeHtml(item)}</span>`).join("")}</div>
@@ -288,17 +312,19 @@
             <div class="food-quick-item"><span>使いやすい時間</span><strong>${escapeHtml((place.timeSlots || []).slice(0, 3).join("・"))}</strong></div>
             <div class="food-quick-item"><span>天気</span><strong>${escapeHtml((place.weatherFit || []).slice(0, 3).join("・"))}</strong></div>
           </div>
+          <div class="food-nearby"><strong>近くのデート：</strong>${escapeHtml((place.nearbyDateSpots || []).join("・") || "周辺候補を確認中")}</div>
+          <div class="food-operations">
+            <div class="food-operation"><strong>予約</strong><span>${escapeHtml(place.reservation)}</span></div>
+            <div class="food-operation"><strong>駐車場</strong><span>${escapeHtml(place.parking)}</span></div>
+            <div class="food-operation"><strong>営業時間</strong><span>${escapeHtml(place.businessHoursNote)}</span></div>
+            <div class="food-operation"><strong>混雑・注意</strong><span>${escapeHtml(place.caution)}</span></div>
+          </div>
           <div class="food-tags">${detailFit.map((item) => `<span class="food-tag teal">${escapeHtml(item)}</span>`).join("")}</div>
           <div class="food-invite"><span>こんな感じで相談</span><p>${escapeHtml(place.inviteText)}</p></div>
           <details class="food-details">
             <summary><span>行く前に見ること</span><span>＋</span></summary>
             <div class="food-detail-list">
-              <div><strong>近くのデート：</strong>${escapeHtml((place.nearbyDateSpots || []).join("・") || "周辺候補を確認中")}</div>
-              <div><strong>駐車場：</strong>${escapeHtml(place.parking)}</div>
-              <div><strong>予約：</strong>${escapeHtml(place.reservation)}</div>
-              <div><strong>営業：</strong>${escapeHtml(place.businessHoursNote)}</div>
               <div><strong>予算：</strong>${escapeHtml(place.budgetNote)}</div>
-              <div><strong>注意：</strong>${escapeHtml(place.caution)}</div>
               <div><strong>写真：</strong>${escapeHtml(place.photoNote)}</div>
               <div>${escapeHtml(place.verificationNote)}</div>
             </div>
@@ -374,9 +400,9 @@
 
   function applyPreset(name) {
     resetFilters(true);
-    if (name === "near") state.distance = "近場：〜20分";
+    if (name === "near") state.distance = "近場";
     if (name === "rain") state.condition = "雨の日でも使いやすい";
-    if (name === "sweet") state.condition = "甘い休憩";
+    if (name === "sweet") state.genre = "甘味";
     if (name === "local") state.condition = "山口らしさがある";
     if (name === "seafood") state.genre = "海鮮";
     if (name === "udon") state.genre = "うどん";
@@ -439,7 +465,7 @@
       if (bridge) {
         event.preventDefault();
         resetFilters(true);
-        if (bridge.dataset.area) state.area = bridge.dataset.area;
+        if (bridge.dataset.area) state.area = resolveArea(bridge.dataset.area);
         if (bridge.dataset.genre) state.genre = bridge.dataset.genre;
         renderResults();
         document.getElementById("food-library").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -462,14 +488,14 @@
 
   function addMenuLinks() {
     const list = document.querySelector("#menuPanel .menu-list");
-    if (list && !list.querySelector('[href="#food-library"]')) {
+    if (list && !list.querySelector("[data-food-menu-group]")) {
       const fragment = document.createDocumentFragment();
       const label = document.createElement("div");
       label.className = "menu-group-label";
+      label.dataset.foodMenuGroup = "shortcuts";
       label.textContent = "ご飯系";
       fragment.appendChild(label);
       [
-        ["ご飯処ライブラリー", "一覧", "all", ""],
         ["エリアで探す", "地域", "all", "foodArea"],
         ["ジャンルで探す", "料理", "all", "foodGenre"],
         ["予算で探す", "目安", "all", "foodBudget"],
@@ -517,12 +543,18 @@
     }
   }
 
+  function resolveArea(value) {
+    const source = String(value || "");
+    const known = options.area.slice(1, -1).find((area) => source === area || source.includes(area));
+    return known || "すべて";
+  }
+
   function inferAreaForSpot(card) {
     const title = card.querySelector("h3") ? card.querySelector("h3").textContent.trim() : "";
     const fullText = card.textContent || "";
     const direct = places.find((place) => (place.nearbyDateSpots || []).some((spot) => title.includes(spot) || spot.includes(title)));
     if (direct) return direct.city;
-    return options.area.slice(1, -1).find((area) => fullText.includes(area)) || "";
+    return resolveArea(fullText) === "すべて" ? "" : resolveArea(fullText);
   }
 
   function decorateSpotCards() {
