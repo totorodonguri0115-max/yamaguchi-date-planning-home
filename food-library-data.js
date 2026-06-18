@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const UPDATED_AT = "2026-06-13";
+  const UPDATED_AT = "2026-06-18";
   const planner = window.DATE_PLANNER_DATA || {};
   const referenceMeals = planner.referenceMeals || {};
 
@@ -29,9 +29,45 @@
     "Benten Blue + 美祢市養鱒場"
   ]);
 
-  const specialNames = new Set(["割烹 千代", "割烹 いちはな", "お食事処 兆", "国際ホテル宇部 創作ダイニング カメリア"]);
-  const quietNames = new Set(["ギャラリーカフェ 藍場川の家", "cafe&pottery 音", "cafe and shop Tre", "Arbòreo", "フタマタセコーヒー"]);
-  const localNames = new Set(["瓦そば柳屋", "城跡ながお", "萩心海、", "安富屋", "唐戸市場・活きいき馬関街", "カモンワーフ", "カフェいつつばし", "割烹 いちはな", "お食事処 兆"]);
+  const specialNames = new Set([
+    "割烹 千代",
+    "割烹 いちはな",
+    "お食事処 兆",
+    "国際ホテル宇部 創作ダイニング カメリア",
+    "山口グランドホテル レストラン アゼィリア",
+    "湯田温泉 ユウベルホテル松政",
+    "創作地中海レストラン ソル・ポニエンテ",
+    "le cocon 料理工房",
+    "紫水園",
+    "花水木（芳山園内）"
+  ]);
+  const quietNames = new Set([
+    "ギャラリーカフェ 藍場川の家",
+    "cafe&pottery 音",
+    "cafe and shop Tre",
+    "Arbòreo",
+    "フタマタセコーヒー",
+    "山口グランドホテル ティーラウンジ",
+    "ウィーン菓子 ティーゲベック",
+    "海と夕陽のカフェ ソル・ポニエンテ",
+    "le cocon 料理工房",
+    "足湯カフェ（湯や 晴ル音）",
+    "cafe Katsuura"
+  ]);
+  const localNames = new Set([
+    "瓦そば柳屋",
+    "城跡ながお",
+    "萩心海、",
+    "安富屋",
+    "唐戸市場・活きいき馬関街",
+    "カモンワーフ",
+    "カフェいつつばし",
+    "割烹 いちはな",
+    "お食事処 兆",
+    "回転寿司 たかくら",
+    "湯田温泉 ユウベルホテル松政",
+    "自然薯専門店 はなたかめん"
+  ]);
 
   function normalizeName(value) {
     return String(value || "").toLowerCase().replace(/[\s、・／/（）()]+/g, "");
@@ -63,6 +99,7 @@
     if (/イタリアン|ピザ|パスタ/.test(text)) add("イタリアン");
     if (/カフェ|cafe|coffee|喫茶/i.test(text)) add("カフェ");
     if (/アフタヌーンティー|Afternoon Tea|ハイティー|ティーセット/i.test(text)) add("アフタヌーンティー");
+    if (/ティーラウンジ|ロビーラウンジ|ホテルラウンジ/.test(text)) add("ホテルラウンジ");
     if (/紅茶|喫茶/.test(text)) add("喫茶店");
     if (/甘味|和菓子|どら焼き|ケーキ|スイーツ|芋/.test(text)) add("甘味");
     if (/ケーキ|スイーツ|どら焼き|和菓子|芋/.test(text)) add("スイーツ");
@@ -95,7 +132,7 @@
     const add = (label) => { if (!slots.includes(label)) slots.push(label); };
     if (/朝|パン|BAKERY/i.test(text)) { add("朝"); add("午前だけ"); }
     if (/昼食|ランチ|定食|うどん|そば|市場/.test(text) || !/夜|夕食|バー/.test(text)) add("ランチ");
-    if (genres.some((genre) => ["カフェ", "甘味", "スイーツ", "喫茶店"].includes(genre))) { add("カフェ"); add("短時間休憩"); add("午後だけ"); }
+    if (genres.some((genre) => ["カフェ", "甘味", "スイーツ", "喫茶店", "ホテルラウンジ"].includes(genre))) { add("カフェ"); add("短時間休憩"); add("午後だけ"); }
     if (/夕食|夜|居酒屋|バー|焼鳥/.test(text) || genres.includes("夜ごはん")) { add("夕方"); add("夜ごはん"); add("夕方から"); add("夜だけ"); }
     if (/バー/.test(text)) add("デート後の締め");
     if (!slots.length) add("ランチ");
@@ -242,6 +279,76 @@
       meal: { name: "お食事処 兆", kind: "和食/天神鱧/ホテルごはん", url: "https://tenjin-hamo.visit-hofu.jp/kizashi2/", reason: "防府の旬を入れたランチや夜ごはんを、屋内中心で組みやすい。" },
       profile: { area: "防府市", city: "防府市", minutes: 85, nearby: ["防府天満宮", "毛利氏庭園"], setting: "ホテル" },
       override: { genre: ["郷土料理", "和食", "海鮮", "旅館・ホテルごはん", "記念日・少し特別", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", reservation: "旬の料理や週末利用は事前確認推奨" }
+    },
+    {
+      meal: { name: "山口グランドホテル ティーラウンジ", kind: "ホテルラウンジ/ティーラウンジ/カフェ/喫茶", url: "https://ygh.co.jp/restaurants/rounge/", reason: "新山口駅近くで待ち合わせや短い休憩に使いやすいホテルラウンジ。" },
+      profile: { area: "山口市", city: "山口市", minutes: 80, nearby: ["新山口駅", "湯田温泉", "山口市中心部"], setting: "ホテルラウンジ" },
+      override: { genre: ["ホテルラウンジ", "カフェ", "喫茶店", "甘味"], timeSlots: ["カフェ", "短時間休憩", "午後だけ"], budgetLevel: "中", parking: "ホテル駐車場の利用条件は公式で要確認", reservation: "営業時間、休業日、席の利用条件は公式で要確認", photoNote: "公式ページで新山口駅を見渡せるラウンジ空間を確認できる" }
+    },
+    {
+      meal: { name: "山口グランドホテル レストラン アゼィリア", kind: "ホテルダイニング/イタリアン/フレンチ/ランチ/ディナー", url: "https://ygh.co.jp/restaurants/azalea/", reason: "駅近ホテルの屋内レストランで、ランチから少し特別な食事まで組みやすい。" },
+      profile: { area: "山口市", city: "山口市", minutes: 80, nearby: ["新山口駅", "湯田温泉", "山口市中心部"], setting: "ホテル" },
+      override: { genre: ["洋食", "イタリアン", "旅館・ホテルごはん", "記念日・少し特別", "夜ごはん"], timeSlots: ["朝", "ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", parking: "ホテル駐車場の利用条件は公式で要確認", reservation: "週末やディナー利用は事前確認推奨", photoNote: "公式ページでホテルレストランの料理と店内写真を確認できる" }
+    },
+    {
+      meal: { name: "回転寿司 たかくら", kind: "寿司/海鮮/長州海鮮まぶし/ランチ/夜ごはん", url: "https://yamaguchi-city.jp/sin-gourmet/", reason: "山口市の新ご当地グルメ掲載店。海鮮を気軽に相談しやすい。" },
+      profile: { area: "山口市", city: "山口市", minutes: 80, nearby: ["新山口駅", "湯田温泉", "山口市中心部"], setting: "市街" },
+      override: { genre: ["寿司", "海鮮", "郷土料理", "和食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", reservation: "混雑日や夜利用は事前確認推奨", photoNote: "山口市観光情報サイトで新ご当地グルメの写真と掲載店を確認できる" }
+    },
+    {
+      meal: { name: "湯田温泉 ユウベルホテル松政", kind: "ホテル/旅館ごはん/長州海鮮うにしゃぶ/ランチ/夜ごはん", url: "https://yamaguchi-city.jp/sin-gourmet/", reason: "湯田温泉方面で、山口らしい海鮮系の特別感を足したい日に候補にできる。" },
+      profile: { area: "山口市", city: "山口市", minutes: 75, nearby: ["湯田温泉", "山口県立美術館", "瑠璃光寺五重塔"], setting: "温泉街" },
+      override: { genre: ["旅館・ホテルごはん", "海鮮", "郷土料理", "和食", "記念日・少し特別", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "高", reservation: "料理内容、提供日、予約可否は公式で要確認", photoNote: "山口市観光情報サイトで新ご当地グルメの写真と掲載店を確認できる" }
+    },
+    {
+      meal: { name: "ウィーン菓子 ティーゲベック", kind: "喫茶店/スイーツ/ケーキ/紅茶/テイクアウト", url: "https://sanyoonoda-kanko.com/spot/teegeback-2", reason: "本格的なウィーン菓子を、甘い休憩や写真で選ぶ候補にしやすい。" },
+      profile: { area: "山陽小野田市", city: "山陽小野田市", minutes: 100, nearby: ["きららビーチ焼野", "竜王山公園", "花の海"], setting: "市街" },
+      override: { genre: ["カフェ", "喫茶店", "甘味", "スイーツ", "テイクアウト"], timeSlots: ["カフェ", "短時間休憩", "午後だけ"], budgetLevel: "低", parking: "観光協会掲載では駐車場案内あり。最新条件は公式で要確認", reservation: "席数や休業日は公式で要確認", photoNote: "観光協会ページでケーキ、ドリンク、店内写真を確認できる" }
+    },
+    {
+      meal: { name: "海と夕陽のカフェ ソル・ポニエンテ", kind: "カフェ/スイーツ/ランチ/海辺", url: "https://sanyoonoda-kanko.com/spot/cafe_sol-poniente", reason: "きららビーチ焼野の海と夕陽を見ながら、ランチや甘い休憩を足せる。" },
+      profile: { area: "山陽小野田市", city: "山陽小野田市", minutes: 105, nearby: ["きららビーチ焼野", "竜王山公園", "花の海"], setting: "海辺" },
+      override: { genre: ["カフェ", "甘味", "スイーツ", "洋食", "軽食"], timeSlots: ["ランチ", "カフェ", "短時間休憩", "午後だけ"], budgetLevel: "中", parking: "観光協会掲載では駐車場案内あり。最新条件は公式で要確認", reservation: "週末や夕景時間帯は混雑確認推奨", photoNote: "観光協会ページで海を望むガラス張りのカフェとスイーツ写真を確認できる" }
+    },
+    {
+      meal: { name: "創作地中海レストラン ソル・ポニエンテ", kind: "創作地中海/イタリアン/海辺/ランチ/ディナー", url: "https://sanyoonoda-kanko.com/spot/sol-poniente", reason: "海辺の景色と料理を合わせ、遠出のごほうび感を出しやすい。" },
+      profile: { area: "山陽小野田市", city: "山陽小野田市", minutes: 105, nearby: ["きららビーチ焼野", "竜王山公園", "花の海"], setting: "海辺" },
+      override: { genre: ["洋食", "イタリアン", "海鮮", "記念日・少し特別", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", parking: "観光協会掲載では駐車場案内あり。最新条件は公式で要確認", reservation: "週末、ディナー、夕景時間帯は事前確認推奨", photoNote: "観光協会ページで海辺のレストラン外観、料理、夕景の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "le cocon 料理工房", kind: "洋食/フレンチ/完全予約制/ランチ/ディナー", url: "https://sanyoonoda-kanko.com/spot/lecocon", reason: "予約して静かに味わうタイプの食事で、特別な日の候補にしやすい。" },
+      profile: { area: "山陽小野田市", city: "山陽小野田市", minutes: 105, nearby: ["きららビーチ焼野", "竜王山公園", "花の海"], setting: "静かなレストラン" },
+      override: { genre: ["洋食", "記念日・少し特別", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "高", reservation: "完全予約制。営業日、時間、予約方法は公式で要確認", parking: "観光協会掲載では駐車場案内あり。最新条件は公式で要確認", photoNote: "観光協会ページで料理と落ち着いた店内の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "らいおん亭", kind: "定食/朝ごはん/うどん/そば/夜ごはん", url: "https://sanyoonoda-kanko.com/spot/raiontei", reason: "朝から使える定食・うどん系で、遠出中に気軽な食事を入れやすい。" },
+      profile: { area: "山陽小野田市", city: "山陽小野田市", minutes: 100, nearby: ["きららビーチ焼野", "竜王山公園", "花の海"], setting: "市場近く" },
+      override: { genre: ["定食", "和食", "うどん", "そば", "朝ごはん", "夜ごはん", "ファミレス・気軽な食事"], timeSlots: ["朝", "午前だけ", "ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "低", parking: "観光協会掲載では駐車場案内あり。最新条件は公式で要確認", reservation: "営業時間、夜営業、不定休は公式SNS等で要確認", photoNote: "観光協会ページで定食、うどん、店内の気軽な雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "紫水園", kind: "旅館・ホテルごはん/温泉/和食/ランチ", url: "https://visit-shunan.com/yuno-meal-cafe/", reason: "湯野温泉の高台にある温泉宿で、食事と温泉を合わせる遠出候補にできる。" },
+      profile: { area: "周南市", city: "周南市", minutes: 135, nearby: ["湯野温泉", "永源山公園", "周南市街"], setting: "温泉街" },
+      override: { genre: ["旅館・ホテルごはん", "温泉街ごはん", "和食", "記念日・少し特別"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "中", parking: "周南市観光ページでは駐車場あり。最新条件は公式で要確認", reservation: "料理、温泉セット、利用条件は公式で要確認", photoNote: "周南市観光ページで温泉宿と料理利用の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "花水木（芳山園内）", kind: "旅館・ホテルごはん/温泉/レストラン/ランチ", url: "https://visit-shunan.com/yuno-meal-cafe/", reason: "湯野温泉の旅館内レストランで、屋内中心の落ち着いた食事にしやすい。" },
+      profile: { area: "周南市", city: "周南市", minutes: 135, nearby: ["湯野温泉", "永源山公園", "周南市街"], setting: "温泉街" },
+      override: { genre: ["旅館・ホテルごはん", "温泉街ごはん", "和食", "記念日・少し特別"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "中", parking: "周南市観光ページでは駐車場あり。最新条件は公式で要確認", reservation: "週末や食事利用は事前確認推奨", photoNote: "周南市観光ページで旅館内レストランの雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "自然薯専門店 はなたかめん", kind: "自然薯/郷土料理/和食/スイーツ/ランチ", url: "https://visit-shunan.com/yuno-meal-cafe/", reason: "自然薯料理やスイーツで、山口らしさのある食事候補にしやすい。" },
+      profile: { area: "周南市", city: "周南市", minutes: 135, nearby: ["湯野温泉", "永源山公園", "周南市街"], setting: "温泉街" },
+      override: { genre: ["郷土料理", "和食", "甘味", "スイーツ"], timeSlots: ["ランチ", "カフェ", "短時間休憩", "午後だけ"], budgetLevel: "中", parking: "周南市観光ページでは駐車場あり。最新条件は公式で要確認", reservation: "営業日、提供内容、混雑は公式で要確認", photoNote: "周南市観光ページで自然薯料理と店舗の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "足湯カフェ（湯や 晴ル音）", kind: "足湯カフェ/カフェ/温泉街ごはん/ランチ", url: "https://visit-shunan.com/yuno-meal-cafe/", reason: "足湯とカフェ休憩を一緒にでき、遠出中の休憩地点として相談しやすい。" },
+      profile: { area: "周南市", city: "周南市", minutes: 135, nearby: ["湯野温泉", "永源山公園", "周南市街"], setting: "温泉街" },
+      override: { genre: ["カフェ", "温泉街ごはん", "甘味", "軽食"], timeSlots: ["ランチ", "カフェ", "短時間休憩", "午後だけ"], budgetLevel: "低", parking: "周南市観光ページでは駐車場あり。最新条件は公式で要確認", reservation: "営業日、足湯利用、混雑は公式で要確認", photoNote: "周南市観光ページで足湯カフェの外観と休憩の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "cafe Katsuura", kind: "カフェ/カフェレストラン/森/ランチ", url: "https://visit-shunan.com/meal-cafe/", reason: "森の雰囲気を見ながら、鹿野方面の静かなランチやカフェ休憩にしやすい。" },
+      profile: { area: "周南市", city: "周南市", minutes: 125, nearby: ["鹿野", "漢陽寺", "永源山公園"], setting: "里山" },
+      override: { genre: ["カフェ", "洋食", "軽食"], timeSlots: ["ランチ", "カフェ", "短時間休憩", "午後だけ"], budgetLevel: "中", parking: "周南市観光ページでは駐車場あり。最新条件は公式で要確認", reservation: "営業日、混雑、臨時休業は公式または観光情報で要確認", photoNote: "周南市観光ページで森の特等席として紹介されるカフェの雰囲気を確認できる" }
     }
   ];
 
