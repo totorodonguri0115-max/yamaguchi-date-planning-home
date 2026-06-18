@@ -39,7 +39,9 @@
     "創作地中海レストラン ソル・ポニエンテ",
     "le cocon 料理工房",
     "紫水園",
-    "花水木（芳山園内）"
+    "花水木（芳山園内）",
+    "お肉バルうに 宇部新川駅前店",
+    "よしくに"
   ]);
   const quietNames = new Set([
     "ギャラリーカフェ 藍場川の家",
@@ -66,7 +68,9 @@
     "お食事処 兆",
     "回転寿司 たかくら",
     "湯田温泉 ユウベルホテル松政",
-    "自然薯専門店 はなたかめん"
+    "自然薯専門店 はなたかめん",
+    "宇部名物 宇部ホルモン",
+    "やまぐち酒場 一代目 豊"
   ]);
 
   function normalizeName(value) {
@@ -186,8 +190,8 @@
     if (genres.includes("うどん")) add("うどんを食べたい");
     if (genres.includes("カフェ")) add("カフェに行きたい");
     if (genres.includes("アフタヌーンティー")) add("アフタヌーンティーに行きたい");
-    if (genres.some((genre) => ["軽食", "テイクアウト", "パン", "うどん"].includes(genre))) add("軽く済ませたい");
-    if (genres.includes("記念日・少し特別")) add("少し特別にしたい");
+    if (genres.some((genre) => ["軽食", "テイクアウト", "パン", "うどん", "そば", "ラーメン", "定食"].includes(genre))) add("軽く済ませたい");
+    if (genres.some((genre) => ["記念日・少し特別", "焼肉", "旅館・ホテルごはん", "ホテルラウンジ"].includes(genre))) add("少し特別にしたい");
     if (profile.minutes <= 20) add("近場で安心したい"); else add("遠出のごほうびにしたい");
     if (genres.includes("夜ごはん")) add("夜ごはんを楽しみたい");
     add("雨の日に落ち着きたい"); add("休憩を優先したい"); add("写真で雰囲気を見て決めたい");
@@ -197,6 +201,9 @@
   function inviteFor(meal, genres) {
     if (genres.includes("アフタヌーンティー")) return "ここ、アフタヌーンティーの候補に入れてみたい。どうかな？";
     if (genres.includes("甘味") || genres.includes("スイーツ")) return "甘い休憩でここに寄る候補、どうかな？";
+    if (genres.includes("ラーメン")) return "今日はラーメンで軽く夜ごはんにする案も良さそう。どうかな？";
+    if (genres.includes("中華")) return "中華でランチか夜ごはんにする候補、どうかな？";
+    if (genres.includes("焼肉")) return "肉系で少し雰囲気を変える候補にしてみたい。どうかな？";
     if (genres.includes("うどん")) return "ここでうどんを軽く食べる案も良さそう。どうかな？";
     if (genres.includes("海鮮")) return "この辺まで行くなら、海鮮を食べる候補にここを入れてみたい。どうかな？";
     if (genres.includes("記念日・少し特別")) return "少し特別にしたい日に、ここを候補にしてみたい。どうかな？";
@@ -269,6 +276,41 @@
       meal: { name: "そば処 武蔵野", kind: "そば/ランチ/夜ごはん", url: "https://ube-kankou.or.jp/eat/grumet/musashino.html", reason: "遠出の途中に落ち着いた和食を入れたい日に使いやすい。" },
       profile: { area: "宇部市", city: "宇部市", minutes: 105, nearby: ["ときわ公園", "宇部市街"], setting: "市街" },
       override: { genre: ["そば", "和食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "低" }
+    },
+    {
+      meal: { name: "拉麺・飲茶・酒家 るいるい軒", kind: "ラーメン/飲茶/中華/夜ごはん", url: "https://ube-kankou.or.jp/eat/grumet/ruiruiken.html", reason: "ラーメンだけでなく点心や一品料理もあり、夜の軽めごはん候補にしやすい。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 105, nearby: ["宇部新川駅", "ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["ラーメン", "中華", "軽食", "夜ごはん", "ファミレス・気軽な食事"], timeSlots: ["夕方", "夜ごはん", "夕方から", "夜だけ", "デート後の締め"], budgetLevel: "低", parking: "駐車場、近隣コインパーキング、深夜利用条件は公式で要確認", reservation: "営業時間、休日、混雑は公式で要確認", photoNote: "観光協会ページでラーメンと店舗写真を確認できる" }
+    },
+    {
+      meal: { name: "中国料理 敦煌 山口宇部店", kind: "中華/ランチ/夜ごはん/テイクアウト", url: "https://ube-kankou.or.jp/eat/grumet/ma-3.html", reason: "中華を食べたい日や、雨の日の屋内ランチ・夜ごはんに切り替えやすい。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 105, nearby: ["宇部新川駅", "ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["中華", "テイクアウト", "夜ごはん", "ファミレス・気軽な食事"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", parking: "駐車場、ビル内利用条件は公式で要確認", reservation: "ランチ・コース・夜利用は事前確認推奨", photoNote: "観光協会ページで中国料理と店内写真を確認できる" }
+    },
+    {
+      meal: { name: "宇部名物 宇部ホルモン", kind: "ホルモン/焼肉/郷土料理/夜ごはん", url: "https://ube-kankou.or.jp/eat/grumet/ma-1.html", reason: "山口らしさと夜ごはんの変化を出したい日に、ホルモン・焼肉系として候補にしやすい。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 105, nearby: ["宇部新川駅", "ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["焼肉", "郷土料理", "夜ごはん", "ファミレス・気軽な食事"], timeSlots: ["夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", parking: "駐車場、近隣コインパーキング、混雑は公式で要確認", reservation: "夜利用は事前確認推奨", photoNote: "観光協会ページで宇部ホルモンと店舗写真を確認できる" }
+    },
+    {
+      meal: { name: "食堂わかば", kind: "朝ごはん/定食/和食/ランチ", url: "https://ube-kankou.or.jp/eat/grumet/ma-6.html", reason: "朝から昼までの軽い食事や定食を、遠出前後に無理なく入れやすい。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 100, nearby: ["宇部市役所", "ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["定食", "和食", "朝ごはん", "ファミレス・気軽な食事"], timeSlots: ["朝", "午前だけ", "ランチ"], budgetLevel: "低", parking: "市役所周辺の駐車場・利用条件は公式で要確認", reservation: "営業日、土日祝の扱い、利用条件は公式で要確認", photoNote: "観光協会ページで定食と眺望のある食堂の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "カジュアルレストラン ダグアウト", kind: "洋食/定食/ランチ/夜ごはん", url: "https://ube-kankou.or.jp/eat/grumet/dugout.html", reason: "洋食や定食寄りの気軽なごはんで、海鮮・カフェ続きの日に変化を出せる。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 105, nearby: ["山口大学医学部附属病院周辺", "ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["洋食", "定食", "夜ごはん", "ファミレス・気軽な食事"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", parking: "駐車場、混雑、週末営業は公式で要確認", reservation: "ランチ・夜利用は事前確認推奨", photoNote: "観光協会ページでカジュアルな洋食レストランの写真を確認できる" }
+    },
+    {
+      meal: { name: "お肉バルうに 宇部新川駅前店", kind: "肉バル/洋食/夜ごはん/ランチ", url: "https://ube-kankou.or.jp/eat/grumet/uni.html", reason: "海鮮や和食ではなく、肉料理で少し賑やかにしたい日に候補にしやすい。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 105, nearby: ["宇部新川駅", "ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["洋食", "夜ごはん", "記念日・少し特別", "焼肉"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", parking: "駐車場、近隣コインパーキング、混雑は公式で要確認", reservation: "週末や夜利用は事前確認推奨", photoNote: "観光協会ページで肉料理と店内の雰囲気を確認できる" }
+    },
+    {
+      meal: { name: "モッチモ・パスタ宇部店", kind: "イタリアン/パスタ/ランチ/夜ごはん", url: "https://ube-kankou.or.jp/eat/grumet/mocchimo.html", reason: "パスタやバケットで、和食・海鮮と違う洋食デートにしやすい。" },
+      profile: { area: "宇部市", city: "宇部市", minutes: 100, nearby: ["ときわ公園", "宇部市街"], setting: "市街" },
+      override: { genre: ["イタリアン", "洋食", "軽食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", parking: "駐車場、混雑、夜営業は公式で要確認", reservation: "週末や夜利用は事前確認推奨", photoNote: "観光協会ページで生パスタと店舗写真を確認できる" }
     },
     {
       meal: { name: "割烹 いちはな", kind: "割烹/和食/天神鱧", url: "https://tenjin-hamo.visit-hofu.jp/ichihana2/", reason: "防府らしい旬の料理を、少し特別な食事として相談しやすい。" },

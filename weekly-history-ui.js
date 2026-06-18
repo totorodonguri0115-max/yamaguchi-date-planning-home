@@ -76,6 +76,10 @@
     .weekly-reason{font-size:.94rem;line-height:1.75;color:#574a44}
     .weekly-details{display:grid;gap:7px;margin-top:2px}
     .weekly-detail{font-size:.88rem;line-height:1.65;padding:9px 11px;border-left:3px solid #d8a59d;background:#fffaf8;border-radius:0 10px 10px 0;color:#554840}
+    .weekly-food-theme{display:grid;gap:8px;padding:12px;border-radius:16px;background:linear-gradient(135deg,#eef7f3,#fff8eb);border:1px solid rgba(47,110,102,.14)}
+    .weekly-food-theme-row{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:.86rem;color:#554840}
+    .weekly-food-theme-row strong{color:#2f6e66}
+    .weekly-food-chip{display:inline-flex;align-items:center;min-height:30px;border:1px solid rgba(47,110,102,.14);border-radius:999px;background:#fff;color:#2f6e66;padding:0 10px;font-size:.78rem;font-weight:900}
     .weekly-card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:2px}
     .weekly-link,.weekly-favorite,.weekly-food-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:9px 13px;font-size:.88rem;font-weight:850;text-decoration:none;cursor:pointer}
     .weekly-link{background:#994d50;color:#fff;border:1px solid #994d50}
@@ -222,6 +226,27 @@
     };
   }
 
+  const weeklyFoodGenres = ["海鮮", "うどん", "そば", "ラーメン", "定食", "カフェ", "甘味", "スイーツ", "アフタヌーンティー", "郷土料理", "洋食", "イタリアン", "中華", "カレー", "焼き鳥", "焼肉", "寿司", "市場", "道の駅・直売所", "旅館・ホテルごはん", "夜ごはん"];
+
+  function weeklyFoodTheme(item) {
+    const text = `${item.food || ""} ${item.area || ""} ${item.genre || ""} ${item.reason || ""}`;
+    let theme = "ご飯処ライブラリーで周辺候補を確認";
+    if (/海鮮|魚|ふく|寿司|市場/.test(text)) theme = "海鮮・市場系";
+    else if (/カフェ|甘味|スイーツ|喫茶/.test(text)) theme = "カフェ・甘い休憩";
+    else if (/温泉|旅館|ホテル/.test(text)) theme = "温泉街・ホテルごはん";
+    else if (/瓦そば|郷土|山口/.test(text)) theme = "山口らしい郷土料理";
+    else if (/うどん|そば|ラーメン|定食/.test(text)) theme = "軽めの麺・定食";
+    const current = weeklyFoodGenres.filter((genre) => text.includes(genre)).slice(0, 3);
+    const alternatives = weeklyFoodGenres.filter((genre) => !current.includes(genre) && !["夜ごはん", "スイーツ"].includes(genre)).slice(0, 4);
+    return {
+      theme,
+      near: item.food || "開催地周辺で営業日を確認",
+      alternatives,
+      sweet: "カフェ・甘味で短い休憩を追加",
+      night: "夜ごはんは営業時間と帰路を先に確認"
+    };
+  }
+
   function isExhibition(item) {
     return item.exhibition || /展示|美術|博物|絵画|彫刻|工芸|文化/.test(`${item.genre} ${item.name}`);
   }
@@ -307,6 +332,7 @@
     const favoriteKey = `${week.weekStart}:${item.id}`;
     const favorite = Boolean(state.favorites[favoriteKey]);
     const context = state.tab === "context";
+    const foodTheme = weeklyFoodTheme(item);
     return `
       <article class="weekly-card" data-weekly-id="${esc(item.id)}" data-weekly-week="${esc(week.weekStart)}" data-weekly-name="${esc(item.name)}" data-weekly-area="${esc(item.area)}" data-weekly-travel="${esc(item.travel)}" data-weekly-distance="${esc(item.distance)}" data-weekly-url="${esc(item.url)}" data-weekly-facts="${esc(JSON.stringify(facts))}">
         <div class="weekly-card-media">
@@ -328,6 +354,13 @@
             <summary>理由・食事・注意点を見る</summary>
             <div class="weekly-card-more-body">
               <div class="weekly-reason">${esc(item.reason)}</div>
+              <div class="weekly-food-theme">
+                <div class="weekly-food-theme-row"><strong>この週の食テーマ:</strong><span class="weekly-food-chip">${esc(foodTheme.theme)}</span></div>
+                <div class="weekly-food-theme-row"><strong>近くで食べるなら:</strong><span>${esc(foodTheme.near)}</span></div>
+                <div class="weekly-food-theme-row"><strong>別ジャンルに変えるなら:</strong>${foodTheme.alternatives.map((genre) => `<button class="weekly-food-chip" type="button" data-food-bridge="weekly-genre" data-area="${esc(item.area)}" data-genre="${esc(genre)}">${esc(genre)}</button>`).join("")}</div>
+                <div class="weekly-food-theme-row"><strong>甘い休憩を入れるなら:</strong><button class="weekly-food-chip" type="button" data-food-bridge="weekly-sweet" data-area="${esc(item.area)}" data-genre="甘味">${esc(foodTheme.sweet)}</button></div>
+                <div class="weekly-food-theme-row"><strong>夜ごはんにするなら:</strong><button class="weekly-food-chip" type="button" data-food-bridge="weekly-night" data-area="${esc(item.area)}" data-genre="夜ごはん">${esc(foodTheme.night)}</button></div>
+              </div>
               <div class="weekly-details">
                 <div class="weekly-detail"><strong>時期:</strong> ${esc(item.period)}</div>
                 <div class="weekly-detail"><strong>近くで食べるなら:</strong> ${esc(item.food || "開催地周辺で営業日を確認")}</div>
@@ -344,6 +377,7 @@
           <div class="weekly-card-actions">
             <a class="weekly-link" href="${esc(item.url)}" target="_blank" rel="noreferrer">写真・公式情報を見る ↗</a>
             <button class="weekly-food-link" type="button" data-food-bridge="weekly" data-area="${esc(item.area)}">このエリアのご飯を見る</button>
+            <button class="weekly-food-link" type="button" data-food-bridge="weekly-library" data-area="${esc(item.area)}">ご飯処ライブラリーで見る</button>
             <button class="weekly-favorite ${favorite ? "active" : ""}" type="button" data-weekly-favorite="${esc(favoriteKey)}">${favorite ? "気になるに保存済み" : "気になる"}</button>
           </div>
         </div>

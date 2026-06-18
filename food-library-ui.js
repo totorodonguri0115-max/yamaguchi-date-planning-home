@@ -8,7 +8,7 @@
   const options = {
     area: ["すべて", "萩市", "長門市", "美祢市", "山口市", "防府市", "下関市", "宇部市", "山陽小野田市", "周南市", "岩国市", "その他山口県内"],
     distance: ["すべて", "近場", "軽い遠出", "半日遠出", "ロング遠出"],
-    genre: ["すべて", "海鮮", "郷土料理", "和食", "洋食", "イタリアン", "カフェ", "甘味", "アフタヌーンティー", "軽食", "テイクアウト", "市場", "温泉街ごはん", "道の駅・直売所", "ファミレス・気軽な食事", "記念日・少し特別", "夜ごはん", "朝ごはん", "ホテルラウンジ", "喫茶店", "パン", "スイーツ", "ラーメン", "うどん", "そば", "焼き鳥", "焼肉", "定食", "寿司", "カレー", "中華", "旅館・ホテルごはん"],
+    genre: ["すべて", "海鮮", "郷土料理", "和食", "洋食", "イタリアン", "カフェ", "甘味", "スイーツ", "アフタヌーンティー", "軽食", "テイクアウト", "市場", "温泉街ごはん", "道の駅・直売所", "ファミレス・気軽な食事", "記念日・少し特別", "夜ごはん", "朝ごはん", "ホテルラウンジ", "喫茶店", "パン", "ラーメン", "うどん", "そば", "焼き鳥", "焼肉", "定食", "寿司", "カレー", "中華", "旅館・ホテルごはん"],
     time: ["すべて", "朝", "ランチ", "カフェ", "夕方", "夜ごはん", "デート後の締め", "短時間休憩", "午前だけ", "午後だけ", "夕方から", "夜だけ"],
     budget: ["すべて", "低", "中", "高", "特別"],
     condition: ["すべて", "雨の日でも使いやすい", "暑い日でも使いやすい", "寒い日でも使いやすい", "歩き疲れた後に使いやすい", "静かに話しやすい", "写真で雰囲気が伝わる", "予約した方がよい", "駐車場確認が必要", "混雑注意", "短時間でも使える", "ロングデートの途中に使える", "夕方からでも使える", "午前だけでも使える", "少し特別にできる", "近場で安心", "遠出のごほうび", "雨の日の屋内休憩", "甘い休憩", "山口らしさがある"],
@@ -28,6 +28,33 @@
     sort: "おすすめ順",
     visible: 9
   };
+
+  const foodQuestionGenres = [
+    ["すべて", "all"],
+    ["海鮮", "海鮮"],
+    ["うどん", "うどん"],
+    ["そば", "そば"],
+    ["ラーメン", "ラーメン"],
+    ["定食", "定食"],
+    ["カフェ", "カフェ"],
+    ["甘味", "甘味"],
+    ["スイーツ", "スイーツ"],
+    ["アフタヌーンティー", "アフタヌーンティー"],
+    ["郷土料理", "郷土料理"],
+    ["洋食", "洋食"],
+    ["イタリアン", "イタリアン"],
+    ["中華", "中華"],
+    ["カレー", "カレー"],
+    ["焼き鳥", "焼き鳥"],
+    ["焼肉", "焼肉"],
+    ["寿司", "寿司"],
+    ["市場", "市場"],
+    ["道の駅・直売所", "道の駅・直売所"],
+    ["ホテルごはん", "旅館・ホテルごはん"],
+    ["夜ごはん", "夜ごはん"]
+  ];
+
+  const primaryGenreOrder = ["海鮮", "うどん", "そば", "ラーメン", "定食", "カフェ", "甘味", "スイーツ", "アフタヌーンティー", "郷土料理", "洋食", "イタリアン", "中華", "カレー", "焼き鳥", "焼肉", "寿司", "市場", "道の駅・直売所", "旅館・ホテルごはん", "夜ごはん", "和食", "軽食"];
 
   function escapeHtml(value) {
     return String(value == null ? "" : value)
@@ -75,6 +102,13 @@
       .food-entrance h2 { margin-top:12px; font-size:clamp(27px,7vw,44px); line-height:1.08; letter-spacing:-.035em; }
       .food-question { margin-top:9px!important; color:#8f5d22!important; font-size:clamp(18px,4.5vw,25px); font-weight:900; }
       .food-entrance p { margin-top:10px; color:#6d5a4d; max-width:760px; }
+      .food-eat-question { position:relative; z-index:1; margin-top:18px; padding:16px; border-radius:24px; border:1px solid rgba(47,110,102,.14); background:rgba(255,255,255,.72); }
+      .food-eat-question h3 { margin:0; font-size:clamp(22px,5.8vw,34px); letter-spacing:-.03em; }
+      .food-eat-question p { margin-top:7px; color:#66584e; font-size:14px; }
+      .food-genre-rail { display:flex; gap:8px; overflow-x:auto; padding:13px 0 2px; scrollbar-width:none; }
+      .food-genre-rail::-webkit-scrollbar { display:none; }
+      .food-genre-chip { flex:0 0 auto; min-height:42px; border:1px solid rgba(143,93,34,.18); border-radius:999px; padding:0 14px; background:#fffdf8; color:#8f5d22; font-weight:900; cursor:pointer; }
+      .food-genre-chip.primary { border-color:#8f5d22; background:#8f5d22; color:#fff; }
       .food-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
       .food-stat { min-width:0; padding:13px; border-radius:18px; border:1px solid rgba(133,91,50,.12); background:rgba(255,255,255,.78); }
       .food-stat strong { display:block; font-size:20px; line-height:1.1; color:#8f5d22; }
@@ -101,6 +135,10 @@
       .food-result-bar span { color:var(--muted); font-size:12px; }
       .food-active-filters { display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 14px; }
       .food-active-filter { display:inline-flex; align-items:center; min-height:28px; padding:0 9px; border-radius:999px; background:#edf6f2; color:#2f6e66; font-size:11px; font-weight:800; }
+      .food-diversity-panel { display:grid; gap:8px; margin:0 16px 14px; padding:13px; border-radius:18px; border:1px solid rgba(47,110,102,.14); background:linear-gradient(135deg,#f2faf7,#fff8eb); }
+      .food-diversity-row { display:flex; flex-wrap:wrap; gap:7px; align-items:center; color:#5b4d45; font-size:12px; }
+      .food-diversity-row strong { color:#2f6e66; }
+      .food-diversity-chip { display:inline-flex; min-height:28px; align-items:center; padding:0 9px; border-radius:999px; background:#fff; border:1px solid rgba(47,110,102,.12); color:#2f6e66; font-size:11px; font-weight:900; }
       .food-grid { display:flex; gap:12px; padding:16px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
       .food-grid::-webkit-scrollbar { display:none; }
       .food-card { flex:0 0 min(86vw,360px); min-width:0; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:#fff; box-shadow:0 12px 26px rgba(74,53,35,.07); scroll-snap-align:start; }
@@ -168,14 +206,21 @@
         <div class="food-entrance-grid">
           <div>
             <span class="food-kicker">デートの前後も一緒に選ぶ</span>
-            <h2>山口県ご飯処ライブラリー</h2>
-            <p class="food-question">今日はどこで食べる？</p>
-            <p>ランチ、夜ごはん、カフェ、甘味、うどん、海鮮、郷土料理、アフタヌーンティーなどを、エリア・時間帯・予算・気分から選べます。</p>
+            <h2>今日は何食べたい？</h2>
+            <p class="food-question">山口県ご飯処ライブラリー</p>
+            <p>デートの前後に使いやすいご飯処を、ジャンル・時間帯・距離感・気分から選べます。</p>
           </div>
           <div class="food-stats">
             <div class="food-stat"><strong>${places.length}</strong><span>確認元URL付き</span></div>
             <div class="food-stat"><strong>${new Set(places.map((place) => place.city)).size}</strong><span>掲載エリア</span></div>
             <div class="food-stat"><strong>${new Set(places.flatMap((place) => place.genre || [])).size}</strong><span>食事ジャンル</span></div>
+          </div>
+        </div>
+        <div class="food-eat-question" aria-label="食べたいものから探す">
+          <h3>食べたいものから選ぶ</h3>
+          <p>海鮮、うどん、ラーメン、定食、カフェ、甘味、ホテルごはんまで、同じジャンルに偏らないように見比べられます。</p>
+          <div class="food-genre-rail">
+            ${foodQuestionGenres.map(([label, genre], index) => `<button class="food-genre-chip ${index === 0 ? "primary" : ""}" type="button" data-food-preset="${genre === "all" ? "all" : `genre:${genre}`}">${escapeHtml(label)}</button>`).join("")}
           </div>
         </div>
         <div class="food-presets" aria-label="ご飯処のおすすめ入口">
@@ -213,6 +258,7 @@
         </div>
         <div class="food-result-bar"><strong id="foodResultCount"></strong><span>${escapeHtml(library.sourcePolicy || "営業状況は公式で要確認")}</span></div>
         <div class="food-active-filters" id="foodActiveFilters"></div>
+        <div class="food-diversity-panel" id="foodDiversityPanel"></div>
         <div class="food-grid" id="foodGrid"></div>
         <div class="food-more-wrap" id="foodMoreWrap"><button class="food-more" id="foodMore" type="button">さらに見る</button></div>
       </div>
@@ -239,6 +285,59 @@
   function budgetMatches(place) {
     if (state.budget === "すべて") return true;
     return state.budget.startsWith(place.budgetLevel);
+  }
+
+  function primaryGenre(place) {
+    const genres = place.genre || [];
+    return primaryGenreOrder.find((genre) => genres.includes(genre)) || genres[0] || "その他";
+  }
+
+  function diversifyFoodGenres(list) {
+    if (state.sort !== "おすすめ順" || state.genre !== "すべて" || list.length < 4) return list;
+    const remaining = list.slice();
+    const output = [];
+    const used = {};
+    while (remaining.length) {
+      const lastGenre = output.length ? primaryGenre(output[output.length - 1]) : "";
+      let bestIndex = 0;
+      let bestScore = Infinity;
+      remaining.forEach((place, index) => {
+        const genre = primaryGenre(place);
+        const score = (used[genre] || 0) * 12 + (genre === lastGenre ? 6 : 0) + index * 0.08;
+        if (score < bestScore) {
+          bestScore = score;
+          bestIndex = index;
+        }
+      });
+      const [next] = remaining.splice(bestIndex, 1);
+      const genre = primaryGenre(next);
+      used[genre] = (used[genre] || 0) + 1;
+      output.push(next);
+    }
+    return output;
+  }
+
+  function inventoryCount(genre) {
+    return places.filter((place) => (place.genre || []).includes(genre)).length;
+  }
+
+  function genreDiversityMarkup(results) {
+    const shown = results.slice(0, Math.min(state.visible, 12));
+    const counts = {};
+    shown.forEach((place) => {
+      const genre = primaryGenre(place);
+      counts[genre] = (counts[genre] || 0) + 1;
+    });
+    const common = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([genre]) => genre);
+    const change = primaryGenreOrder
+      .filter((genre) => genre !== state.genre && inventoryCount(genre) > 0 && !common.includes(genre))
+      .slice(0, 5);
+    const commonText = state.genre !== "すべて" ? [`${state.genre}に絞り込み中`] : (common.length ? common : ["まだ偏りなし"]);
+    const changeText = change.length ? change : ["条件を少し広げる"];
+    return `
+      <div class="food-diversity-row"><strong>最近多いジャンル:</strong> ${commonText.map((item) => `<span class="food-diversity-chip">${escapeHtml(item)}</span>`).join("")}</div>
+      <div class="food-diversity-row"><strong>次は変化をつけるなら:</strong> ${changeText.map((item) => `<button class="food-diversity-chip" type="button" data-food-preset="${item === "条件を少し広げる" ? "all" : `genre:${item}`}">${escapeHtml(item)}</button>`).join("")}</div>
+    `;
   }
 
   function filteredPlaces() {
@@ -271,13 +370,14 @@
       const recommended = (place) => (110 - Math.min(place.distanceFromHagiAtlas.minutes, 100)) + score(place, "山口らしさがある") * 26 + score(place, "静かに話しやすい") * 18 + score(place, "少し特別にできる") * 10 + score(place, "雨の日でも使いやすい") * 6;
       return recommended(b) - recommended(a) || a.name.localeCompare(b.name, "ja");
     });
-    return filtered;
+    return diversifyFoodGenres(filtered);
   }
 
   function practicalBadges(place) {
     const badges = [];
     const add = (label) => { if (label && !badges.includes(label)) badges.push(label); };
     add(place.distanceFromHagiAtlas && place.distanceFromHagiAtlas.label);
+    if ((place.timeSlots || []).includes("ランチ")) add("ランチ");
     if (/確認|推奨|予約/.test(place.reservation || "")) add("予約確認");
     if (/確認|駐車/.test(place.parking || "")) add("駐車場確認");
     if ((place.dateFit || []).includes("混雑注意") || /混雑/.test(place.caution || "")) add("混雑注意");
@@ -370,12 +470,14 @@
     const grid = document.getElementById("foodGrid");
     const count = document.getElementById("foodResultCount");
     const active = document.getElementById("foodActiveFilters");
+    const diversity = document.getElementById("foodDiversityPanel");
     const moreWrap = document.getElementById("foodMoreWrap");
     if (!grid || !count || !active || !moreWrap) return;
     count.textContent = `${results.length}件見つかりました`;
     active.innerHTML = activeFilterMarkup();
+    if (diversity) diversity.innerHTML = genreDiversityMarkup(results);
     if (!results.length) {
-      grid.innerHTML = '<div class="food-empty">この条件の候補はまだありません。条件を1つ減らすか、リセットしてください。</div>';
+      grid.innerHTML = `<div class="food-empty">${state.genre !== "すべて" ? `「${escapeHtml(state.genre)}」は公式確認元付きの候補を補強中です。` : "この条件の候補はまだありません。"}条件を1つ減らすか、リセットしてください。</div>`;
       moreWrap.hidden = true;
       return;
     }
@@ -400,6 +502,7 @@
 
   function applyPreset(name) {
     resetFilters(true);
+    if (name && name.startsWith("genre:")) state.genre = name.replace(/^genre:/, "");
     if (name === "near") state.distance = "近場";
     if (name === "rain") state.condition = "雨の日でも使いやすい";
     if (name === "sweet") state.genre = "甘味";
