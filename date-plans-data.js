@@ -168,6 +168,22 @@ window.DATE_PLANNER_DATA = {
     ],
     hagi_castle: [
       {
+        kind: "相談優先/甘い休憩",
+        name: "萩カフェ&クレープ XOXO",
+        proximity: "萩市街 / 車で短距離",
+        reason: "クレープを楽しみにしやすい候補。食事を重くしすぎず、ここに余白を残す。",
+        url: "https://share.google/XLkCpHZJtvMx0z6pv",
+        caution: "営業日、売り切れ、混雑、駐車場を前日または当日に確認。"
+      },
+      {
+        kind: "相談優先/うどん/軽めごはん",
+        name: "うどん茶屋 橙々亭",
+        proximity: "萩市街 / 車で短距離",
+        reason: "軽めの食事にしやすく、甘い休憩や短時間デートと組み合わせやすい。",
+        url: "https://tabelog.com/yamaguchi/A3503/A350301/35006611/",
+        caution: "営業日、混雑、麺切れ、駐車場を直前確認。"
+      },
+      {
         kind: "昼食/ご当地料理",
         name: "城跡ながお",
         proximity: "萩城跡そば / 徒歩約3分",
@@ -220,6 +236,22 @@ window.DATE_PLANNER_DATA = {
       }
     ],
     hagi_castle_town: [
+      {
+        kind: "相談優先/甘い休憩",
+        name: "萩カフェ&クレープ XOXO",
+        proximity: "萩市街 / 車で短距離",
+        reason: "クレープを楽しみにしやすい候補。町歩き後の甘い休憩として先に残したい。",
+        url: "https://share.google/XLkCpHZJtvMx0z6pv",
+        caution: "営業日、売り切れ、混雑、駐車場を前日または当日に確認。"
+      },
+      {
+        kind: "相談優先/うどん/軽めごはん",
+        name: "うどん茶屋 橙々亭",
+        proximity: "萩市街 / 車で短距離",
+        reason: "軽めに済ませたい日に使いやすく、XOXOのクレープを残す組み方に合う。",
+        url: "https://tabelog.com/yamaguchi/A3503/A350301/35006611/",
+        caution: "営業日、混雑、麺切れ、駐車場を直前確認。"
+      },
       {
         kind: "昼食/ご当地料理",
         name: "城跡ながお",
@@ -1761,6 +1793,22 @@ window.DATE_PLANNER_DATA = {
           photoLink: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
           meals: [
             {
+              kind: "相談優先/甘い休憩",
+              name: "萩カフェ&クレープ XOXO",
+              proximity: "萩市街 / 車で短距離",
+              reason: "クレープを楽しみにしやすい候補。食事を重くしすぎず、ここに余白を残す。",
+              url: "https://share.google/XLkCpHZJtvMx0z6pv",
+              caution: "営業日、売り切れ、混雑、駐車場を前日または当日に確認。"
+            },
+            {
+              kind: "相談優先/うどん/軽めごはん",
+              name: "うどん茶屋 橙々亭",
+              proximity: "萩市街 / 車で短距離",
+              reason: "軽めの食事にしやすく、甘い休憩や短時間デートと組み合わせやすい。",
+              url: "https://tabelog.com/yamaguchi/A3503/A350301/35006611/",
+              caution: "営業日、混雑、麺切れ、駐車場を直前確認。"
+            },
+            {
               kind: "昼食/ご当地料理",
               name: "城跡ながお",
               proximity: "萩城跡そば / 徒歩約3分",
@@ -1902,6 +1950,22 @@ window.DATE_PLANNER_DATA = {
           link: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
           photoLink: "https://www.hagishi.com/en/search/list.php?c0=1&c1=2",
           meals: [
+            {
+              kind: "相談優先/甘い休憩",
+              name: "萩カフェ&クレープ XOXO",
+              proximity: "萩市街 / 車で短距離",
+              reason: "クレープを楽しみにしやすい候補。町歩き後の甘い休憩として先に残したい。",
+              url: "https://share.google/XLkCpHZJtvMx0z6pv",
+              caution: "営業日、売り切れ、混雑、駐車場を前日または当日に確認。"
+            },
+            {
+              kind: "相談優先/うどん/軽めごはん",
+              name: "うどん茶屋 橙々亭",
+              proximity: "萩市街 / 車で短距離",
+              reason: "軽めに済ませたい日に使いやすく、XOXOのクレープを残す組み方に合う。",
+              url: "https://tabelog.com/yamaguchi/A3503/A350301/35006611/",
+              caution: "営業日、混雑、麺切れ、駐車場を直前確認。"
+            },
             {
               kind: "昼食/ご当地料理",
               name: "城跡ながお",

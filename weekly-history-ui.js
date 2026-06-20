@@ -238,10 +238,14 @@
     else if (/うどん|そば|ラーメン|定食/.test(text)) theme = "軽めの麺・定食";
     const current = weeklyFoodGenres.filter((genre) => text.includes(genre)).slice(0, 3);
     const alternatives = weeklyFoodGenres.filter((genre) => !current.includes(genre) && !["夜ごはん", "スイーツ"].includes(genre)).slice(0, 4);
+    let priority = "";
+    if (/萩|藍場川|明倫|城下町|松陰/.test(text)) priority = "XOXOのクレープ、橙々亭、萩暦、藍場川の家などを相談優先で確認";
+    else if (/長門|油谷|元乃隅|青海島|湯本|仙崎/.test(text)) priority = "楊貴館、梅乃葉、見蘭などを遠出のごほうび候補として確認";
     return {
       theme,
       near: item.food || "開催地周辺で営業日を確認",
       alternatives,
+      priority,
       sweet: "カフェ・甘味で短い休憩を追加",
       night: "夜ごはんは営業時間と帰路を先に確認"
     };
@@ -357,6 +361,7 @@
               <div class="weekly-food-theme">
                 <div class="weekly-food-theme-row"><strong>この週の食テーマ:</strong><span class="weekly-food-chip">${esc(foodTheme.theme)}</span></div>
                 <div class="weekly-food-theme-row"><strong>近くで食べるなら:</strong><span>${esc(foodTheme.near)}</span></div>
+                ${foodTheme.priority ? `<div class="weekly-food-theme-row"><strong>相談優先候補:</strong><span>${esc(foodTheme.priority)}</span><button class="weekly-food-chip" type="button" data-food-preset="interest">ふたり優先ごはんを見る</button></div>` : ""}
                 <div class="weekly-food-theme-row"><strong>別ジャンルに変えるなら:</strong>${foodTheme.alternatives.map((genre) => `<button class="weekly-food-chip" type="button" data-food-bridge="weekly-genre" data-area="${esc(item.area)}" data-genre="${esc(genre)}">${esc(genre)}</button>`).join("")}</div>
                 <div class="weekly-food-theme-row"><strong>甘い休憩を入れるなら:</strong><button class="weekly-food-chip" type="button" data-food-bridge="weekly-sweet" data-area="${esc(item.area)}" data-genre="甘味">${esc(foodTheme.sweet)}</button></div>
                 <div class="weekly-food-theme-row"><strong>夜ごはんにするなら:</strong><button class="weekly-food-chip" type="button" data-food-bridge="weekly-night" data-area="${esc(item.area)}" data-genre="夜ごはん">${esc(foodTheme.night)}</button></div>

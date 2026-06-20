@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const UPDATED_AT = "2026-06-18";
+  const UPDATED_AT = "2026-06-20";
   const planner = window.DATE_PLANNER_DATA || {};
   const referenceMeals = planner.referenceMeals || {};
 
@@ -41,7 +41,12 @@
     "紫水園",
     "花水木（芳山園内）",
     "お肉バルうに 宇部新川駅前店",
-    "よしくに"
+    "よしくに",
+    "割烹 千代",
+    "すし処豊月",
+    "かくれ椿",
+    "源泉の宿 萩本陣",
+    "油谷湾温泉 ホテル楊貴館"
   ]);
   const quietNames = new Set([
     "ギャラリーカフェ 藍場川の家",
@@ -54,7 +59,12 @@
     "海と夕陽のカフェ ソル・ポニエンテ",
     "le cocon 料理工房",
     "足湯カフェ（湯や 晴ル音）",
-    "cafe Katsuura"
+    "cafe Katsuura",
+    "萩カフェ&クレープ XOXO",
+    "Cafe Gallery 藍場川の家",
+    "ホトリテイ（畔亭）",
+    "コトコト（晦事）",
+    "カフェ 萩暦"
   ]);
   const localNames = new Set([
     "瓦そば柳屋",
@@ -70,11 +80,56 @@
     "湯田温泉 ユウベルホテル松政",
     "自然薯専門店 はなたかめん",
     "宇部名物 宇部ホルモン",
-    "やまぐち酒場 一代目 豊"
+    "やまぐち酒場 一代目 豊",
+    "うどん茶屋 橙々亭",
+    "どんどん土原店",
+    "維新亭",
+    "萩池々茶屋",
+    "萩城下町ビール MURATA"
   ]);
+
+  const interestPrioritySeeds = [
+    ["萩カフェ&クレープ XOXO", 5],
+    ["うどん茶屋 橙々亭", 4],
+    ["手打ちうどん どんどん 唐樋店", 3],
+    ["どんどん土原店", 3],
+    ["ギャラリーカフェ 藍場川の家", 3],
+    ["Cafe Gallery 藍場川の家", 3],
+    ["萩明倫レストラン・カフェ 萩暦", 3],
+    ["カフェ 萩暦", 3],
+    ["すし処豊月", 3],
+    ["かくれ椿", 3],
+    ["維新亭", 3],
+    ["萩池々茶屋", 2],
+    ["居酒屋 銀", 2],
+    ["居魚屋 おもしろき", 2],
+    ["ダイニングまめだ", 2],
+    ["萩心海、", 2],
+    ["割烹 千代", 2],
+    ["口福の馳走屋 梅乃葉", 2],
+    ["網焼きレストラン見蘭", 2],
+    ["イタリアンバール サルーテ", 2],
+    ["源泉の宿 萩本陣", 4],
+    ["油谷湾温泉 ホテル楊貴館", 3],
+    ["お宿Onn湯田温泉", 2]
+  ];
 
   function normalizeName(value) {
     return String(value || "").toLowerCase().replace(/[\s、・／/（）()]+/g, "");
+  }
+
+  function interestPriorityFor(name) {
+    const key = normalizeName(name);
+    const match = interestPrioritySeeds.find(([label]) => normalizeName(label) === key);
+    return match ? match[1] : 0;
+  }
+
+  function interestNoteFor(priority) {
+    if (priority >= 5) return "今回の相談で最優先に扱う候補。食事量と時間に余白を残す。";
+    if (priority >= 4) return "本人が強めに気になっていた候補。軽めごはんやごほうび枠として優先。";
+    if (priority >= 3) return "本人が気になっていた候補。候補比較で上位に残しやすい。";
+    if (priority >= 2) return "本人が気になっていた追加候補。ジャンル違いの選択肢として残す。";
+    return "";
   }
 
   function makeId(name, index) {
@@ -174,6 +229,7 @@
     if (slots.includes("午前だけ")) add("午前だけでも使える");
     if (profile.minutes <= 20) add("近場で安心"); else { add("ロングデートの途中に使える"); add("遠出のごほうび"); }
     if (localNames.has(meal.name) || genres.includes("郷土料理")) add("山口らしさがある");
+    if ((meal.interestPriority || interestPriorityFor(meal.name)) > 0) add("相談優先");
     add("駐車場確認が必要");
     if (/市場|人気|混/.test(text)) add("混雑注意");
     add("雨の日でも使いやすい"); add("暑い日でも使いやすい"); add("寒い日でも使いやすい");
@@ -218,6 +274,7 @@
     const timeSlots = merged.timeSlots || deriveTimeSlots(merged, genres);
     const budgetLevel = merged.budgetLevel || deriveBudget(merged, genres);
     const minutes = Number(merged.minutes || profile.minutes || 60);
+    const interestPriority = Number(merged.interestPriority || interestPriorityFor(merged.name) || 0);
     const dateFit = merged.dateFit || deriveDateFit(merged, Object.assign({}, profile, { minutes }), genres, timeSlots);
     const moodFit = merged.moodFit || deriveMood(merged, genres, Object.assign({}, profile, { minutes }));
     return {
@@ -247,6 +304,9 @@
       nearbyDateSpots: merged.nearbyDateSpots || profile.nearby || [],
       whyForDate: merged.whyForDate || merged.reason || `${profile.setting}のデート前後に食事や休憩を足しやすい。`,
       inviteText: merged.inviteText || inviteFor(merged, genres),
+      interestPriority,
+      interestNote: merged.interestNote || interestNoteFor(interestPriority),
+      planningRole: merged.planningRole || "",
       verificationNote: `最終整理日は${UPDATED_AT}。営業状況・料金・予約条件は公式で要確認。`
     };
   }
@@ -262,6 +322,161 @@
   });
 
   const additions = [
+    {
+      meal: { name: "萩カフェ&クレープ XOXO", kind: "カフェ/クレープ/甘味/スイーツ", url: "https://share.google/XLkCpHZJtvMx0z6pv", reason: "クレープを主役にした甘い休憩として、今回の近場デートで最優先に置きたい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩城下町", "萩・明倫学舎", "藍場川"], setting: "市街カフェ" },
+      override: { genre: ["カフェ", "甘味", "スイーツ", "軽食"], timeSlots: ["カフェ", "短時間休憩", "午後だけ"], budgetLevel: "低", interestPriority: 5, planningRole: "今回デートの優先固定枠", reservation: "営業日、売り切れ、混雑は当日または前日に確認", parking: "周辺駐車場と徒歩距離を事前確認", photoNote: "Googleマップ等でクレープと店先の雰囲気を確認", inviteText: "XOXOのクレープをちゃんと予定に入れて、そこを楽しめるようにしようか。" }
+    },
+    {
+      meal: { name: "うどん茶屋 橙々亭", kind: "うどん/軽めごはん/ランチ", url: "https://tabelog.com/yamaguchi/A3503/A350301/35006611/", reason: "軽めごはんとして安心感があり、クレープ前後でも重くなりにくい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩城下町", "萩・明倫学舎", "藍場川"], setting: "市街" },
+      override: { genre: ["うどん", "和食", "軽食", "ランチ"], timeSlots: ["ランチ", "午前だけ", "午後だけ"], budgetLevel: "低", interestPriority: 4, planningRole: "軽めごはんの有力候補", reservation: "営業日、混雑、麺切れを当日確認", parking: "駐車場または近隣駐車場を事前確認", photoNote: "食べログ等でうどんと店内の雰囲気を確認", inviteText: "ごはんを軽めにするなら、橙々亭を候補にしてXOXOの余白も残そうか。" }
+    },
+    {
+      meal: { name: "どんどん土原店", kind: "うどん/軽めごはん/ランチ", url: "https://share.google/dO8FEvVdSrrnoJvgr", reason: "気軽に短時間で食べやすく、甘い休憩の前後にも調整しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩・明倫学舎"], setting: "市街" },
+      override: { genre: ["うどん", "和食", "軽食", "ファミレス・気軽な食事"], timeSlots: ["ランチ", "午前だけ", "午後だけ"], budgetLevel: "低", interestPriority: 3, planningRole: "軽めごはんの保険候補", reservation: "営業時間、混雑、駐車場を当日確認", parking: "店舗駐車場の混雑を確認", photoNote: "Googleマップ等で店舗とメニューの雰囲気を確認", inviteText: "今日は軽く済ませたいなら、どんどんで短めにしてクレープを楽しむのも良さそう。" }
+    },
+    {
+      meal: { name: "すし処豊月", kind: "寿司/海鮮/少し特別/ランチ/夜ごはん", url: "https://tabelog.com/yamaguchi/A3503/A350301/35004832/", reason: "ちゃんと食べる日に、寿司・海鮮で少し丁寧な食事にしやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["寿司", "海鮮", "和食", "記念日・少し特別", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", interestPriority: 3, planningRole: "しっかり食事候補", reservation: "席、営業日、予算は前日までに確認推奨", parking: "店舗周辺の駐車場を確認", photoNote: "食べログ等で寿司・海鮮と店内の雰囲気を確認", inviteText: "ちゃんと食べる日なら、豊月を候補にして事前に営業だけ見ておこうか。" }
+    },
+    {
+      meal: { name: "かくれ椿", kind: "和食/落ち着いた食事/ランチ/夜ごはん", url: "https://tabelog.com/yamaguchi/A3503/A350301/35011696/", reason: "落ち着いて食べたい日に、近場で丁寧な食事候補として使いやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "藍場川"], setting: "市街" },
+      override: { genre: ["和食", "定食", "夜ごはん", "記念日・少し特別"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", interestPriority: 3, planningRole: "落ち着いたごはん候補", reservation: "電話または公式情報で営業日、席、予算を確認", parking: "駐車場と徒歩距離を確認", photoNote: "食べログ等で料理と落ち着いた店内の雰囲気を確認", inviteText: "落ち着いて食べたい日なら、かくれ椿も候補に入れてみたい。どうかな。" }
+    },
+    {
+      meal: { name: "維新亭", kind: "萩しーまーと/海鮮/定食/ランチ", url: "https://tabelog.com/yamaguchi/A3503/A350301/35006499/", reason: "萩しーまーと内で、駐車・買い物・海鮮系をまとめやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 15, nearby: ["道の駅 萩しーまーと", "笠山", "萩市街"], setting: "道の駅" },
+      override: { genre: ["海鮮", "定食", "和食", "道の駅・直売所", "市場"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "中", interestPriority: 3, planningRole: "駐車しやすい海鮮・定食候補", reservation: "営業日、混雑、売り切れを公式または現地情報で確認", parking: "道の駅駐車場の混雑を確認", photoNote: "食べログ等で海鮮・定食と萩しーまーとの雰囲気を確認", inviteText: "萩しーまーとまで行くなら、維新亭で海鮮か定食にする案も良さそう。" }
+    },
+    {
+      meal: { name: "萩池々茶屋", kind: "和食/食事処/ランチ/夜ごはん", url: "https://tabelog.com/yamaguchi/A3503/A350301/35004912/", reason: "萩市東側で食事候補を持っておきたい時に使いやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 15, nearby: ["笠山", "道の駅 萩しーまーと", "萩市街"], setting: "市街東側" },
+      override: { genre: ["和食", "定食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夕方から"], budgetLevel: "中", interestPriority: 2, planningRole: "しっかりごはん候補", reservation: "営業日、席、夜利用は事前確認推奨", parking: "駐車場と混雑を確認", photoNote: "食べログ等で料理と店内の雰囲気を確認", inviteText: "笠山やしーまーと方面なら、萩池々茶屋も食事候補にしておこうか。" }
+    },
+    {
+      meal: { name: "居酒屋 銀", kind: "居酒屋/夜ごはん/和食", url: "https://share.google/vwRVAFEvRepfdLD5b", reason: "夜にしっかり食べたい時の候補として残しておきたい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["夜ごはん", "和食", "ファミレス・気軽な食事"], timeSlots: ["夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "夜ごはん候補", reservation: "夜利用は営業日、席、予約可否を確認", parking: "飲酒する場合は運転しない前提で移動方法を確認", photoNote: "Googleマップ等で店内と料理写真を確認", inviteText: "夜まで一緒にいられる日なら、銀も候補に入れてみようか。" }
+    },
+    {
+      meal: { name: "居魚屋 おもしろき", kind: "魚/居酒屋/夜ごはん", url: "https://share.google/JjXVmWUCfjg8shCHM", reason: "魚系の夜ごはん候補として、海鮮気分の日に使いやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["海鮮", "夜ごはん", "和食"], timeSlots: ["夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "魚系の夜ごはん候補", reservation: "営業日、席、魚メニューは事前確認推奨", parking: "飲酒有無と帰路を先に確認", photoNote: "Googleマップ等で魚料理と店内の雰囲気を確認", inviteText: "魚系で夜ごはんにするなら、おもしろきも見てみたい。どうかな。" }
+    },
+    {
+      meal: { name: "源泉の宿 萩本陣", kind: "温泉宿/旅館ごはん/宿泊/日帰り", url: "https://www.hagihonjin.co.jp/", reason: "萩のごほうび宿として、温泉・料理・客室を将来の楽しみにしやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["松陰神社", "萩・明倫学舎", "萩市街"], setting: "温泉宿" },
+      override: { genre: ["旅館・ホテルごはん", "温泉街ごはん", "和食", "記念日・少し特別"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夜だけ"], budgetLevel: "特別", interestPriority: 4, planningRole: "将来のごほうび温泉宿候補", reservation: "宿泊、日帰り、料理、客室、料金は公式で要確認", parking: "宿泊・日帰り利用時の駐車条件を公式確認", photoNote: "公式ページで温泉、料理、特別室、萩の眺望を確認できる", inviteText: "萩本陣は急いで決めずに、ごほうび候補として部屋や料理を一緒に見てみようか。" }
+    },
+    {
+      meal: { name: "油谷湾温泉 ホテル楊貴館", kind: "温泉宿/旅館ごはん/海景色/宿泊", url: "https://www.hotelyokikan.jp/", reason: "海と温泉の景色で、遠出のごほうび感を作りやすい。" },
+      profile: { area: "長門市", city: "長門市", minutes: 75, nearby: ["油谷湾", "元乃隅神社", "千畳敷"], setting: "海辺の温泉宿" },
+      override: { genre: ["旅館・ホテルごはん", "温泉街ごはん", "海鮮", "記念日・少し特別"], timeSlots: ["ランチ", "夕方", "夜ごはん", "夜だけ"], budgetLevel: "特別", interestPriority: 3, planningRole: "海景色のごほうび温泉候補", reservation: "宿泊、食事処、日帰り可否、料金は公式で要確認", parking: "宿泊・日帰り利用時の駐車条件を公式確認", photoNote: "公式ページで油谷湾の景色、温泉、料理、食事処を確認できる", inviteText: "海と温泉で少し特別にしたい時は、楊貴館も候補として一緒に見たい。" }
+    },
+    {
+      meal: { name: "お宿Onn湯田温泉", kind: "温泉宿/ホテルごはん/宿泊", url: "https://share.google/yr92SKrOgGH4A8RXC", reason: "山口市方面で泊まりやすい温泉宿候補として、現実的な遠出にしやすい。" },
+      profile: { area: "山口市", city: "山口市", minutes: 65, nearby: ["湯田温泉", "山口市中心部"], setting: "温泉街" },
+      override: { genre: ["旅館・ホテルごはん", "温泉街ごはん", "記念日・少し特別"], timeSlots: ["夕方", "夜ごはん", "夜だけ"], budgetLevel: "特別", interestPriority: 2, planningRole: "現実的な温泉泊候補", reservation: "宿泊、食事利用、料金、駐車場は公式で要確認", parking: "宿泊利用時の駐車条件を公式確認", photoNote: "Googleマップ等で客室、温泉街、周辺の食事環境を確認", inviteText: "山口市方面で泊まるなら、Onn湯田温泉も一緒に見てみたい。" }
+    },
+    {
+      meal: { name: "下関つくの温泉", kind: "温泉/遠出/宿泊候補", url: "https://share.google/2K7QPmCSM4OaZ1K7X", reason: "下関方面まで行く日の温泉候補として、遠出の楽しみに残しておく。" },
+      profile: { area: "下関市", city: "下関市", minutes: 120, nearby: ["下関方面", "海沿い"], setting: "遠出温泉" },
+      override: { genre: ["旅館・ホテルごはん", "温泉街ごはん", "記念日・少し特別"], timeSlots: ["夕方", "夜ごはん", "夜だけ"], budgetLevel: "特別", interestPriority: 2, planningRole: "下関方面の遠出温泉候補", reservation: "正式名称、営業状況、宿泊・日帰り可否、料金は公式で要確認", parking: "現地駐車場と帰路を事前確認", photoNote: "Googleマップ等で施設写真、周辺環境、移動負担を確認", inviteText: "下関方面まで行ける時の温泉候補として、つくの温泉も残しておこうか。" }
+    },
+    {
+      meal: { name: "食べ処 こづち", kind: "定食/食事処/ランチ", url: "https://share.google/Myr8jUgGVyIg6I5iY", reason: "気軽な昼ごはん候補として、予定を重くせず入れやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["定食", "和食", "ファミレス・気軽な食事"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "低", interestPriority: 2, planningRole: "気軽な昼ごはん候補", reservation: "営業日、混雑、売り切れを直前確認", photoNote: "Googleマップ等で料理と店内の雰囲気を確認", inviteText: "軽く昼ごはんにするなら、こづちも候補に入れてみようか。" }
+    },
+    {
+      meal: { name: "彦六又十郎", kind: "和食/郷土料理/ランチ", url: "https://share.google/DiTmcMZhFiZx9hPx9", reason: "萩らしさを感じたい日の和食候補として使いやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩城下町", "萩市街"], setting: "城下町" },
+      override: { genre: ["和食", "郷土料理", "定食"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "萩らしい和食候補", reservation: "営業日、席、予算を直前確認", photoNote: "Googleマップ等で和食と店内の雰囲気を確認", inviteText: "萩らしいごはんに寄せるなら、彦六又十郎も見てみたい。" }
+    },
+    {
+      meal: { name: "レストランまつおか", kind: "レストラン/洋食/ランチ/夜ごはん", url: "https://share.google/v3qd4lL3Bfheqm4aW", reason: "落ち着いた食事候補として、和食以外の気分に切り替えやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["洋食", "定食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "洋食気分の候補", reservation: "営業日、席、メニューを直前確認", photoNote: "Googleマップ等で料理と店内の雰囲気を確認", inviteText: "洋食っぽくしたいなら、まつおかも候補にしてみる？" }
+    },
+    {
+      meal: { name: "舸子176", kind: "食事処/カフェ/雰囲気", url: "https://share.google/PFcypwbwbE3in9eKQ", reason: "空間や世界観を楽しむ候補として、写真を見ながら相談しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["カフェ", "和食", "記念日・少し特別"], timeSlots: ["ランチ", "カフェ", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "雰囲気重視の候補", reservation: "営業日、席、予約可否を直前確認", photoNote: "Googleマップ等で空間と料理写真を確認", inviteText: "雰囲気を楽しむ日なら、舸子176も一緒に写真を見たい。" }
+    },
+    {
+      meal: { name: "ヴァン·ヴェール", kind: "洋食/レストラン/ランチ/夜ごはん", url: "https://share.google/7NF8tyXT7VgeDPMJi", reason: "洋食気分の日の候補として、海鮮や和食と違う変化を出しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["洋食", "記念日・少し特別", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "洋食候補", reservation: "営業日、席、予算を直前確認", photoNote: "Googleマップ等で洋食と店内の雰囲気を確認", inviteText: "今日は洋食にするなら、ヴァン·ヴェールも候補にしたい。" }
+    },
+    {
+      meal: { name: "小倉", kind: "和食/食事処/ランチ/夜ごはん", url: "https://share.google/3EjfackgSfNQN01pI", reason: "落ち着いた和食候補として、静かに食べたい日に比較しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["和食", "定食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "落ち着いた和食候補", reservation: "営業日、席、予算を直前確認", photoNote: "Googleマップ等で料理と店内の雰囲気を確認", inviteText: "落ち着いたごはんなら、小倉も候補に入れてみようか。" }
+    },
+    {
+      meal: { name: "うまいもん処ただいま お成り道店", kind: "居酒屋/食事処/夜ごはん", url: "https://share.google/YMDK8X4eQj68r3onO", reason: "気軽にいろいろ食べたい夜の候補として残しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["夜ごはん", "和食", "ファミレス・気軽な食事"], timeSlots: ["夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "気軽な夜ごはん候補", reservation: "夜利用は営業日、席、混雑を直前確認", parking: "飲酒有無と帰路を先に確認", photoNote: "Googleマップ等で料理と店内の雰囲気を確認", inviteText: "夜ごはんを気軽に選ぶなら、ただいまも候補にしてみたい。" }
+    },
+    {
+      meal: { name: "一清", kind: "和食/食事処/ランチ/夜ごはん", url: "https://share.google/lCCZqYnsloXVpMMmz", reason: "落ち着いたごはん候補として、和食の比較に残しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["和食", "定食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "和食候補", reservation: "営業日、席、予算を直前確認", photoNote: "Googleマップ等で料理と店内の雰囲気を確認", inviteText: "和食で落ち着くなら、一清も見てみたい。" }
+    },
+    {
+      meal: { name: "食楽園 NIKUJIROU", kind: "肉/焼肉/夜ごはん", url: "https://share.google/2lJdWEyaC2LMyh7s6", reason: "しっかり肉を食べたい日の候補として、海鮮や和食と変化を付けられる。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街"], setting: "市街" },
+      override: { genre: ["焼肉", "夜ごはん", "記念日・少し特別"], timeSlots: ["夕方", "夜ごはん", "夕方から", "夜だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "肉を食べたい日の候補", reservation: "夜利用は営業日、席、予算を直前確認", photoNote: "Googleマップ等で肉料理と店内の雰囲気を確認", inviteText: "肉の気分なら、NIKUJIROUも候補にしてみる？" }
+    },
+    {
+      meal: { name: "ノーサイド / No Side", kind: "食事処/要ジャンル確認", url: "https://share.google/fgI8hGyWq07KEN9Pg", reason: "詳細ジャンルを写真で確認しながら、気になる候補として残しておく。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街"], setting: "市街" },
+      override: { genre: ["ファミレス・気軽な食事", "軽食"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "追加確認候補", reservation: "営業日、ジャンル、メニュー、席を直前確認", photoNote: "Googleマップ等で料理ジャンルと店内の雰囲気を確認", inviteText: "No Sideは写真を見て、気分に合いそうなら候補にしようか。" }
+    },
+    {
+      meal: { name: "ホトリテイ（畔亭）", kind: "食事処/庭園/カフェ/雰囲気", url: "https://share.google/B31lbSQlAe4kWWe0F", reason: "庭園や空間の雰囲気を楽しみながら、静かな食事候補にしやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "藍場川"], setting: "庭園" },
+      override: { genre: ["カフェ", "和食", "記念日・少し特別"], timeSlots: ["ランチ", "カフェ", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "静かな雰囲気候補", reservation: "営業日、席、予約可否を直前確認", photoNote: "Googleマップ等で庭園と料理写真を確認", inviteText: "静かな雰囲気の日なら、畔亭も写真を見てみたい。" }
+    },
+    {
+      meal: { name: "コトコト（晦事）", kind: "カフェ/食事/古民家/雰囲気", url: "https://share.google/FlSxOC19wPPfYPafy", reason: "古民家の空間ごと楽しむ候補として、会話しやすい休憩に向く。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩城下町", "萩市街"], setting: "古民家" },
+      override: { genre: ["カフェ", "甘味", "和食", "喫茶店"], timeSlots: ["ランチ", "カフェ", "短時間休憩", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "古民家カフェ候補", reservation: "営業日、席、混雑を直前確認", photoNote: "Googleマップ等で古民家空間と料理写真を確認", inviteText: "古民家の雰囲気でゆっくりするなら、コトコトも候補にしたい。" }
+    },
+    {
+      meal: { name: "yamamichi食堂", kind: "食堂/カフェ/ランチ", url: "https://share.google/clnhiM1HNJq6CKTm0", reason: "ランチとカフェの間くらいで、気軽に使える候補として残しやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 15, nearby: ["萩市街"], setting: "市街周辺" },
+      override: { genre: ["カフェ", "定食", "軽食"], timeSlots: ["ランチ", "カフェ", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "ランチ・カフェ候補", reservation: "営業日、メニュー、席を直前確認", photoNote: "Googleマップ等で料理と店内の雰囲気を確認", inviteText: "ランチと休憩を兼ねるなら、yamamichi食堂も良さそう。" }
+    },
+    {
+      meal: { name: "みなと食堂ととと", kind: "食堂/海鮮/港/ランチ", url: "https://share.google/qnQ6FOksQaEEeDbRE", reason: "港や海鮮気分を足したい日の食事候補として使いやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 15, nearby: ["萩しーまーと", "萩市街"], setting: "港町" },
+      override: { genre: ["海鮮", "定食", "和食"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "海鮮ランチ候補", reservation: "営業日、売り切れ、混雑を直前確認", photoNote: "Googleマップ等で海鮮と店内の雰囲気を確認", inviteText: "海鮮ランチなら、とととも候補に入れてみたい。" }
+    },
+    {
+      meal: { name: "萩城下町ビール MURATA", kind: "萩名物/食事/城下町/軽食", url: "https://share.google/AZ75WOC3m0uqb8td5", reason: "飲酒前提にせず、萩らしさや城下町散策の雰囲気を足す候補として扱う。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩城下町", "萩市街"], setting: "城下町" },
+      override: { genre: ["郷土料理", "軽食", "夜ごはん"], timeSlots: ["ランチ", "カフェ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "萩名物・散策候補", reservation: "営業日、食事利用可否、混雑を直前確認", parking: "飲酒する場合は運転しない前提で移動方法を確認", photoNote: "Googleマップ等で萩名物と城下町の雰囲気を確認", inviteText: "城下町らしさを足すなら、MURATAも写真を見てみたい。" }
+    },
+    {
+      meal: { name: "口福の馳走屋 梅乃葉", kind: "海鮮/イカ/遠出ごはん", url: "https://share.google/bojJoS8iK8IAQDn0Q", reason: "少し足を伸ばす海鮮・イカ候補として、遠出の日の食事満足を作りやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 50, nearby: ["須佐", "萩市北部"], setting: "海辺" },
+      override: { genre: ["海鮮", "和食", "記念日・少し特別"], timeSlots: ["ランチ", "午後だけ"], budgetLevel: "中", interestPriority: 2, planningRole: "遠出の海鮮候補", reservation: "営業日、予約、イカ提供状況、混雑を直前確認", photoNote: "Googleマップ等で海鮮と店内の雰囲気を確認", inviteText: "少し遠出して海鮮なら、梅乃葉も候補にしたい。" }
+    },
+    {
+      meal: { name: "網焼きレストラン見蘭", kind: "肉/網焼き/ランチ/夜ごはん", url: "https://share.google/Xqn53ypQhxkuCmJHp", reason: "肉を食べたい日に、萩らしい食の変化を付けられる。" },
+      profile: { area: "萩市", city: "萩市", minutes: 15, nearby: ["萩市街", "萩しーまーと"], setting: "市街周辺" },
+      override: { genre: ["焼肉", "郷土料理", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "肉を食べたい日の候補", reservation: "営業日、席、混雑を直前確認", photoNote: "Googleマップ等で肉料理と店内の雰囲気を確認", inviteText: "肉の気分なら、見蘭も候補にしてみようか。" }
+    },
+    {
+      meal: { name: "イタリアンバール サルーテ", kind: "イタリアン/パスタ/洋食", url: "https://share.google/UPEGCbncglbBJ06t2", reason: "軽めにおしゃれな洋食へ切り替えたい日に使いやすい。" },
+      profile: { area: "萩市", city: "萩市", minutes: 10, nearby: ["萩市街", "萩城下町"], setting: "市街" },
+      override: { genre: ["イタリアン", "洋食", "夜ごはん"], timeSlots: ["ランチ", "夕方", "夜ごはん"], budgetLevel: "中", interestPriority: 2, planningRole: "イタリアン候補", reservation: "営業日、席、予算を直前確認", photoNote: "Googleマップ等でパスタ・洋食と店内の雰囲気を確認", inviteText: "洋食で少しおしゃれにするなら、サルーテも見てみたい。" }
+    },
     {
       meal: { name: "フタマタセコーヒー", kind: "カフェ/スイーツ/コーヒー", url: "https://ube-kankou.or.jp/eat/lunch/post-5.html", reason: "自然を眺めながらコーヒーや甘い休憩を入れやすい。" },
       profile: { area: "宇部市", city: "宇部市", minutes: 100, nearby: ["ときわ公園", "宇部市街"], setting: "自然と市街" },
